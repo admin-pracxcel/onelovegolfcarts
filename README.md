@@ -69,6 +69,34 @@ Direction, type system, colour, and the full decision log are in
 | Brand | `#002561` navy, `#F44336` red |
 | Accent | `#8FE8D4` seafoam, sampled from the sea in the hero photograph |
 
+## Search indexing
+
+**This app is blocked from search engines by default.** While it is a preview
+it must not compete with the live WordPress site at onelovegolfcartsbelize.com:
+two copies of the same copy, both targeting the same head query, is the exact
+duplicate-content problem the SEO plan exists to avoid.
+
+It is enforced in three places, so nothing slips through:
+
+| Layer | File | Covers |
+|---|---|---|
+| `<meta name="robots">` | `app/layout.tsx` | anything that renders HTML |
+| `robots.txt` | `app/robots.ts` | well-behaved crawlers |
+| `X-Robots-Tag` header | `next.config.ts` | images, JSON and assets with no meta tag |
+
+### Before launch
+
+Set `NEXT_PUBLIC_ALLOW_INDEXING=true` in the production environment. That is
+the only change required: all three layers read it, and the sitemap reference
+is added to `robots.txt` automatically. Leave it unset on every preview
+deployment.
+
+One caveat worth knowing. `Disallow: /` stops a crawler fetching the page,
+which means it never sees the `noindex` tag. That is the right order for a URL
+that has never been indexed, which is the case here. If a preview URL ever does
+get indexed, allow crawling first so the `noindex` can be read, and only add
+the disallow once it has dropped out.
+
 ## Status
 
 The homepage is built. The other pages in the Execution Manual are not.
