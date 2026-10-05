@@ -24,7 +24,7 @@ export type Zone = {
 export type Media = { src: string; width: number; height: number; alt: string };
 
 export type WhyCell = {
-  tone: "navy" | "aqua" | "plain" | "photo";
+  tone: "navy" | "aqua" | "plain";
   title: string;
   body: string;
   icon?: IconName;
@@ -189,7 +189,10 @@ export const FLEET: {
 };
 
 export const WHY: {
-  headline: string; headlineMuted: string; cells: WhyCell[];
+  headline: string;
+  headlineMuted: string;
+  cells: WhyCell[];
+  band: { title: string; body: string; media: Media };
 } = {
   headline: "Why rent",
   headlineMuted: "from One Love",
@@ -212,18 +215,17 @@ export const WHY: {
       title: "Twenty-four seven roadside support.",
       body: "A flat tire on the way back from dinner, a low battery at the beach, a question about the route. Message our WhatsApp at any hour and we come to you.",
     },
-    {
-      tone: "photo",
-      title: "Fleet you can trust.",
-      body: "Our carts are all Club Car with aluminum chassis suited to salt air. Every cart gets serviced on a rolling schedule and inspected before it leaves the lot. Fewer breakdowns, safer drives, less time lost.",
-      media: {
-        src: "/img/one-love-golf-cart-fleet-lineup-san-pedro",
-        width: 1100,
-        height: 733,
-        alt: "Row of One Love Club Car golf carts in red, yellow, pink and grey parked under palms in San Pedro.",
-      },
-    },
   ],
+  band: {
+    title: "Fleet you can trust.",
+    body: "Our carts are all Club Car with aluminum chassis suited to salt air. Every cart gets serviced on a rolling schedule and inspected before it leaves the lot. Fewer breakdowns, safer drives, less time lost.",
+    media: {
+      src: "/img/one-love-golf-cart-fleet-lineup-san-pedro",
+      width: 1600,
+      height: 685,
+      alt: "Five One Love Club Car golf carts lined up under palms in San Pedro, in red, yellow, camouflage, pink and white, each with a Belize licence plate.",
+    },
+  },
 };
 
 export const DELIVERY: {

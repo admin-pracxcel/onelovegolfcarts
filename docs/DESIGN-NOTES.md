@@ -104,6 +104,22 @@ source. The live Trustindex widget does not expose review dates, and inventing
 them was not an option. Three verbatim Google reviews ship with name and source
 only. Dates need supplying before launch.
 
+**The "Why rent from One Love" section was a 2x2 grid and is now three columns
+plus a band.** The photo cell was the only bottom-anchored cell among three
+top-anchored ones, and it set the row height, so the shortest text cell carried
+a 140px orphan void and nothing in the grid shared a baseline. Three equal
+columns fixed the alignment; the fleet photograph moved into a full-width band
+below, where a lineup shot gets a lineup-shaped frame.
+
+Inside the band the copy sits on its own navy panel beside the photo rather
+than on a scrim over it. A scrim heavy enough to carry body text was washing
+out the two carts on the left, and the photo is the point of that band. The
+fleet image was re-cropped from the original to 21:9 for the same reason.
+
+The icon badges are solid fills carrying an inverted glyph. The previous
+low-alpha tints read as smudges, worst on the aqua cell where navy at 15%
+barely registered.
+
 ## Verified
 
 | Check | Result |

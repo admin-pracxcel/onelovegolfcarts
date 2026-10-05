@@ -471,34 +471,62 @@ section{padding-block:var(--sect)}
 .cart-body .alink{margin-top:auto;padding-top:.4rem}
 
 /* ============================================================================
-   WHY - bento, four cells, four grounds
+   WHY - three equal reasons, then the fleet as a full-width band
+
+   This was a 2x2 grid with the photo as a fourth cell. The photo was the only
+   bottom-anchored cell among three top-anchored ones and it set the row
+   height, so the shortest text cell carried a 140px orphan void and nothing
+   in the grid shared a baseline. Three columns plus a band fixes both, and a
+   lineup photograph gets a lineup-shaped frame.
    ========================================================================== */
 .why{display:grid;gap:clamp(.85rem,1.5vw,1.25rem)}
-@media (min-width:880px){.why{grid-template-columns:1.22fr 1fr}}
-.cell{border-radius:var(--r-card);padding:clamp(1.5rem,1.1rem + 1.5vw,2.2rem);
-      display:flex;flex-direction:column;gap:.85rem;border:1px solid var(--line)}
+@media (min-width:900px){ .why{grid-template-columns:repeat(3,minmax(0,1fr))} }
+
+.cell{
+  border-radius:var(--r-card);padding:clamp(1.5rem,1.1rem + 1.5vw,2.1rem);
+  display:flex;flex-direction:column;gap:1.5rem;border:1px solid var(--line);
+}
+/* icon sits at the top, copy settles to the floor, so all three columns share
+   a baseline however unevenly the bodies run */
+.cell-text{margin-top:auto;display:flex;flex-direction:column;gap:.8rem}
 .cell p{margin:0;font-size:.9375rem;line-height:1.6}
-.cell-icon{width:2.6rem;height:2.6rem;border-radius:999px;display:inline-flex;
-           align-items:center;justify-content:center;margin-bottom:.45rem}
+.cell-icon{
+  width:3rem;height:3rem;border-radius:999px;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+/* every badge is a solid fill carrying an inverted glyph, so none of them
+   reads as a smudge the way a low-alpha tint did on the aqua cell */
 .cell-plain{background:var(--card)}
-.cell-plain .cell-icon{background:var(--paper-2);color:var(--action)}
+.cell-plain .cell-icon{background:var(--navy);color:#fff}
 .cell-aqua{background:var(--aqua);border-color:transparent}
 .cell-aqua .h3{color:var(--navy)}
 .cell-aqua p{color:rgba(0,37,97,.78)}
-.cell-aqua .cell-icon{background:rgba(0,37,97,.15);color:var(--navy)}
+.cell-aqua .cell-icon{background:var(--navy);color:var(--aqua)}
 .cell-navy{background:var(--navy);border-color:transparent}
 .cell-navy .h3{color:#fff}
 .cell-navy p{color:var(--on-dark-2)}
-.cell-navy .cell-icon{background:rgba(255,255,255,.15);color:#fff}
-.cell-photo{position:relative;isolation:isolate;overflow:hidden;border-color:transparent;
-            min-height:330px;justify-content:flex-end}
-.cell-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.cell-photo::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(to top, rgba(4,16,38,.97) 34%, rgba(4,16,38,.90) 62%, rgba(4,16,38,.42) 100%)}
-.cell-photo .h3{color:#fff}
-.cell-photo p{color:var(--on-dark-2)}
-.cell-photo .alink{color:#fff}
-.cell-photo .alink .knob{border-color:rgba(255,255,255,.38);color:#fff}
+.cell-navy .cell-icon{background:#fff;color:var(--navy)}
+
+/* The copy sits on its own navy panel beside the photograph rather than on a
+   scrim over it. A scrim heavy enough to carry body text was washing out the
+   two carts on the left, and the photo is the point of this band. */
+.why-band{
+  border-radius:var(--r-card);overflow:hidden;
+  display:grid;grid-template-columns:1fr;
+  background:var(--navy);
+}
+@media (min-width:900px){
+  .why-band{grid-column:1/-1;grid-template-columns:minmax(0,.88fr) minmax(0,1.5fr)}
+}
+.why-band-copy{
+  padding:clamp(1.6rem,1.1rem + 1.6vw,2.4rem);
+  display:flex;flex-direction:column;justify-content:center;gap:.75rem;
+}
+.why-band .h3{color:#fff}
+.why-band p{margin:0;font-size:.9375rem;line-height:1.6;color:var(--on-dark-2)}
+.why-band-media{position:relative;min-height:clamp(220px,24vw,340px)}
+.why-band-media img{position:absolute;inset:0;width:100%;height:100%;
+                    object-fit:cover;object-position:50% 38%}
 
 /* ============================================================================
    DELIVERY - numbered editorial rows
