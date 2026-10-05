@@ -1,16 +1,16 @@
 import { Icon } from "./Icon";
-import { Button } from "./Button";
+import { SiteLink } from "./SiteLink";
 import { BUSINESS } from "@/lib/content";
 
-/** Fixed booking rail, mobile only. */
+/** Booking stays one tap away on mobile. Square, flush, no floating pill. */
 export function ActionBar() {
   return (
     <div className="actionbar">
-      <Button href="/book-now/" tone="primary" knob={false}>Book now</Button>
-      <Button href={BUSINESS.whatsapp} tone="glass" knob={false} external icon="whatsapp-logo-bold">
-        WhatsApp
-      </Button>
-      <a className="btn btn-glass btn-icon" href={BUSINESS.phoneHref} aria-label="Call One Love">
+      <SiteLink href="/book-now/" className="primary">Book now</SiteLink>
+      <a href={BUSINESS.whatsapp} rel="noopener" target="_blank">
+        <Icon name="whatsapp-logo-bold" /> WhatsApp
+      </a>
+      <a href={BUSINESS.phoneHref} className="icon" aria-label="Call One Love">
         <Icon name="phone-bold" />
       </a>
     </div>

@@ -1,25 +1,27 @@
 import localFont from "next/font/local";
 
 /**
- * Self-hosted through next/font so the @font-face, preload hints and
- * font-display are generated at build time and there is no render-blocking
- * request to a third-party font host.
+ * Three voices, three jobs. Loaded through next/font/local so the @font-face
+ * rules and preload hints are generated at build time, with no request to a
+ * third-party font host.
  *
- * Each face is exposed as a CSS variable and consumed in globals.css, so the
- * stylesheet never names a font file directly.
+ * Clash Display was chosen over Bricolage, Cabinet Grotesk and Archivo after
+ * rendering all four at 300px solid and outline. It has the most presence at
+ * display scale, and crucially its "4" has a closed counter, which holds up
+ * as an outline where Bricolage's open counter goes spindly. The oversized
+ * 04 / 06 numerals are the signature of this design, so that mattered.
  */
 
-export const bricolage = localFont({
-  src: "./fonts/bricolage.woff2",
-  weight: "300 700",
+export const display = localFont({
+  src: "./fonts/clash.woff2",
+  weight: "400 700",
   display: "swap",
   variable: "--font-display",
-  // Bricolage is narrow; a slightly condensed fallback keeps the swap quiet.
-  fallback: ["Georgia", "serif"],
+  fallback: ["Impact", "Haettenschweiler", "sans-serif"],
   adjustFontFallback: false,
 });
 
-export const schibsted = localFont({
+export const body = localFont({
   src: "./fonts/schibsted.woff2",
   weight: "400 900",
   display: "swap",
@@ -28,7 +30,7 @@ export const schibsted = localFont({
   adjustFontFallback: false,
 });
 
-export const plexMono = localFont({
+export const mono = localFont({
   src: [
     { path: "./fonts/plexmono.woff2", weight: "400", style: "normal" },
     { path: "./fonts/plexmono-500.woff2", weight: "500", style: "normal" },
@@ -39,4 +41,4 @@ export const plexMono = localFont({
   adjustFontFallback: false,
 });
 
-export const fontVars = [bricolage.variable, schibsted.variable, plexMono.variable].join(" ");
+export const fontVars = [display.variable, body.variable, mono.variable].join(" ");

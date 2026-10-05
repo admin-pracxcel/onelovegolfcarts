@@ -1,16 +1,16 @@
 import { LEDE } from "@/lib/content";
 
-/** The definitional opening paragraph, the one an AI Overview can lift. */
+/** The definitional paragraph an AI Overview can lift, set as a statement. */
 export function Lede() {
   return (
-    <section className="lede bg-paper">
-      <div className="shell lede-grid">
-        <p className="big" data-reveal>
+    <section className="on-paper s-std">
+      <div className="shell lede-wrap">
+        <p className="lede lede-a" data-reveal>
           {LEDE.big} <span className="mute">{LEDE.bigMuted}</span>
         </p>
-        <aside data-reveal style={{ "--d": "90ms" } as React.CSSProperties}>
-          <p className="small">{LEDE.rest}</p>
-        </aside>
+        <p className="small lede-b" data-reveal style={{ "--d": "120ms" } as React.CSSProperties}>
+          {LEDE.rest}
+        </p>
       </div>
     </section>
   );

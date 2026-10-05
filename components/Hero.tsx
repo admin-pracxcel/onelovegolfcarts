@@ -1,70 +1,62 @@
-import { Nav } from "./Nav";
-import { Button } from "./Button";
-import { HERO, QUICK_BOOK } from "@/lib/content";
+import { Btn } from "./Bits";
+import { BUSINESS, HERO } from "@/lib/content";
 
 /**
- * Inset rounded panel. The nav pill sits inside it and detaches on scroll.
+ * A composed poster, not a photograph with text on it.
  *
- * The hero image is a plain <picture> rather than next/image on purpose:
- * this is art direction, a different crop on mobile (4:5) from desktop
- * (16:9), which next/image cannot express without downloading both. The
- * files are already hand-cropped and compressed, and both are preloaded
- * behind the same media queries in layout.tsx.
+ * The H1 is broken across four short lines and the photograph is placed in the
+ * same grid rows, so on desktop the type runs in front of its left edge while
+ * the image runs in front on the right. The required SEO string is intact and
+ * fully crawlable; only the line breaks are art-directed.
+ *
+ * Price is set as information, not a badge: FROM / $35 / A DAY, with the
+ * numeral at display scale.
  */
 export function Hero() {
   return (
     <section className="hero">
-      <Nav />
+      <div className="wide hero-in">
+        <div className="hero-grid">
+          <div className="hero-meta" data-reveal>
+            <p className="mono">{BUSINESS.region} &mdash; Belize</p>
+            <p className="mono">{BUSINESS.lat.toFixed(4)}&deg; N / {Math.abs(BUSINESS.lng).toFixed(4)}&deg; W</p>
+            <p className="mono">Est. {BUSINESS.founded}</p>
+          </div>
 
-      <div className="hero-panel">
-        <picture>
-          <source media="(max-width: 640px)" type="image/webp" srcSet={`${HERO.image.tall}.webp`} />
-          <source media="(max-width: 640px)" srcSet={`${HERO.image.tall}.jpg`} />
-          <source type="image/webp" srcSet={`${HERO.image.wide}.webp`} />
-          <img
-            className="hero-img"
-            src={`${HERO.image.wide}.jpg`}
-            width={1440}
-            height={810}
-            fetchPriority="high"
-            decoding="async"
-            alt={HERO.image.alt}
-          />
-        </picture>
-
-        <div className="hero-copy">
-          <p className="mono eyebrow">{HERO.eyebrow}</p>
-          <h1 className="display">
-            <span className="ln">{HERO.headline}</span>
-            <span className="ln mute-d">{HERO.headlineMuted}</span>
+          <h1 className="display hero-h1" data-lines>
+            <span className="ln"><span>Golf Cart</span></span>
+            <span className="ln"><span>Rental in</span></span>
+            <span className="ln"><span>San Pedro,</span></span>
+            <span className="ln"><span>Belize</span></span>
           </h1>
-          <p className="hero-sub">{HERO.sub}</p>
-          <div className="hero-actions">
-            <Button href="/book-now/" tone="primary" size="lg">{HERO.primary}</Button>
-            <Button href="/rates/" tone="glass" size="lg" knob={false}>{HERO.secondary}</Button>
+
+          <div className="hero-media" data-clip style={{ "--d": "260ms" } as React.CSSProperties}>
+            <picture>
+              <source media="(max-width: 979px)" srcSet="/img/hero-one-love-golf-cart-beachfront-san-pedro-portrait.webp" type="image/webp" />
+              <source media="(max-width: 979px)" srcSet="/img/hero-one-love-golf-cart-beachfront-san-pedro-portrait.jpg" />
+              <source srcSet="/img/hero-one-love-golf-cart-beachfront-san-pedro.webp" type="image/webp" />
+              {/* Art direction: a 4:5 crop on mobile against 16:9 on desktop.
+                  next/image cannot express that without fetching both. */}
+              <img src="/img/hero-one-love-golf-cart-beachfront-san-pedro.jpg"
+                   width={1440} height={810} fetchPriority="high" decoding="async"
+                   alt={HERO.image.alt} />
+            </picture>
+          </div>
+
+          <div className="hero-foot">
+            <div data-reveal style={{ "--d": "420ms" } as React.CSSProperties}>
+              <p className="mono" style={{ marginBottom: ".4rem" }}>From</p>
+              <div className="price">
+                <span className="price-n">$35</span>
+                <span className="price-l"><span className="mono">a day</span></span>
+              </div>
+            </div>
+            <div className="hero-cta" data-reveal style={{ "--d": "520ms" } as React.CSSProperties}>
+              <Btn href="/book-now/" tone="primary" size="lg">Book now</Btn>
+              <Btn href="/rates/" tone="line" size="lg">See rates</Btn>
+            </div>
           </div>
         </div>
-
-        {/* Hands off to the full reservation form with the values prefilled. */}
-        <form className="qbook" action="/book-now/" method="get">
-          <div className="qfield">
-            <label htmlFor="q-cart">{QUICK_BOOK.cartLabel}</label>
-            <select id="q-cart" name="cart" defaultValue={QUICK_BOOK.options[0].value}>
-              {QUICK_BOOK.options.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-          </div>
-          <div className="qfield">
-            <label htmlFor="q-from">{QUICK_BOOK.fromLabel}</label>
-            <input id="q-from" name="from" type="date" />
-          </div>
-          <div className="qfield">
-            <label htmlFor="q-to">{QUICK_BOOK.toLabel}</label>
-            <input id="q-to" name="to" type="date" />
-          </div>
-          <Button tone="paper" type="submit">{QUICK_BOOK.submit}</Button>
-        </form>
       </div>
     </section>
   );
