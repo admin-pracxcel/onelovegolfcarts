@@ -42,7 +42,7 @@ export function Footer() {
     <footer className="site-footer">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
-          <Link href="/" className="site-footer__logo">
+          <Link href="/" className="site-footer__logo" prefetch={false}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/img/one-love-logo-reversed.webp" width={300} height={110} alt={business.name} loading="lazy" decoding="async" />
           </Link>

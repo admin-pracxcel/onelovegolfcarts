@@ -135,11 +135,11 @@ export function Header() {
     <>
       <header className={headerClass}>
         <div className="site-header__bar">
-          <Link className="brand" href="/" rel="home">
+          <Link className="brand" href="/" rel="home" prefetch={false} aria-label={`${business.name}, home`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="brand__logo brand__logo--light" src="/img/one-love-logo-reversed.webp" width={300} height={110} alt={business.name} />
+            <img className="brand__logo brand__logo--light" src="/img/one-love-logo-reversed.webp" width={300} height={110} alt="" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="brand__logo brand__logo--dark" src="/img/one-love-logo.webp" width={300} height={110} alt="" aria-hidden="true" />
+            <img className="brand__logo brand__logo--dark" src="/img/one-love-logo.webp" width={300} height={110} alt="" />
           </Link>
 
           <nav className="nav" aria-label="Primary">
