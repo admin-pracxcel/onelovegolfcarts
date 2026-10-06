@@ -15,5 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/rentals-at-san-pedro-airport/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/rentals-at-belize-city-airport/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/delivery-to-secret-beach/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/north-ambergris-caye-cart-delivery/`, lastModified: new Date('2026-10-06') },
   ];
 }

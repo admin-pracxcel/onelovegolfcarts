@@ -257,3 +257,23 @@
 
 .loc-tight { padding-top: 0; }
 @media (min-width: 900px) { .loc-options--two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Delivery column: steps + arrival options ------------------------------------- */
+
+.loc-delivery { display: grid; gap: 1rem; align-content: start; }
+.loc-delivery__label { margin-top: 0.75rem; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* Category groups (resorts, food, beaches…) ------------------------------------ */
+
+.loc-groups { display: grid; gap: 1rem; }
+.loc-group { padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius-lg); background: var(--paper); }
+.loc-group--1 { background: var(--ink); color: #fff; }
+.loc-group__name { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; }
+.loc-group ul { display: grid; margin-top: 1rem; }
+.loc-group li { display: grid; gap: 0.15rem; padding-block: 0.75rem; border-top: 1px solid var(--line); }
+.loc-group--1 li { border-color: var(--line-light); }
+.loc-group li strong { font-weight: 600; }
+.loc-group li span { font-size: var(--t-small); color: var(--muted); }
+.loc-group--1 li span { color: var(--muted-light); }
+@media (min-width: 760px) { .loc-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .loc-groups { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
