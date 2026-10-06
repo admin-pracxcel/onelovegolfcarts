@@ -203,3 +203,24 @@ export function ratesSchema(carts: CartProductInput[], faqItems: [string, string
     ],
   };
 }
+
+/** /contact/: ContactPage wrapping the site-wide LocalBusiness, plus breadcrumbs. */
+export function contactSchema(name: string, description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: 'Contact', path: '/contact/' }]),
+      {
+        '@type': 'ContactPage',
+        '@id': abs('/contact/#webpage'),
+        url: abs('/contact/'),
+        name,
+        description,
+        about: { '@id': BUSINESS_ID },
+        mainEntity: { '@id': BUSINESS_ID },
+        inLanguage: 'en-US',
+      },
+    ],
+  };
+}
