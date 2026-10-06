@@ -13,5 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/gallery/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/ambergris-caye/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/rentals-at-san-pedro-airport/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/rentals-at-belize-city-airport/`, lastModified: new Date('2026-10-06') },
   ];
 }

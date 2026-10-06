@@ -158,3 +158,79 @@
 .loc-links a:hover .icon { transform: translateX(4px); }
 
 .loc-page .faq { padding-top: var(--section); }
+
+/* Journey (multi-step trip, e.g. BZE → SPR) ------------------------------------ */
+
+.journey { display: grid; gap: 0.75rem; counter-reset: stop; }
+.journey__stop {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  padding: 1.25rem 1.25rem 1.25rem 3.25rem;
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.journey__stop::before {
+  counter-increment: stop;
+  content: counter(stop);
+  position: absolute;
+  left: 1rem; top: 1.2rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem; height: 1.6rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: var(--t-xs);
+  font-weight: 700;
+}
+.journey__stop.is-end { background: var(--ink); color: #fff; }
+.journey__stop.is-end::before { background: var(--coral-btn); }
+.journey__place { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.journey__stop.is-end .journey__place { color: var(--sun); }
+.journey__step { font-family: var(--f-display); font-size: 1.125rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
+.journey__time { justify-self: start; padding: 0.3rem 0.6rem; border-radius: 999px; background: var(--sand); font-size: var(--t-xs); font-weight: 700; }
+.journey__total { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.25rem; font-weight: 600; }
+.journey__total .icon { flex: none; width: 1.25rem; height: 1.25rem; color: var(--coral-btn); }
+@media (min-width: 1000px) {
+  .journey { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .journey__stop { padding: 3.25rem 1.25rem 1.25rem; }
+  .journey__stop::before { top: 1.1rem; }
+  .journey__stop:not(.is-end)::after {
+    content: "";
+    position: absolute;
+    top: 1.9rem;
+    left: calc(1rem + 1.6rem + 0.5rem);
+    right: -0.75rem;
+    height: 1px;
+    background: var(--line);
+  }
+}
+
+/* Big figures (e.g. layover times) ---------------------------------------------- */
+
+.loc-allow { padding-top: 0; }
+.loc-figures { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; align-content: start; }
+.loc-figures div { padding: 1.5rem; border-radius: var(--radius); background: var(--paper); }
+.loc-figures div.is-safe { background: var(--sun); }
+.loc-figures dt { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.loc-figures .is-safe dt { color: var(--ink); }
+.loc-figures dd { margin-top: 0.4rem; font-family: var(--f-display); font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.5rem); font-weight: 750; letter-spacing: -0.05em; line-height: 1; }
+
+/* Plan B options ----------------------------------------------------------------- */
+
+.loc-plan { display: grid; gap: 0.75rem; align-content: start; }
+.loc-plan__option { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.25rem 1rem; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--paper); }
+.loc-plan__num { grid-row: span 2; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--f-display); font-weight: 700; }
+.loc-plan__title { font-family: var(--f-display); font-size: 1.25rem; font-weight: 650; letter-spacing: -0.02em; }
+.loc-plan__option p { color: var(--muted); font-size: var(--t-small); }
+
+/* Photo + prose split ------------------------------------------------------------- */
+
+.loc-which { padding-bottom: 0; }
+.loc-which__inner { display: grid; gap: 2.5rem; }
+.loc-which__media { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16 / 10; }
+.loc-which__media picture { height: 100%; }
+.loc-which .loc-links { margin-top: 0.5rem; }
+@media (min-width: 1000px) { .loc-which__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(3rem, 2rem + 4vw, 6rem); align-items: center; } }
