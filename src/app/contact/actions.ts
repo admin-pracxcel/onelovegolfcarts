@@ -2,19 +2,13 @@
 
 /**
  * Contact form handler. Validates on the server, drops obvious spam, then
- * delivers through whichever channel is configured:
- *
- *   CONTACT_WEBHOOK_URL   POST JSON to any form backend / automation
- *                         (Formspree, Zapier, Make, n8n, a CRM inbox…)
- *   RESEND_API_KEY        Send an email through Resend, to CONTACT_TO_EMAIL
- *   + CONTACT_TO_EMAIL    (defaults to the business email) from
- *                         CONTACT_FROM_EMAIL (must be a verified sender).
+ * delivers through the configured channel (see lib/deliver.ts).
  *
  * With neither configured the action returns `unconfigured` and the form
  * points people to email and WhatsApp, so a message is never silently lost.
  */
 
-import { business } from '@/lib/business';
+import { deliver } from '@/lib/deliver';
 
 export type ContactState = {
   status: 'idle' | 'sent' | 'invalid' | 'error' | 'unconfigured';
@@ -50,32 +44,8 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   const text = `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone || 'n/a'}\n\n${values.message}`;
 
   try {
-    const webhook = process.env.CONTACT_WEBHOOK_URL;
-    const resendKey = process.env.RESEND_API_KEY;
-
-    if (webhook) {
-      const res = await fetch(webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...values, subject, source: 'onelovegolfcarts.com/contact' }),
-      });
-      if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
-    } else if (resendKey && process.env.CONTACT_FROM_EMAIL) {
-      const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          from: process.env.CONTACT_FROM_EMAIL,
-          to: [process.env.CONTACT_TO_EMAIL || business.email],
-          reply_to: values.email,
-          subject,
-          text,
-        }),
-      });
-      if (!res.ok) throw new Error(`Resend responded ${res.status}`);
-    } else {
-      return { status: 'unconfigured', values };
-    }
+    const result = await deliver({ form: 'contact', subject, text, replyTo: values.email, fields: values });
+    if (result === 'unconfigured') return { status: 'unconfigured', values };
   } catch (err) {
     console.error('[contact] delivery failed', err);
     return { status: 'error', values };

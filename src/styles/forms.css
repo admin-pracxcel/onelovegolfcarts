@@ -1,0 +1,64 @@
+/* Shared form styles: Contact, Book Now, Pay Now. ------------------------- */
+
+.form-card { padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem); border-radius: var(--radius-lg); background: var(--paper); }
+
+.contact-form { display: grid; gap: 1.25rem; }
+.contact-form__row { display: grid; gap: 1.25rem; }
+@media (min-width: 640px) { .contact-form__row { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: 0.45rem; align-content: start; }
+.field label { font-size: var(--t-small); font-weight: 600; }
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgb(10 26 58 / 0.18);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field textarea { resize: vertical; min-height: 8rem; }
+.field input:hover, .field textarea:hover, .field select:hover { border-color: rgb(10 26 58 / 0.4); }
+.field input:focus-visible, .field textarea:focus-visible, .field select:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgb(10 26 58 / 0.12);
+}
+.field [aria-invalid="true"] { border-color: var(--coral-btn); }
+.field__error { font-size: var(--t-small); font-weight: 600; color: #b3202a; }
+.contact-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact-form__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.contact-form__status { flex: 1 1 16rem; font-size: var(--t-small); outline: none; }
+.contact-form__status.is-sent { color: #12643a; font-weight: 600; }
+.contact-form__status.is-invalid, .contact-form__status.is-error { color: #b3202a; }
+.contact-form__status.is-unconfigured { color: var(--ink); }
+.contact-form__status a { font-weight: 600; }
+.contact-form button[disabled] { opacity: 0.7; cursor: progress; }
+
+/* Booking and payment forms ------------------------------------------------- */
+.field select {
+  appearance: none;
+  padding-right: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a1a3a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+.field__hint { font-size: var(--t-xs); color: var(--muted); }
+.field__req { color: var(--coral-btn); }
+.form-group { display: grid; gap: 1.25rem; padding: 0; margin: 0; border: 0; min-width: 0; }
+.form-group + .form-group > legend { width: 100%; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.form-group > legend { padding: 0; margin-bottom: 0.25rem; font-family: var(--f-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+.field-pair { display: grid; gap: 1.25rem; }
+@media (min-width: 520px) { .field-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.choice-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.choice { position: relative; }
+.choice input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.choice span { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.1rem; border: 1px solid rgb(10 26 58 / 0.18); border-radius: 999px; background: #fff; font-weight: 600; font-size: var(--t-small); }
+.choice input:checked + span { background: var(--ink); color: #fff; border-color: var(--ink); }
+.choice input:focus-visible + span { box-shadow: 0 0 0 3px rgb(10 26 58 / 0.25); }
+.choice-group { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 0.45rem; }
+.choice-group > legend { padding: 0; margin-bottom: 0.45rem; font-size: var(--t-small); font-weight: 600; }
