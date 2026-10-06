@@ -428,3 +428,8 @@ body:has(.hero) .site-header:not(.is-solid) .menu-btn { background: #fff; color:
 .book-bar__price strong { font-family: var(--f-display); font-size: 1.5rem; color: var(--ink); letter-spacing: -0.03em; }
 .book-bar .btn { min-height: 3rem; }
 @media (min-width: 900px) { .book-bar { display: none; } }
+
+/* Small phones: long button labels wrap instead of overflowing the screen. */
+@media (max-width: 599px) {
+  .btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.2; padding-block: 0.7rem; }
+}
