@@ -24,5 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/golf-cart-delivery-alaia-belize/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/getting-to-san-pedro-belize-arrival-guide/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/golf-cart-comparison-4-vs-6-seater/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/how-we-maintain-our-fleet/`, lastModified: new Date('2026-10-06') },
   ];
 }

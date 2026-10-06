@@ -1,0 +1,45 @@
+/* Fleet maintenance page. Builds on location.css + guide.css. -------------- */
+
+.fleet-photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; }
+.fleet-photo picture { height: 100%; }
+
+/* Nine-point check */
+.fleet-checks { display: grid; gap: 0.75rem; }
+.fleet-checks li { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 1rem; padding: 1.25rem 1.4rem; border-radius: var(--radius); background: var(--paper); font-weight: 500; line-height: 1.4; }
+.fleet-checks__num { font-family: var(--f-display); font-size: 1.5rem; font-weight: 750; letter-spacing: -0.04em; line-height: 1; color: var(--coral-btn); }
+.fleet-checks li:last-child { background: var(--ink); color: #fff; }
+.fleet-checks li:last-child .fleet-checks__num { color: var(--sun); }
+@media (min-width: 700px) { .fleet-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .fleet-checks { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Service tiers (on the dark band) */
+.fleet-on-dark { color: var(--muted-light); }
+.fleet-tiers { display: grid; gap: 1rem; }
+.fleet-tier { display: grid; gap: 0.6rem; align-content: start; padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius); border: 1px solid var(--line-light); background: rgb(255 255 255 / 0.06); }
+.fleet-tier__level { display: flex; gap: 0.3rem; }
+.fleet-tier__level span { width: 1.75rem; height: 0.35rem; border-radius: 999px; background: rgb(255 255 255 / 0.18); }
+.fleet-tier__level span.is-on { background: var(--sun); }
+.fleet-tier__name { margin-top: 0.75rem; font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.fleet-tier__when { font-weight: 600; color: var(--sun); }
+.fleet-tier ul { display: grid; gap: 0.5rem; margin-top: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--line-light); }
+.fleet-tier li { display: flex; gap: 0.6rem; font-size: var(--t-small); color: var(--muted-light); }
+.fleet-tier li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 0.5em; border-radius: 50%; background: var(--coral); }
+@media (min-width: 900px) { .fleet-tiers { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.loc-prose > .fleet-person { font-family: var(--f-display); font-size: 1.25rem; font-weight: 700; color: var(--ink); }
+
+.loc-delivery > .btn { justify-self: start; margin-top: 1.25rem; }
+
+/* Steel vs aluminum timeline */
+.fleet-rust { display: grid; gap: 0.75rem; }
+.fleet-rust li { display: grid; gap: 0.4rem; padding: 1.5rem; border-radius: var(--radius); background: var(--paper); }
+.fleet-rust__when { font-family: var(--f-display); font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem); font-weight: 750; letter-spacing: -0.04em; line-height: 1; }
+.fleet-rust__what { font-weight: 500; color: var(--muted); }
+.fleet-rust li.is-steel .fleet-rust__when { color: #9a4a1c; }
+.fleet-rust li.is-aluminum { background: var(--sun); }
+.fleet-rust li.is-aluminum .fleet-rust__what { color: var(--ink); }
+@media (min-width: 900px) { .fleet-rust { grid-template-columns: 1fr 1fr 1.4fr; } }
+
+/* Closing statement */
+.fleet-renters__inner > * { max-width: 60rem; }
+.fleet-renters__body { margin-top: 1.5rem; font-family: var(--f-display); font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.4; }

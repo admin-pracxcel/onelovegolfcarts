@@ -481,3 +481,45 @@ export function compareSchema(opts: {
     ],
   };
 }
+
+/**
+ * /how-we-maintain-our-fleet/: WebPage about the business, breadcrumbs via
+ * About Us, and a Person for the mechanic once their details are supplied.
+ */
+export function fleetSchema(opts: {
+  path: string;
+  title: string;
+  description: string;
+  mechanic: { name: string; image?: string } | null;
+}) {
+  const url = abs(opts.path);
+  const person = opts.mechanic && {
+    '@type': 'Person',
+    '@id': `${url}#mechanic`,
+    name: opts.mechanic.name,
+    jobTitle: 'Fleet Mechanic',
+    worksFor: { '@id': BUSINESS_ID },
+    ...(opts.mechanic.image ? { image: abs(opts.mechanic.image) } : {}),
+  };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([
+        { name: 'About Us', path: '/about-us/' },
+        { name: 'Fleet Maintenance', path: opts.path },
+      ]),
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: opts.title,
+        description: opts.description,
+        about: { '@id': BUSINESS_ID },
+        inLanguage: 'en-US',
+        ...(person ? { mentions: { '@id': person['@id'] } } : {}),
+      },
+      ...(person ? [person] : []),
+    ],
+  };
+}
