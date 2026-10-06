@@ -1,57 +1,83 @@
-# One Love Golf Cart Rentals — Next.js site
+# One Love Golf Cart Rentals
 
-Homepage and site foundation, built with Next.js 16 (App Router), React 19 and TypeScript. Every route is statically prerendered.
+Website for One Love Golf Cart Rentals, San Pedro, Ambergris Caye, Belize. Built with Next.js 16 (App Router), React 19 and TypeScript. Every page is statically prerendered.
 
 ```
 npm install
-npm run dev        # http://localhost:3000
+npm run dev              # http://localhost:3000
 npm run build && npm start
 npm run lint
 ```
 
-Set `NEXT_PUBLIC_SITE_URL` if the production origin isn't `https://onelovegolfcartsbelize.com`. It's used for the canonical URL, Open Graph, JSON-LD, robots and sitemap.
+## Pages
 
-## Search indexing is blocked by default
+| Route | Status |
+|---|---|
+| `/` | Homepage |
+| `/our-carts/` | 4-seater and 6-seater detail, comparison, specs |
+| `/rates/` | Rates, policies, FAQ |
+| `/contact/` | Channels, roadside support, contact form, map, directions |
+| `/about-us/` | Story, principles, fleet, community. The "Meet the family" section switches on once founders are added in `src/lib/pages/about.ts` |
 
-While this is a preview, it must not compete with the live WordPress site. Indexing is blocked in three places: `<meta name="robots">`, `robots.txt` and an `X-Robots-Tag` header. To lift it at launch, set `NEXT_PUBLIC_ALLOW_INDEXING=true` in the production environment. Leave it unset on every preview deployment. See `src/lib/seo.ts`.
+Every other link (Book Now, Gallery, location pages, guides…) shows the 404 page until that page is built.
 
-## Promotion popup
+## Environment variables
 
-`src/lib/promo.ts` holds the copy, prices and end date. The popup shows once per visit: on the first page a visitor opens in a browser tab, but not on later pages in that tab. Closing the tab and coming back shows it again. It stops automatically at `endsAt`. For a new offer, edit the object and change `id`. Set `enabled: false` to turn it off.
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Production origin, used for canonical URLs, Open Graph, JSON-LD, robots and sitemap. Defaults to `https://onelovegolfcartsbelize.com`. |
+| `NEXT_PUBLIC_ALLOW_INDEXING` | Search indexing is **blocked by default** (meta robots, `robots.txt`, `X-Robots-Tag`) so previews don't compete with the live site. Set to `true` on production at launch only. |
+| `CONTACT_WEBHOOK_URL` | Contact form delivery: POSTs each message as JSON to any form backend or automation (Formspree, Zapier, n8n…). |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Alternative contact form delivery by email through Resend. `CONTACT_TO_EMAIL` defaults to the business email. |
+
+With no delivery variable set, the contact form tells visitors to email or WhatsApp instead of pretending to send.
+
+## Content
+
+- `src/lib/business.ts`: name, address, phone, rates, ratings, social profiles and planned URLs. The single source of truth, used by the pages and the structured data.
+- `src/lib/content.ts`: homepage copy. `src/lib/pages/*.ts`: copy for each inner page. All of it comes verbatim from the Execution Manual; inline links use `[[anchor text|urlKey]]`.
+- `src/lib/promo.ts`: the once-per-visit promotion popup (copy, prices, end date). Change `id` for a new offer; `enabled: false` turns it off.
+- Values marked `VERIFY` in the code are business facts that still need the client's confirmation.
 
 ## Images
 
-The source photos are in `assets/source/`. `npm run images` writes AVIF/WebP/JPEG variants to `public/img/` and updates `src/lib/image-manifest.json`.
+Source photos live in `assets/source/`. `npm run images` writes AVIF/WebP/JPEG variants to `public/img/` and updates `src/lib/image-manifest.json`. To add a photo, put it in `assets/source/`, list it in `scripts/build-images.mjs`, and run the script.
+
+## QA scripts
+
+Run against a local server (`npm run build && npm start`). Output goes to `.qa/` (git-ignored).
+
+```
+npm run qa:shots -- .qa http://localhost:3000/rates/   # screenshots at 1440/1280/768/390, overflow + console check
+npm run qa:a11y -- http://localhost:3000/rates/        # axe scan, heading outline, JSON-LD, images, links
+npm run qa:promo                                       # popup once-per-visit behaviour
+npm run qa:contact                                     # contact form validation and delivery
+npm run qa:trust                                       # USP strip: one line / marquee
+```
+
+These need the Playwright browser: `npx playwright install chromium`.
 
 ## Structure
 
 ```
-src/app/                 layout (fonts, header, footer), page (homepage + metadata + JSON-LD),
-                         robots.ts, sitemap.ts, manifest.ts, icon/apple-icon, not-found
-src/components/          Header (client: scroll states, dropdowns, mobile menu), Footer,
-                         BookBar (client), SiteEffects (client: reveals, parallax), Picture, Icon
-src/components/sections/ one server component per homepage section
-src/lib/business.ts      NAP, rates, ratings, profiles, planned URLs (single source of truth)
-src/lib/content.ts       homepage copy, verbatim from Execution Manual §04
-src/lib/schema.ts        JSON-LD built from the same data the page renders
-src/styles/              design system CSS (tokens, base, components, home, motion)
-public/img/              pre-built AVIF/WebP/JPEG variants (npm run images)
+src/app/                 routes: layout, homepage, our-carts, rates, contact (+ server action), about-us,
+                         robots, sitemap, manifest, icons, not-found
+src/components/          Header, Footer, TopBar, TrustStrip, PromoModal, BookBar, SiteEffects,
+                         PageHeader, Breadcrumbs, SectionNav, ContactForm, Picture, Icon, RichText
+src/components/sections/ homepage sections (also reused: Faq, FinalCta)
+src/lib/                 business data, page copy, schema builders, image manifest
+src/styles/              design system CSS (tokens, base, components, pages) + per-page CSS
+public/img/              built image variants
 assets/source/           original photos, renamed descriptively
-scripts/build-images.mjs image pipeline (sharp)
-docs/                    design reference notes
+scripts/                 image pipeline, QA scripts
+docs/                    design reference notes (client strategy documents are kept locally, not in git)
 ```
 
 ## Decisions
 
-- **Plain global CSS.** The design system is ported 1:1 from the WordPress theme so both stay identical; there's no CSS-in-JS and no Tailwind.
-- **Fonts** use `next/font/local` (self-hosted, preloaded, metric-matched fallbacks).
-- **Images use `<picture>`, not `next/image`.** The files are already art-directed and compressed to AVIF and WebP, and this works on any host, including static export. To change photos, edit `scripts/build-images.mjs` and run `npm run images`.
-- **Client JavaScript** is limited to the header, mobile booking bar and scroll effects. Everything else is server-rendered and works without JS. The FAQ uses native `<details>`.
+- **Plain CSS** with design tokens; no CSS-in-JS or Tailwind. Page-specific CSS is imported only by its page.
+- **Fonts** via `next/font/local` (self-hosted, preloaded, metric-matched fallbacks).
+- **Images use `<picture>`**, not `next/image`: the files are pre-built and art-directed, so they're served as-is on any host.
+- **Client JavaScript** is limited to the header, top bar, USP strip, popup, booking bar, section nav, contact form and scroll effects. Everything else is server-rendered; FAQs use native `<details>`.
 - **`trailingSlash: true`** matches the URL convention in the Execution Manual.
-- **Schema deviations** from the field report (current Google guidance) are documented in `src/lib/schema.ts`.
-
-## Not built yet
-
-- Every page the homepage links to (`/book-now/`, `/rates/`, `/our-carts/`, location pages, guides) shows the 404 page until it's built.
-- The booking and contact forms currently live in WPForms on the WordPress site. A Next.js replacement needs a form handler (route handler + email or CRM) and a decision about payments (PayPal / Pay Now).
-- Rank Math's per-page SEO control doesn't exist here. Titles and descriptions live in each route's `metadata` export.
+- **Schema deviations** from the SEO field report (following current Google guidance) are documented in `src/lib/schema.ts`.

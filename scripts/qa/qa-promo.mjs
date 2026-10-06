@@ -1,0 +1,44 @@
+// QA for the once-per-visit promo popup. Usage: node qa-promo.mjs [baseUrl]
+import { chromium } from 'playwright';
+import { readFileSync, mkdirSync } from 'node:fs';
+import { createRequire } from 'node:module';
+mkdirSync('.qa', { recursive: true });
+const base = process.argv[2] || 'http://localhost:3000';
+const axe = readFileSync(createRequire(import.meta.url).resolve('axe-core/axe.min.js'), 'utf8');
+const isOpen = (p) => p.evaluate(() => !!document.querySelector('dialog.promo')?.open);
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+const out = {};
+const p = await ctx.newPage();
+const errors = [];
+p.on('pageerror', (e) => errors.push(e.message));
+await p.goto(base + '/', { waitUntil: 'networkidle' });
+out.beforeDelay = await isOpen(p);
+await p.waitForTimeout(1800);
+out.firstVisit = await isOpen(p);
+out.focused = await p.evaluate(() => document.activeElement?.className);
+await p.screenshot({ path: '.qa/promo-1440.jpg', type: 'jpeg', quality: 70 });
+await p.addScriptTag({ content: axe });
+out.axe = await p.evaluate(async () => (await axe.run(document.querySelector('dialog.promo'))).violations.map((v) => v.id));
+await p.keyboard.press('Escape');
+await p.waitForTimeout(600);
+out.afterEsc = await isOpen(p);
+await p.goto(base + '/rates/', { waitUntil: 'networkidle' });
+await p.waitForTimeout(2000);
+out.otherPage = await isOpen(p);
+await p.goto(base + '/', { waitUntil: 'networkidle' });
+await p.waitForTimeout(2000);
+out.reloadSameTab = await isOpen(p);
+// "Close the website and open it again": a fresh tab/session.
+const ctx2 = await b.newContext({ viewport: { width: 390, height: 844 } });
+const m = await ctx2.newPage();
+await m.goto(base + '/rates/', { waitUntil: 'networkidle' });
+await m.waitForTimeout(1800);
+out.newVisitAnyPage = await isOpen(m);
+await m.screenshot({ path: '.qa/promo-390.jpg', type: 'jpeg', quality: 70 });
+await m.mouse.click(10, 10); // backdrop
+await m.waitForTimeout(600);
+out.afterBackdrop = await isOpen(m);
+out.errors = errors;
+console.log(JSON.stringify(out, null, 1));
+await b.close();

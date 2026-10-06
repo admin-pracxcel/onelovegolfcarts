@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "images": "node scripts/build-images.mjs"
+    "images": "node scripts/build-images.mjs",
+    "qa:shots": "node scripts/qa/qa-shots.mjs",
+    "qa:a11y": "node scripts/qa/qa-tech.mjs",
+    "qa:promo": "node scripts/qa/qa-promo.mjs",
+    "qa:contact": "node scripts/qa/qa-contact.mjs",
+    "qa:trust": "node scripts/qa/qa-trust.mjs"
   },
   "dependencies": {
     "next": "16.3.8",
@@ -18,8 +23,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.14.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "playwright": "^1.63.0",
     "sharp": "^0.34.5",
     "typescript": "^5"
   }
