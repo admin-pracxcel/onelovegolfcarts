@@ -33,6 +33,7 @@ export const primaryNav: NavItem[] = [
       { label: 'Our Story', href: urls.about },
       { label: 'Meet the Team', href: urls.team },
       { label: 'Gallery', href: urls.gallery },
+      { label: 'Contact', href: urls.contact },
     ],
   },
   { label: 'Blog', href: urls.blog },

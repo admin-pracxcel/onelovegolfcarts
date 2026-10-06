@@ -243,11 +243,6 @@ export function Header() {
                   )}
                 </li>
               ))}
-              <li className="mnav__item">
-                <Link href={urls.contact} prefetch={false}>
-                  Contact
-                </Link>
-              </li>
             </ul>
           </nav>
           <div className="mnav__foot">
