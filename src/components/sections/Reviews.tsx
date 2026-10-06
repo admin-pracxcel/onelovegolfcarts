@@ -1,6 +1,7 @@
 import { business } from '@/lib/business';
 import { reviews, type Review } from '@/lib/content';
 import { Stars } from '../Icon';
+import type { ImageName } from '@/lib/images';
 import { Picture } from '../Picture';
 
 function Cite({ r }: { r: Review }) {
@@ -22,19 +23,25 @@ function Cite({ r }: { r: Review }) {
 }
 
 /** What our customers say: genuine reviews, verbatim. */
-export function Reviews() {
+export function Reviews({
+  id,
+  eyebrow = 'Reviews',
+  title = 'What our customers say',
+  image = 'guests-luggage-golf-carts-village-mart',
+  alt = 'Guests with luggage setting off in a line of One Love golf carts outside Village Mart in San Pedro',
+}: { id?: string; eyebrow?: string; title?: string; image?: ImageName; alt?: string } = {}) {
   const [featured, ...rest] = reviews;
   const { rating } = business;
   return (
-    <section className="reviews section" aria-labelledby="reviews-title">
+    <section id={id} className="reviews section" aria-labelledby="reviews-title">
       <div className="container">
         <div className="section-head section-head--split">
           <div>
             <p className="eyebrow" data-reveal="">
-              Reviews
+              {eyebrow}
             </p>
             <h2 id="reviews-title" className="h2" data-reveal="">
-              What our customers say
+              {title}
             </h2>
           </div>
           <div className="rating" data-reveal="">
@@ -65,8 +72,8 @@ export function Reviews() {
 
           <div className="reviews__media" data-reveal="clip">
             <Picture
-              name="guests-luggage-golf-carts-village-mart"
-              alt="Guests with luggage setting off in a line of One Love golf carts outside Village Mart in San Pedro"
+              name={image}
+              alt={alt}
               sizes="(min-width: 1000px) 38vw, 100vw"
             />
           </div>
