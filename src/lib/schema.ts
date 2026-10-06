@@ -353,15 +353,19 @@ export function locationSchema(opts: {
   serviceType: string;
   area: Record<string, unknown>;
   faq: [string, string][];
+  /** Full trail below Home; defaults to Ambergris Caye > crumb. */
+  trail?: { name: string; path: string }[];
 }) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
       businessSchema(),
-      breadcrumbSchema([
-        { name: 'Ambergris Caye', path: '/ambergris-caye/' },
-        { name: opts.crumb, path: opts.path },
-      ]),
+      breadcrumbSchema(
+        opts.trail ?? [
+          { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+          { name: opts.crumb, path: opts.path },
+        ],
+      ),
       {
         '@type': 'Service',
         '@id': abs(`${opts.path}#service`),

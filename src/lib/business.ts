@@ -100,6 +100,12 @@ export const urls = {
   north: '/north-ambergris-caye-cart-delivery/',
   south: '/south-ambergris-caye-cart-delivery/',
   resorts: '/south-ambergris-caye-cart-delivery/', // VERIFY: manual names "Resort Delivery" but gives no hub URL.
+  'mahogany-bay': '/golf-cart-delivery-mahogany-bay/',
+  'grand-caribe': '/golf-cart-delivery-grand-caribe/',
+  'victoria-house': '/golf-cart-delivery-victoria-house/',
+  'belize-yacht-club': '/golf-cart-delivery-belize-yacht-club/',
+  alaia: '/golf-cart-delivery-alaia-belize/',
+  weddings: '/wedding-golf-cart-rental-san-pedro/',
   arrival: '/getting-to-san-pedro-belize-arrival-guide/',
   'secret-route': '/secret-beach-route-from-san-pedro/',
   refuel: '/where-to-refuel-your-golf-cart-ambergris-caye/',

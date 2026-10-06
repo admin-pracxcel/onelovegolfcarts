@@ -17,5 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/delivery-to-secret-beach/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/north-ambergris-caye-cart-delivery/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/south-ambergris-caye-cart-delivery/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/golf-cart-delivery-mahogany-bay/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/golf-cart-delivery-grand-caribe/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/golf-cart-delivery-victoria-house/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/golf-cart-delivery-belize-yacht-club/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/golf-cart-delivery-alaia-belize/`, lastModified: new Date('2026-10-06') },
   ];
 }

@@ -287,3 +287,28 @@
 .loc-times__to { display: grid; gap: 0.2rem; font-weight: 600; }
 .loc-times__to small { font-size: var(--t-xs); font-weight: 400; color: var(--muted-light); }
 .loc-times__time { flex: none; font-family: var(--f-display); font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem); font-weight: 750; letter-spacing: -0.03em; white-space: nowrap; }
+
+/* Resort pages: directions pair + more-resorts strip ---------------------------- */
+
+.loc-routes { display: grid; gap: 1rem; }
+.loc-route { display: grid; align-content: start; gap: 1rem; padding: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); border-radius: var(--radius-lg); background: var(--paper); }
+.loc-route.is-dark { background: var(--ink); color: #fff; }
+.loc-route__to { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+.loc-route.is-dark .loc-route__to { border-color: var(--line-light); }
+.loc-route__to span { flex-basis: 100%; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.loc-route.is-dark .loc-route__to span { color: rgb(255 255 255 / 0.7); }
+.loc-route__to strong { font-family: var(--f-display); font-size: clamp(2.5rem, 2rem + 2vw, 3.75rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.loc-route.is-dark .loc-route__to strong { color: var(--sun); }
+.loc-route__to small { font-size: var(--t-small); color: var(--muted); }
+.loc-route.is-dark .loc-route__to small { color: rgb(255 255 255 / 0.7); }
+.loc-route__title { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+.loc-route p:last-child { color: var(--muted); }
+.loc-route.is-dark p:last-child { color: rgb(255 255 255 / 0.8); }
+@media (min-width: 900px) { .loc-routes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.loc-more { padding-block: 0 var(--section); }
+.loc-more .container { padding-top: 2rem; border-top: 1px solid var(--line); }
+.loc-more__label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.loc-more .loc-links { margin-top: 1rem; }
+.loc-group li strong a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.loc-group li strong a:hover { text-decoration-color: var(--coral); }
