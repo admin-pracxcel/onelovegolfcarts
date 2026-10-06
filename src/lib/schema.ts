@@ -71,6 +71,11 @@ export function businessSchema() {
     areaServed: ['San Pedro Town', 'Ambergris Caye', 'Secret Beach, Belize'].map((name) => ({ '@type': 'Place', name })),
     sameAs: [...Object.values(business.social), business.gbpUrl].filter(Boolean),
     hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Golf cart rentals', itemListElement: offers },
+    potentialAction: {
+      '@type': 'ReserveAction',
+      target: { '@type': 'EntryPoint', urlTemplate: abs(urls.book), actionPlatform: ['https://schema.org/DesktopWebPlatform', 'https://schema.org/MobileWebPlatform'] },
+      result: { '@type': 'Reservation', name: 'Golf cart rental reservation' },
+    },
   };
 }
 
@@ -559,6 +564,20 @@ export function teamSchema(opts: {
         ...(people.length ? { mentions: people.map((p) => ({ '@id': p['@id'] })) } : {}),
       },
       ...people,
+    ],
+  };
+}
+
+/** /book-now/, /pay-now/, /terms-and-conditions/, /privacy-policy/: WebPage + breadcrumbs (+ FAQ). */
+export function utilitySchema(opts: { path: string; crumb: string; title: string; description: string; faq?: [string, string][] }) {
+  const url = abs(opts.path);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: opts.crumb, path: opts.path }]),
+      { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: opts.title, description: opts.description, about: { '@id': BUSINESS_ID }, inLanguage: 'en-US' },
+      ...(opts.faq ? [faqSchema(opts.faq, opts.path)] : []),
     ],
   };
 }

@@ -1,0 +1,49 @@
+/* Book Now. Builds on location.css (checklist, links) + forms.css. ---------- */
+
+.book-trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); }
+.book-trust li { display: inline-flex; align-items: center; gap: 0.45rem; font-size: var(--t-small); font-weight: 600; }
+.book-trust .icon { width: 1rem; height: 1rem; color: var(--coral-btn); stroke-width: 2.5; }
+
+.book-steps { display: grid; gap: 0.75rem; margin-top: 1.5rem; }
+.book-steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.15rem 1rem; padding: 1.1rem 1.25rem; border-radius: var(--radius); background: var(--paper); }
+.book-steps__num { grid-row: span 2; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--f-display); font-weight: 700; }
+.book-steps strong { font-family: var(--f-display); font-size: 1.125rem; font-weight: 700; letter-spacing: -0.02em; }
+.book-steps li > span:last-child { font-size: var(--t-small); color: var(--muted); }
+@media (min-width: 900px) { .book-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.book-main { padding-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
+.book-main__grid { display: grid; gap: 1.5rem; }
+.book-main__title { margin-bottom: 1.5rem; font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; }
+.booking-form { gap: 1.75rem; }
+.booking-form__note { padding: 0.8rem 1rem; border-radius: var(--radius); background: var(--sand); color: var(--ink); font-size: var(--t-small); }
+.booking-form__status:empty { display: none; }
+.booking-form__status { display: grid; gap: 1rem; justify-items: start; }
+@media (min-width: 1000px) {
+  .book-main__grid { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 2rem; align-items: start; }
+  .book-aside { position: sticky; top: 7rem; }
+}
+
+.book-aside { display: grid; gap: 1rem; }
+.book-aside__card { display: grid; gap: 0.85rem; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); border-radius: var(--radius-lg); background: var(--paper); }
+.book-aside__card--dark { background: var(--ink); color: #fff; }
+.book-aside__kicker { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.book-aside__card--dark .book-aside__kicker { color: var(--sun); }
+.book-aside__line { font-family: var(--f-display); font-size: 1.25rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.25; }
+.book-aside__card .btn { justify-self: start; }
+.book-rates div { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.6rem; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.book-rates dt { font-weight: 600; }
+.book-rates dd { color: var(--muted); }
+.book-aside__links { display: grid; gap: 0.5rem; }
+.book-aside__links a { display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--t-small); font-weight: 600; border-bottom: 1px solid currentColor; text-decoration: none; }
+.book-aside__links .icon { width: 1rem; height: 1rem; }
+
+.book-info { display: grid; gap: 3rem; }
+.book-info__title { font-size: var(--t-h3); }
+.book-info__list { margin-top: 1.25rem; }
+.book-info__note, .book-info__body { margin-top: 1.25rem; color: var(--muted); line-height: 1.75; max-width: 36rem; }
+.book-info__body a { color: var(--ink); font-weight: 600; }
+@media (min-width: 900px) { .book-info { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 2rem + 4vw, 6rem); } }
+
+.book-page .faq { padding-top: var(--section); }
+.book-links { padding-block: 0 var(--section); }
+.book-links .loc-links { margin-top: 0; }

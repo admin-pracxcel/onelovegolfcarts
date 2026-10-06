@@ -12,7 +12,8 @@
     "qa:a11y": "node scripts/qa/qa-tech.mjs",
     "qa:promo": "node scripts/qa/qa-promo.mjs",
     "qa:contact": "node scripts/qa/qa-contact.mjs",
-    "qa:trust": "node scripts/qa/qa-trust.mjs"
+    "qa:trust": "node scripts/qa/qa-trust.mjs",
+    "qa:booking": "node scripts/qa/qa-booking.mjs"
   },
   "dependencies": {
     "next": "16.3.8",
