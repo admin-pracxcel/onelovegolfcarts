@@ -15,6 +15,10 @@ Set `NEXT_PUBLIC_SITE_URL` if the production origin isn't `https://onelovegolfca
 
 While this is a preview, it must not compete with the live WordPress site. Indexing is blocked in three places: `<meta name="robots">`, `robots.txt` and an `X-Robots-Tag` header. To lift it at launch, set `NEXT_PUBLIC_ALLOW_INDEXING=true` in the production environment. Leave it unset on every preview deployment. See `src/lib/seo.ts`.
 
+## Promotion popup
+
+`src/lib/promo.ts` holds the copy, prices and end date. The popup shows once per visit: on the first page a visitor opens in a browser tab, but not on later pages in that tab. Closing the tab and coming back shows it again. It stops automatically at `endsAt`. For a new offer, edit the object and change `id`. Set `enabled: false` to turn it off.
+
 ## Images
 
 The source photos are in `assets/source/`. `npm run images` writes AVIF/WebP/JPEG variants to `public/img/` and updates `src/lib/image-manifest.json`.

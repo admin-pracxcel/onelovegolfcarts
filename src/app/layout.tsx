@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { PromoModal } from '@/components/PromoModal';
 import { SiteEffects, revealBootScript } from '@/components/SiteEffects';
 import { business, SITE_URL } from '@/lib/business';
 import { ALLOW_INDEXING } from '@/lib/seo';
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <Footer />
         <SiteEffects />
+        <PromoModal />
       </body>
     </html>
   );
