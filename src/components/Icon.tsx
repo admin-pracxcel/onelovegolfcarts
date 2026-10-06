@@ -10,6 +10,8 @@ const paths = {
     </>
   ),
   plus: <path d="M12 5v14M5 12h14" />,
+  minus: <path d="M5 12h14" />,
+  check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
   chevron: <path d="m6 9 6 6 6-6" />,
   clock: (
     <>

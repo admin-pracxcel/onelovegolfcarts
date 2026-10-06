@@ -10,6 +10,7 @@
  */
 import { business, SITE_URL, urls } from './business';
 import { faq, homeMeta } from './content';
+import { plainText } from './text';
 
 const abs = (path: string) => `${SITE_URL}${path}`;
 const BUSINESS_ID = abs('/#business');
@@ -96,15 +97,7 @@ export function homeSchema() {
         primaryImageOfPage: abs('/img/og-golf-cart-rental-san-pedro-belize.jpg'),
         inLanguage: 'en-US',
       },
-      {
-        '@type': 'FAQPage',
-        '@id': abs('/#faq'),
-        mainEntity: faq.map(([q, a]) => ({
-          '@type': 'Question',
-          name: q,
-          acceptedAnswer: { '@type': 'Answer', text: a },
-        })),
-      },
+      faqSchema(faq, '/'),
     ],
   };
 }
@@ -134,10 +127,17 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
  * rating; see note at top). priceValidUntil is omitted: no end date has been
  * supplied for standard rates.
  */
-export function cartsSchema(
-  carts: { id: '4-seater' | '6-seater'; name: string; description: string; image: string; usd: { day: number; week: number } }[],
-) {
-  const product = (c: (typeof carts)[number]) => ({
+export type CartProductInput = {
+  id: '4-seater' | '6-seater';
+  name: string;
+  description: string;
+  image: string;
+  usd: { day: number; week: number };
+};
+
+/** One Product per cart. Same @id on every page, so search engines merge them. */
+function cartProduct(c: CartProductInput) {
+  return {
     '@type': 'Product',
     '@id': abs(`/our-carts/#${c.id}`),
     name: `${c.name} golf cart rental, San Pedro Belize`,
@@ -158,17 +158,48 @@ export function cartsSchema(
         referenceQuantity: { '@type': 'QuantitativeValue', value: days, unitCode: 'DAY' },
       },
     })),
-  });
+  };
+}
+
+function cartItemList(carts: CartProductInput[]) {
+  return {
+    '@type': 'ItemList',
+    name: 'One Love golf cart fleet',
+    itemListElement: carts.map((c, i) => ({ '@type': 'ListItem', position: i + 1, item: cartProduct(c) })),
+  };
+}
+
+function faqSchema(items: [string, string][], path: string) {
+  return {
+    '@type': 'FAQPage',
+    '@id': abs(`${path}#faq`),
+    mainEntity: items.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: plainText(a) },
+    })),
+  };
+}
+
+export function cartsSchema(carts: CartProductInput[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [businessSchema(), breadcrumbSchema([{ name: 'Our Carts', path: '/our-carts/' }]), cartItemList(carts)],
+  };
+}
+
+/**
+ * /rates/: Products with day + week offers (the manual's monthly offer is
+ * omitted: no monthly price exists, only "on request"), FAQPage, breadcrumbs.
+ */
+export function ratesSchema(carts: CartProductInput[], faqItems: [string, string][]) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
       businessSchema(),
-      breadcrumbSchema([{ name: 'Our Carts', path: '/our-carts/' }]),
-      {
-        '@type': 'ItemList',
-        name: 'One Love golf cart fleet',
-        itemListElement: carts.map((c, i) => ({ '@type': 'ListItem', position: i + 1, item: product(c) })),
-      },
+      breadcrumbSchema([{ name: 'Rates', path: '/rates/' }]),
+      cartItemList(carts),
+      faqSchema(faqItems, '/rates/'),
     ],
   };
 }

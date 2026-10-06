@@ -1,4 +1,5 @@
 import { Breadcrumbs } from './Breadcrumbs';
+import { NoBreak } from './NoBreak';
 
 type Props = {
   trail: { name: string; path: string }[];
@@ -8,19 +9,6 @@ type Props = {
   lead?: React.ReactNode;
   children?: React.ReactNode;
 };
-
-/** Keeps hyphenated terms like "4-Seater" from breaking across lines. */
-function noBreakHyphens(text: string) {
-  return text.split(/(\S+-\S+)/g).map((part, i) =>
-    /\S+-\S+/.test(part) ? (
-      <span key={i} className="nowrap">
-        {part}
-      </span>
-    ) : (
-      part
-    ),
-  );
-}
 
 /** Inner-page header: breadcrumbs, H1 and opening paragraph; optional media below. */
 export function PageHeader({ trail, eyebrow, title, lead, children }: Props) {
@@ -34,7 +22,7 @@ export function PageHeader({ trail, eyebrow, title, lead, children }: Props) {
               {eyebrow}
             </p>
             <h1 className="page-header__title" data-reveal="">
-              {noBreakHyphens(title)}
+              <NoBreak text={title} />
             </h1>
           </div>
           {lead && (

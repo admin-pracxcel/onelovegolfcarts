@@ -5,8 +5,8 @@ import { Icon } from '../Icon';
 import { Picture } from '../Picture';
 import { PhoneText } from '../PhoneText';
 
-/** Final booking moment. */
-export function FinalCta() {
+/** Final booking moment. `ctaLabel` lets pages use their own anchor text. */
+export function FinalCta({ ctaLabel = 'Reserve your golf cart' }: { ctaLabel?: string }) {
   return (
     <section className="final-cta" aria-labelledby="cta-title">
       <div className="final-cta__frame">
@@ -25,7 +25,7 @@ export function FinalCta() {
           </p>
           <div className="final-cta__actions" data-reveal="">
             <Link className="btn btn--primary btn--lg" href={urls.book} prefetch={false}>
-              Reserve your golf cart <Icon name="arrow" />
+              {ctaLabel} <Icon name="arrow" />
             </Link>
             <a className="btn btn--glass btn--lg" href={whatsappUrl(BOOKING_MESSAGE)}>
               <Icon name="chat" /> Message on WhatsApp
