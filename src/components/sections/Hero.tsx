@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { business, urls, whatsappUrl } from '@/lib/business';
 import { hero } from '@/lib/content';
-import { Icon, Stars } from '../Icon';
+import { Icon } from '../Icon';
+import { TrustStrip } from '../TrustStrip';
 import { Picture } from '../Picture';
 
 export const HERO_IMAGE = 'guests-golf-cart-convoy-beachfront-san-pedro' as const;
@@ -75,14 +76,7 @@ export function Hero() {
         </aside>
       </div>
 
-      <ul className="trust" aria-label="Why guests trust One Love" tabIndex={0}>
-        {hero.trust.map((item, i) => (
-          <li key={item}>
-            {i === 0 && <Stars />}
-            {item}
-          </li>
-        ))}
-      </ul>
+      <TrustStrip items={hero.trust} label="Why guests trust One Love" />
     </section>
   );
 }
