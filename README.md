@@ -1,105 +1,53 @@
-# One Love Golf Cart Rentals
+# One Love Golf Cart Rentals — Next.js site
 
-Homepage for [One Love Golf Cart Rentals](https://onelovegolfcartsbelize.com/),
-a family-owned golf cart rental on Barrier Reef Drive in San Pedro Town,
-Ambergris Caye, Belize.
+Homepage and site foundation, built with Next.js 16 (App Router), React 19 and TypeScript. Every route is statically prerendered.
 
-Next.js 16 (App Router) · React 19 · TypeScript · hand-written CSS.
-
-## Run it
-
-```bash
+```
 npm install
 npm run dev        # http://localhost:3000
+npm run build && npm start
+npm run lint
 ```
 
-```bash
-npm run build      # production build
-npm run start      # serve the build
-npm run lint       # eslint
-npm run typecheck  # tsc --noEmit
+Set `NEXT_PUBLIC_SITE_URL` if the production origin isn't `https://onelovegolfcartsbelize.com`. It's used for the canonical URL, Open Graph, JSON-LD, robots and sitemap.
+
+## Search indexing is blocked by default
+
+While this is a preview, it must not compete with the live WordPress site. Indexing is blocked in three places: `<meta name="robots">`, `robots.txt` and an `X-Robots-Tag` header. To lift it at launch, set `NEXT_PUBLIC_ALLOW_INDEXING=true` in the production environment. Leave it unset on every preview deployment. See `src/lib/seo.ts`.
+
+## Images
+
+The source photos are in `assets/source/`. `npm run images` writes AVIF/WebP/JPEG variants to `public/img/` and updates `src/lib/image-manifest.json`.
+
+## Structure
+
+```
+src/app/                 layout (fonts, header, footer), page (homepage + metadata + JSON-LD),
+                         robots.ts, sitemap.ts, manifest.ts, icon/apple-icon, not-found
+src/components/          Header (client: scroll states, dropdowns, mobile menu), Footer,
+                         BookBar (client), SiteEffects (client: reveals, parallax), Picture, Icon
+src/components/sections/ one server component per homepage section
+src/lib/business.ts      NAP, rates, ratings, profiles, planned URLs (single source of truth)
+src/lib/content.ts       homepage copy, verbatim from Execution Manual §04
+src/lib/schema.ts        JSON-LD built from the same data the page renders
+src/styles/              design system CSS (tokens, base, components, home, motion)
+public/img/              pre-built AVIF/WebP/JPEG variants (npm run images)
+assets/source/           original photos, renamed descriptively
+scripts/build-images.mjs image pipeline (sharp)
+docs/                    design reference notes
 ```
 
-## How it is put together
+## Decisions
 
-```
-app/
-  layout.tsx       metadata, font variables, icon sprite, reveal observer
-  page.tsx         section order, JSON-LD
-  globals.css      the whole design system, documented inline
-  fonts.ts         next/font/local for the three faces
-  fonts/           self-hosted woff2
-components/        one file per section, plus Button / ArrowLink / Icon / SiteLink
-lib/content.ts     every visible string on the page
-lib/schema.ts      structured data, built from lib/content.ts
-public/img/        photography, re-cropped from the live site
-docs/              design notes and the decision log
-reference/         the verified static prototype this was ported from
-```
+- **Plain global CSS.** The design system is ported 1:1 from the WordPress theme so both stay identical; there's no CSS-in-JS and no Tailwind.
+- **Fonts** use `next/font/local` (self-hosted, preloaded, metric-matched fallbacks).
+- **Images use `<picture>`, not `next/image`.** The files are already art-directed and compressed to AVIF and WebP, and this works on any host, including static export. To change photos, edit `scripts/build-images.mjs` and run `npm run images`.
+- **Client JavaScript** is limited to the header, mobile booking bar and scroll effects. Everything else is server-rendered and works without JS. The FAQ uses native `<details>`.
+- **`trailingSlash: true`** matches the URL convention in the Execution Manual.
+- **Schema deviations** from the field report (current Google guidance) are documented in `src/lib/schema.ts`.
 
-**Copy lives in `lib/content.ts`, not in components.** The Web Developer Brief
-assigns all page copy, headings, meta tags, alt text and schema values to the
-SEO professional rather than to engineering. Keeping every string in one typed
-module means a copy change is a one-file diff and never touches markup.
+## Not built yet
 
-**`lib/schema.ts` is generated from the same module the page renders**, so the
-structured data and the visible page cannot drift apart.
-
-**No CSS framework.** `app/globals.css` is one hand-written stylesheet, small
-enough to read top to bottom, with the design system documented in comments at
-the head of the file. Components carry no styles of their own.
-
-**`SiteLink`, not `next/link`, for internal hrefs.** The site's URL structure
-covers around forty pages; this app currently serves one. `SiteLink` routes
-through `next/link` only for routes listed in its `IMPLEMENTED` set and falls
-back to a plain anchor otherwise, so unbuilt pages are not prefetched. Add a
-route to that set when its page lands.
-
-## Design
-
-Direction, type system, colour, and the full decision log are in
-[docs/DESIGN-NOTES.md](docs/DESIGN-NOTES.md). The short version:
-
-| | |
-|---|---|
-| Display | Bricolage Grotesque 400, variable `opsz` |
-| Body | Schibsted Grotesk |
-| Labels | IBM Plex Mono, uppercase |
-| Ink | `#0E1726` |
-| Brand | `#002561` navy, `#F44336` red |
-| Accent | `#8FE8D4` seafoam, sampled from the sea in the hero photograph |
-
-## Search indexing
-
-**This app is blocked from search engines by default.** While it is a preview
-it must not compete with the live WordPress site at onelovegolfcartsbelize.com:
-two copies of the same copy, both targeting the same head query, is the exact
-duplicate-content problem the SEO plan exists to avoid.
-
-It is enforced in three places, so nothing slips through:
-
-| Layer | File | Covers |
-|---|---|---|
-| `<meta name="robots">` | `app/layout.tsx` | anything that renders HTML |
-| `robots.txt` | `app/robots.ts` | well-behaved crawlers |
-| `X-Robots-Tag` header | `next.config.ts` | images, JSON and assets with no meta tag |
-
-### Before launch
-
-Set `NEXT_PUBLIC_ALLOW_INDEXING=true` in the production environment. That is
-the only change required: all three layers read it, and the sitemap reference
-is added to `robots.txt` automatically. Leave it unset on every preview
-deployment.
-
-One caveat worth knowing. `Disallow: /` stops a crawler fetching the page,
-which means it never sees the `noindex` tag. That is the right order for a URL
-that has never been indexed, which is the case here. If a preview URL ever does
-get indexed, allow crawling first so the `noindex` can be read, and only add
-the disallow once it has dropped out.
-
-## Status
-
-The homepage is built. The other pages in the Execution Manual are not.
-`docs/DESIGN-NOTES.md` lists the URLs referenced but not yet created, the
-assets the client still owes, and the copy decisions the SEO professional
-needs to sign off.
+- Every page the homepage links to (`/book-now/`, `/rates/`, `/our-carts/`, location pages, guides) shows the 404 page until it's built.
+- The booking and contact forms currently live in WPForms on the WordPress site. A Next.js replacement needs a form handler (route handler + email or CRM) and a decision about payments (PayPal / Pay Now).
+- Rank Math's per-page SEO control doesn't exist here. Titles and descriptions live in each route's `metadata` export.

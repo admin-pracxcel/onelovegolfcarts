@@ -1,26 +1,29 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* The live site and every URL in the Execution Manual use trailing slashes.
-     Matching that here keeps canonicals and internal links consistent with the
-     SEO plan and avoids a redirect hop per link. */
+  // Execution Manual URL convention: lowercase, hyphenated, trailing slash.
   trailingSlash: true,
-
-  /* X-Robots-Tag covers what a <meta> tag cannot: images, JSON-LD responses,
-     fonts and any other asset a crawler might index on its own. Mirrors
-     lib/seo.ts; set NEXT_PUBLIC_ALLOW_INDEXING=true to lift it. */
+  poweredByHeader: false,
   async headers() {
-    if (process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true") return [];
     return [
       {
-        source: "/:path*",
+        source: '/:path*',
         headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          // Preview: keep every response out of search indexes (mirrors lib/seo.ts).
+          ...(process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true'
+            ? []
+            : [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' }]),
         ],
+      },
+      {
+        source: '/img/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ];
   },
-  /* config options here */
 };
 
 export default nextConfig;

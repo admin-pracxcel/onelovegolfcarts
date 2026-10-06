@@ -1,12 +1,21 @@
-# dependencies
-node_modules/
-.pnp
-.pnp.*
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# next
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
 /.next/
 /out/
-next-env.d.ts
 
 # production
 /build
@@ -21,28 +30,22 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env
+# env files (can opt-in for committing if needed)
 .env*
-!.env.example
 
-# deployment
+# vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+next-env.d.ts
 
-# Client strategy documents. The SEO Field Report and Execution Manual contain
-# the full keyword plan and commercial strategy; they stay out of the repo.
-# They live in the project folder locally. See docs/DESIGN-NOTES.md.
+# Client strategy documents stay out of the repo (keyword plan + commercial strategy).
 one-love-execution-manual.html
 one-love-seo-field-report.html
 one-love-webdev-brief.html
 
-# local agent tooling and working artefacts (vendored skills, not project source)
+# local agent tooling and working artefacts
 .agents/
-.codex/
 .claude/
-.shots/
-.refs/
-skills-lock.json
-.impeccable/hook.cache.json
+.qa/

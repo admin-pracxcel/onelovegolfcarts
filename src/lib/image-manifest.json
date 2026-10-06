@@ -1,0 +1,111 @@
+{
+  "guests-golf-cart-convoy-beachfront-san-pedro": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      640,
+      800,
+      960,
+      1280
+    ]
+  },
+  "red-4-seater-club-car-bougainvillea-resort": {
+    "w": 1440,
+    "h": 1080,
+    "widths": [
+      480,
+      640,
+      800,
+      1200
+    ]
+  },
+  "maroon-6-seater-golf-cart-beachfront-park": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      480,
+      640,
+      800,
+      1200
+    ]
+  },
+  "one-love-fleet-lineup-under-palms": {
+    "w": 1280,
+    "h": 958,
+    "widths": [
+      480,
+      640,
+      800,
+      1280
+    ]
+  },
+  "golf-cart-tropic-air-terminal-san-pedro-airport": {
+    "w": 1440,
+    "h": 1080,
+    "widths": [
+      480,
+      640,
+      800,
+      1200
+    ]
+  },
+  "guests-luggage-golf-carts-village-mart": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      480,
+      640,
+      800,
+      1280
+    ]
+  },
+  "green-golf-cart-san-pedro-central-park": {
+    "w": 1440,
+    "h": 1080,
+    "widths": [
+      480,
+      640,
+      800,
+      1200
+    ]
+  },
+  "camo-golf-cart-colourful-san-pedro-street": {
+    "w": 1440,
+    "h": 1080,
+    "widths": [
+      480,
+      640,
+      800,
+      1200
+    ]
+  },
+  "colourful-golf-cart-fleet-palms": {
+    "w": 1280,
+    "h": 794,
+    "widths": [
+      640,
+      960,
+      1280
+    ]
+  },
+  "blog-sand-road-golf-cart-coast": {
+    "w": 1280,
+    "h": 720,
+    "widths": [
+      480,
+      640,
+      800,
+      1280
+    ]
+  },
+  "blog-beach-restaurant-lobster": {
+    "w": 1344,
+    "h": 768,
+    "widths": [
+      480,
+      640,
+      800,
+      1280
+    ]
+  }
+}

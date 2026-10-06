@@ -1,0 +1,36 @@
+/* ==========================================================================
+   Motion — progressive enhancement. Content is fully visible without JS;
+   reveal states only apply once main.js adds .js-reveal to <html>.
+   ========================================================================== */
+
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  transition-delay: var(--d, 0s);
+}
+.js-reveal [data-reveal="clip"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(14% 6% 0 6% round var(--radius-lg));
+  transition: clip-path 1.3s var(--ease-out);
+}
+.js-reveal [data-reveal="clip"] img { transform: scale(1.12); transition: transform 1.6s var(--ease-out); }
+.js-reveal [data-reveal].is-in { opacity: 1; transform: none; }
+.js-reveal [data-reveal="clip"].is-in { clip-path: inset(0 0 0 0 round 0); }
+.js-reveal [data-reveal="clip"].is-in img { transform: none; }
+
+/* Hero entrance items run immediately (no observer delay). */
+.js-reveal .hero [data-reveal] { transition-duration: 1.1s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js-reveal [data-reveal],
+  .js-reveal [data-reveal="clip"] { opacity: 1; transform: none; clip-path: none; }
+  .js-reveal [data-reveal="clip"] img { transform: none; }
+}

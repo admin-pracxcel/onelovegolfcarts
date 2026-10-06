@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Design tokens — One Love
+   Palette: sand + ink navy + one accent (logo coral). Logo yellow is reserved
+   for ratings. Colour comes from the photography.
+   Fonts are loaded by next/font/local (src/app/fonts.ts) and exposed as
+   --font-display / --font-body.
+   ========================================================================== */
+
+:root {
+  /* Colour */
+  --sand: #f5efe4;
+  --sand-2: #ece3d2;
+  --paper: #fffcf6;
+  --ink: #0a1a3a;
+  --ink-2: #13264d;
+  --navy: #002060;
+  --text: #0a1a3a;
+  --muted: #555c6e;        /* 5.6:1 on sand */
+  --muted-light: #c3cad8;  /* on ink */
+  --line: rgb(10 26 58 / 0.12);
+  --line-light: rgb(255 255 255 / 0.16);
+  --coral: #f04850;        /* brand accent (decorative / large text) */
+  --coral-btn: #d8333c;    /* white text AA 4.7:1 */
+  --coral-btn-hover: #bf2730;
+  --coral-light: #ff8a8f;  /* accent on ink */
+  --sun: #f8d858;
+  --sun-deep: #e9ad00;     /* stars on light backgrounds */
+
+  /* Type */
+  --f-display: var(--font-display), "Arial Narrow", sans-serif;
+  --f-body: var(--font-body), system-ui, sans-serif;
+
+  --t-hero: clamp(2.875rem, 1.15rem + 5.15vw, 5.75rem);
+  --t-display: clamp(2.75rem, 0.9rem + 6.1vw, 7.25rem);
+  --t-h2: clamp(2.125rem, 1.25rem + 2.75vw, 4rem);
+  --t-h3: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem);
+  --t-lead: clamp(1.1875rem, 0.9rem + 1.2vw, 2rem);
+  --t-body: 1.0625rem;
+  --t-small: 0.9375rem;
+  --t-xs: 0.8125rem;
+
+  /* Space & layout */
+  --gutter: clamp(1.25rem, 0.6rem + 2.8vw, 3rem);
+  --container: 82.5rem; /* 1320px */
+  --frame: clamp(0.5rem, 0.2rem + 0.8vw, 0.875rem);
+  --section: clamp(5rem, 3rem + 6.5vw, 9.5rem);
+  --radius-lg: clamp(1.25rem, 0.9rem + 1vw, 2rem);
+  --radius: clamp(1rem, 0.8rem + 0.6vw, 1.5rem);
+  --radius-sm: 0.75rem;
+  --header-h: 4.75rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur: 0.9s;
+
+  --shadow-pop: 0 1px 2px rgb(10 26 58 / 0.06), 0 18px 48px -12px rgb(10 26 58 / 0.22);
+
+  interpolate-size: allow-keywords;
+}
