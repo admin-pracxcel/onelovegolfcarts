@@ -29,5 +29,6 @@
     "playwright": "^1.63.0",
     "sharp": "^0.34.5",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@12.9.1"
 }

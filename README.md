@@ -2,12 +2,16 @@
 
 Website for One Love Golf Cart Rentals, San Pedro, Ambergris Caye, Belize. Built with Next.js 16 (App Router), React 19 and TypeScript. Every page is statically prerendered.
 
+Uses **pnpm** (version pinned in `package.json`; `corepack enable` picks it up automatically).
+
 ```
-npm install
-npm run dev              # http://localhost:3000
-npm run build && npm start
-npm run lint
+pnpm install
+pnpm dev                 # http://localhost:3000
+pnpm build && pnpm start
+pnpm lint
 ```
+
+Install scripts are allowed only for `sharp` and `unrs-resolver` (see `pnpm-workspace.yaml`); approve any new one with `pnpm approve-builds <package>`.
 
 ## Pages
 
@@ -41,21 +45,21 @@ With no delivery variable set, the contact form tells visitors to email or Whats
 
 ## Images
 
-Source photos live in `assets/source/`. `npm run images` writes AVIF/WebP/JPEG variants to `public/img/` and updates `src/lib/image-manifest.json`. To add a photo, put it in `assets/source/`, list it in `scripts/build-images.mjs`, and run the script.
+Source photos live in `assets/source/`. `pnpm images` writes AVIF/WebP/JPEG variants to `public/img/` and updates `src/lib/image-manifest.json`. To add a photo, put it in `assets/source/`, list it in `scripts/build-images.mjs`, and run the script.
 
 ## QA scripts
 
-Run against a local server (`npm run build && npm start`). Output goes to `.qa/` (git-ignored).
+Run against a local server (`pnpm build && pnpm start`). Output goes to `.qa/` (git-ignored).
 
 ```
-npm run qa:shots -- .qa http://localhost:3000/rates/   # screenshots at 1440/1280/768/390, overflow + console check
-npm run qa:a11y -- http://localhost:3000/rates/        # axe scan, heading outline, JSON-LD, images, links
-npm run qa:promo                                       # popup once-per-visit behaviour
-npm run qa:contact                                     # contact form validation and delivery
-npm run qa:trust                                       # USP strip: one line / marquee
+pnpm qa:shots .qa http://localhost:3000/rates/  # screenshots at 1440/1280/768/390, overflow + console check
+pnpm qa:a11y http://localhost:3000/rates/       # axe scan, heading outline, JSON-LD, images, links
+pnpm qa:promo                                   # popup once-per-visit behaviour
+pnpm qa:contact                                 # contact form validation and delivery
+pnpm qa:trust                                   # USP strip: one line / marquee
 ```
 
-These need the Playwright browser: `npx playwright install chromium`.
+These need the Playwright browser: `pnpm exec playwright install chromium`.
 
 ## Structure
 
