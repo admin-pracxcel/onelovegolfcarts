@@ -133,6 +133,8 @@ export type CartProductInput = {
   description: string;
   image: string;
   usd: { day: number; week: number };
+  /** Full spec as additionalProperty (comparison page). */
+  specs?: { name: string; value: string }[];
 };
 
 /** One Product per cart. Same @id on every page, so search engines merge them. */
@@ -145,6 +147,9 @@ function cartProduct(c: CartProductInput) {
     description: c.description,
     image: abs(c.image),
     url: abs(`/our-carts/#${c.id}`),
+    ...(c.specs && {
+      additionalProperty: c.specs.map((p) => ({ '@type': 'PropertyValue', name: p.name, value: p.value })),
+    }),
     offers: ([['day', 1], ['week', 7]] as const).map(([period, days]) => ({
       '@type': 'Offer',
       price: c.usd[period].toFixed(2),
@@ -429,6 +434,49 @@ export function arrivalGuideSchema(opts: {
         name: opts.howTo.name,
         step: opts.howTo.steps.map((text, i) => ({ '@type': 'HowToStep', position: i + 1, text })),
       },
+      faqSchema(opts.faq, opts.path),
+    ],
+  };
+}
+
+/**
+ * 4 vs 6 comparison pillar: Article, ItemList of both cart Products (full
+ * spec), FAQPage, BreadcrumbList (Home > Our Carts > comparison; the manual's
+ * Blog > Cart Selection trail needs a blog that does not exist yet).
+ */
+export function compareSchema(opts: {
+  path: string;
+  title: string;
+  description: string;
+  image: string;
+  published: string;
+  carts: CartProductInput[];
+  faq: [string, string][];
+}) {
+  const url = abs(opts.path);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([
+        { name: 'Our Carts', path: '/our-carts/' },
+        { name: '4-Seater vs 6-Seater', path: opts.path },
+      ]),
+      {
+        '@type': 'Article',
+        '@id': `${url}#article`,
+        headline: opts.title,
+        description: opts.description,
+        image: abs(opts.image),
+        datePublished: opts.published,
+        dateModified: opts.published,
+        author: { '@id': BUSINESS_ID },
+        publisher: { '@id': BUSINESS_ID },
+        mainEntityOfPage: url,
+        inLanguage: 'en-US',
+        about: opts.carts.map((c) => ({ '@id': abs(`/our-carts/#${c.id}`) })),
+      },
+      cartItemList(opts.carts),
       faqSchema(opts.faq, opts.path),
     ],
   };
