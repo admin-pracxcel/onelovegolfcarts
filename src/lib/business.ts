@@ -111,6 +111,7 @@ export const urls = {
   events: '/san-pedro-events-golf-cart-guide/',
   perseid: '/perseid-meteor-shower-dark-sky-driving-for-stargazing/', // existing blog post on the live site
   'water-taxi': '/water-taxi-belize-city-to-san-pedro-guide/',
+  'deep-south': '/the-deep-south-expedition-how-far-can-you-really-go/', // existing blog post on the live site
 } as const;
 
 export type UrlKey = keyof typeof urls;

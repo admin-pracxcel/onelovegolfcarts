@@ -268,7 +268,7 @@
 .loc-groups { display: grid; gap: 1rem; }
 .loc-group { padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius-lg); background: var(--paper); }
 .loc-group--1 { background: var(--ink); color: #fff; }
-.loc-group__name { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; }
+.loc-group__name { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; }
 .loc-group ul { display: grid; margin-top: 1rem; }
 .loc-group li { display: grid; gap: 0.15rem; padding-block: 0.75rem; border-top: 1px solid var(--line); }
 .loc-group--1 li { border-color: var(--line-light); }
@@ -277,3 +277,13 @@
 .loc-group--1 li span { color: var(--muted-light); }
 @media (min-width: 760px) { .loc-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1200px) { .loc-groups { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Delivery-time list ------------------------------------------------------------ */
+
+.loc-times { padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius-lg); background: var(--ink); color: #fff; }
+.loc-times__label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun); }
+.loc-times ul { margin-top: 1rem; }
+.loc-times li { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding-block: 1rem; border-top: 1px solid var(--line-light); }
+.loc-times__to { display: grid; gap: 0.2rem; font-weight: 600; }
+.loc-times__to small { font-size: var(--t-xs); font-weight: 400; color: var(--muted-light); }
+.loc-times__time { flex: none; font-family: var(--f-display); font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem); font-weight: 750; letter-spacing: -0.03em; white-space: nowrap; }
