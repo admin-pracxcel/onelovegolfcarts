@@ -179,3 +179,7 @@ export const finalCta = {
 
 // Manual: "Last verified [Month] [Year]". Update when rates/hours are re-checked.
 export const lastVerified = 'October 2026';
+
+// Site-wide announcement bar (carried over verbatim from the live site).
+export const announcement =
+  'We typically don’t accept one‑day rentals, but limited one‑day bookings may be available if confirmed at least one day before your arrival.';

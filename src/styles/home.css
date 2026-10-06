@@ -10,7 +10,7 @@
   isolation: isolate;
   display: grid;
   align-content: end;
-  min-height: max(40rem, 100svh - var(--frame));
+  min-height: max(40rem, 100svh - var(--frame) - var(--topbar-h));
   max-height: 64rem;
   padding: calc(var(--header-h) + 3rem) clamp(1.25rem, 0.4rem + 3.2vw, 3.5rem) clamp(1.5rem, 0.8rem + 2.6vw, 3.5rem);
   border-radius: var(--radius-lg);
@@ -108,7 +108,7 @@
   .hero__rates { width: 20rem; margin: 0; }
 }
 @media (max-width: 599px) {
-  .hero__frame { min-height: max(37rem, 92svh); padding-top: calc(var(--header-h) + 9rem); }
+  .hero__frame { min-height: max(37rem, 92svh - var(--topbar-h)); padding-top: calc(var(--header-h) + 9rem); }
   .hero__img { object-position: 24% 62%; }
   .hero__rates { display: none; }
   .hero__frame::before {

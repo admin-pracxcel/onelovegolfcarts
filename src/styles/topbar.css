@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Announcement bar (components/TopBar.tsx)
+   --topbar-h is a pre-JS estimate per breakpoint; Header.tsx replaces it with
+   the measured height. --hdr-offset keeps the fixed header pinned directly
+   under the bar until the bar has scrolled away.
+   ========================================================================== */
+
+:root { --topbar-h: 2.625rem; }
+@media (max-width: 899px) { :root { --topbar-h: 3.75rem; } }
+@media (max-width: 479px) { :root { --topbar-h: 4.75rem; } }
+
+.topbar {
+  display: grid;
+  place-items: center;
+  min-height: var(--topbar-h);
+  padding: 0.6rem var(--gutter);
+  background: var(--ink);
+  color: rgb(255 255 255 / 0.88);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+}
+.topbar p { max-width: 62rem; }
+
+/* Header follows the bar up as it scrolls away. `translate` composes with the
+   hide/show `transform`, and transforms don't count towards CLS. */
+.site-header { translate: 0 var(--hdr-offset, var(--topbar-h)); }
+.mnav__inner { padding-top: calc(var(--header-h) + var(--frame) + 1.5rem + var(--hdr-offset, var(--topbar-h))); }

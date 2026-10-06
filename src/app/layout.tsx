@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { PromoModal } from '@/components/PromoModal';
 import { SiteEffects, revealBootScript } from '@/components/SiteEffects';
+import { TopBar } from '@/components/TopBar';
 import { business, SITE_URL } from '@/lib/business';
 import { ALLOW_INDEXING } from '@/lib/seo';
 import './globals.css';
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a className="skip-link" href="#main">
           Skip to content
         </a>
+        <TopBar />
         <Header />
         {children}
         <Footer />

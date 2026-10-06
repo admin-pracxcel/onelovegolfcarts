@@ -360,8 +360,9 @@ body:has(.hero) .site-header:not(.is-solid) .menu-btn { background: #fff; color:
 .site-footer__grid {
   display: grid;
   gap: 2.5rem 2rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.site-footer address a { overflow-wrap: anywhere; }
 .site-footer__brand { grid-column: 1 / -1; max-width: 22rem; }
 .site-footer__brand p { color: var(--muted-light); margin-top: 1rem; }
 .site-footer__logo img { height: 3.4rem; width: auto; }
@@ -396,7 +397,7 @@ body:has(.hero) .site-header:not(.is-solid) .menu-btn { background: #fff; color:
 .site-footer__legal { display: flex !important; flex-wrap: wrap; gap: 0.5rem 1.25rem; }
 .site-footer__base a:hover { color: #fff; }
 @media (min-width: 760px) {
-  .site-footer__grid { grid-template-columns: repeat(4, 1fr); }
+  .site-footer__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (min-width: 1100px) {
   .site-footer__grid { grid-template-columns: 1.6fr 1fr 1fr 1.25fr 1.25fr; }

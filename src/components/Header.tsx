@@ -20,13 +20,20 @@ export function Header() {
 
   /* Solid after leaving the top; hide on scroll down, return on scroll up. */
   useEffect(() => {
+    const root = document.documentElement;
     const hasHero = !!document.querySelector('.hero');
+    const topbar = document.querySelector<HTMLElement>('[data-topbar]');
+    let barH = topbar?.offsetHeight ?? 0;
     let lastY = window.scrollY;
     let ticking = false;
+    /* Keep the header pinned directly under the announcement bar until the
+       bar has scrolled out of view. */
+    const pin = (y: number) => root.style.setProperty('--hdr-offset', `${Math.max(0, barH - y)}px`);
     const update = () => {
       const y = window.scrollY;
+      pin(y);
       if (!menuOpenRef.current) {
-        setSolid(!hasHero || y > 40);
+        setSolid(!hasHero || y > barH + 40);
         if (y > lastY + 4 && y > 480) setHidden(true);
         else if (y < lastY - 4 || y < 480) setHidden(false);
       }
@@ -39,9 +46,20 @@ export function Header() {
         ticking = true;
       }
     };
+    const measure = () => {
+      barH = topbar?.offsetHeight ?? 0;
+      root.style.setProperty('--topbar-h', `${barH}px`);
+      pin(window.scrollY);
+    };
+    const ro = topbar ? new ResizeObserver(measure) : null;
+    if (topbar) ro?.observe(topbar);
+    measure();
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      ro?.disconnect();
+    };
   }, []);
 
   /* Desktop dropdowns: close on outside click / Escape. */
