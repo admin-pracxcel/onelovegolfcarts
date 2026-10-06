@@ -224,3 +224,40 @@ export function contactSchema(name: string, description: string) {
     ],
   };
 }
+
+/**
+ * /about-us/: AboutPage + BreadcrumbList, and a Person per founder (jobTitle,
+ * worksFor → LocalBusiness, image, LinkedIn sameAs) once founders are supplied.
+ */
+export function aboutSchema(
+  name: string,
+  description: string,
+  founders: { firstName: string; lastName: string; role: string; image?: string; linkedin?: string }[],
+) {
+  const people = founders.map((f, i) => ({
+    '@type': 'Person',
+    '@id': abs(`/about-us/#founder-${i + 1}`),
+    name: `${f.firstName} ${f.lastName}`,
+    jobTitle: f.role,
+    worksFor: { '@id': BUSINESS_ID },
+    ...(f.image ? { image: abs(f.image) } : {}),
+    ...(f.linkedin ? { sameAs: [f.linkedin] } : {}),
+  }));
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { ...businessSchema(), ...(people.length ? { founder: people.map((p) => ({ '@id': p['@id'] })) } : {}) },
+      breadcrumbSchema([{ name: 'About Us', path: '/about-us/' }]),
+      {
+        '@type': 'AboutPage',
+        '@id': abs('/about-us/#webpage'),
+        url: abs('/about-us/'),
+        name,
+        description,
+        about: { '@id': BUSINESS_ID },
+        inLanguage: 'en-US',
+      },
+      ...people,
+    ],
+  };
+}
