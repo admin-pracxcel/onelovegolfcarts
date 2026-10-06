@@ -1,0 +1,29 @@
+/* Pay Now. Builds on book.css (layout, aside cards) + forms.css. ------------ */
+
+.pay-methods { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); }
+.pay-methods li { padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font-size: var(--t-small); font-weight: 600; }
+.pay-methods .pay-methods__secure { display: inline-flex; align-items: center; gap: 0.45rem; background: var(--ink); border-color: var(--ink); color: #fff; }
+.pay-methods__secure .icon { width: 1rem; height: 1rem; color: var(--sun); stroke-width: 2.5; }
+
+.pay-form { gap: 1.75rem; }
+.pay-form__money { position: relative; }
+.pay-form__money span { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); font-weight: 600; color: var(--muted); pointer-events: none; }
+.field .pay-form__money input { padding-left: 2rem; font-variant-numeric: tabular-nums; font-size: 1.125rem; font-weight: 600; }
+.pay-form__buttons { min-height: 3rem; }
+.pay-form__fallback { display: grid; gap: 1rem; justify-items: start; padding: 1.25rem; border-radius: var(--radius); background: var(--sand); }
+.pay-form__fallback p { font-size: var(--t-small); }
+.pay-form .contact-form__status:empty { display: none; }
+
+.pay-options div { display: grid; gap: 0.2rem; padding-block: 0.75rem; border-bottom: 1px solid var(--line); }
+.pay-options div:first-child { padding-top: 0; }
+.pay-options div:last-child { border-bottom: 0; padding-bottom: 0; }
+.pay-options dt { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.pay-options dd { font-size: var(--t-small); font-weight: 500; }
+.pay-aside__body { font-size: var(--t-small); line-height: 1.7; color: var(--muted); }
+.pay-aside__body a { color: var(--ink); font-weight: 600; }
+.pay-aside__body--light { color: var(--muted-light); }
+
+.pay-done { display: grid; gap: 0.75rem; justify-items: start; outline: none; }
+.pay-done__icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: #dcefe2; color: #12643a; }
+.pay-done__icon .icon { width: 1.4rem; height: 1.4rem; stroke-width: 2.5; }
+.pay-done__title { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; }
