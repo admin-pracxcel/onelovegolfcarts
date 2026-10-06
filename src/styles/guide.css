@@ -1,0 +1,85 @@
+/* Long-form guide pages (arrival guide). Builds on location.css. ------------- */
+
+/* Three ways ------------------------------------------------------------------- */
+
+.guide-ways { display: grid; gap: 1rem; }
+.guide-way {
+  display: grid;
+  grid-template-rows: auto auto auto auto 1fr auto;
+  gap: 0.35rem;
+  padding: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+.guide-way.is-dark { background: var(--ink); color: #fff; }
+.guide-way__num { font-family: var(--f-display); font-weight: 700; font-size: var(--t-small); color: var(--coral-btn); }
+.guide-way.is-dark .guide-way__num { color: var(--sun); }
+.guide-way__name { margin-top: 0.75rem; font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.guide-way__from { font-size: var(--t-small); color: var(--muted); }
+.guide-way.is-dark .guide-way__from { color: var(--muted-light); }
+.guide-way__time {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--f-display);
+  font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.25rem);
+  font-weight: 750;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+.guide-way.is-dark .guide-way__time { border-color: var(--line-light); color: var(--sun); }
+.guide-way__cost { font-weight: 500; }
+.guide-way__link { justify-self: start; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding-bottom: 0.2rem; border-bottom: 1px solid currentColor; font-size: var(--t-small); font-weight: 600; text-decoration: none; }
+.guide-way__link .icon { width: 1rem; height: 1rem; transform: rotate(90deg); }
+@media (min-width: 900px) { .guide-ways { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Option sections (H2 + H3 blocks) --------------------------------------------- */
+
+.guide-option__title { max-width: 22ch; margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+.guide-option--dark { margin-inline: clamp(0px, 1vw, 8px); border-radius: var(--radius-lg); background: var(--ink); color: #fff; }
+.guide-option--dark .eyebrow { color: var(--muted-light); }
+.guide-blocks { display: grid; gap: 1rem; }
+.guide-block { display: grid; gap: 0.6rem; align-content: start; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); border-radius: var(--radius); background: var(--paper); }
+.guide-block__title { font-family: var(--f-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.guide-block p { font-size: var(--t-small); line-height: 1.7; color: var(--muted); }
+.guide-option--dark .guide-block { background: rgb(255 255 255 / 0.06); border: 1px solid var(--line-light); }
+.guide-option--dark .guide-block p { color: var(--muted-light); }
+@media (min-width: 700px) { .guide-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) {
+  .guide-blocks--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .guide-blocks--5 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .guide-blocks--5 > :nth-child(-n + 2) { grid-column: span 3; }
+  .guide-blocks--5 > :nth-child(n + 3) { grid-column: span 2; }
+}
+
+/* Decision matrix ---------------------------------------------------------------- */
+
+.guide-matrix { border-top: 1px solid var(--ink); }
+.guide-matrix li { display: grid; gap: 0.5rem; padding-block: 1.25rem; border-bottom: 1px solid var(--line); }
+.guide-matrix__who { font-family: var(--f-display); font-size: 1.25rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.25; }
+.guide-matrix__pick { justify-self: start; padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--paper); font-size: var(--t-small); font-weight: 700; white-space: nowrap; }
+.guide-matrix__pick.is-fly { background: var(--ink); color: #fff; }
+.guide-matrix__why { font-size: var(--t-small); color: var(--muted); }
+@media (min-width: 900px) {
+  .guide-matrix li { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 6fr); gap: 2rem; align-items: center; }
+}
+
+/* BZE + cart sections ------------------------------------------------------------ */
+
+.guide-bze-foot { display: grid; gap: 1.5rem; margin-top: 2rem; }
+.guide-bze-foot .loc-links { margin-top: 0; }
+@media (min-width: 900px) { .guide-bze-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; } }
+
+.guide-sub { margin-top: 2rem; font-family: var(--f-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+.loc-send__inner > div:first-child .guide-sub + p { margin-top: 0.6rem; }
+.guide-steps { margin-top: 2rem; }
+
+/* Currency / immigration / SIM ---------------------------------------------------- */
+
+.guide-practical { display: grid; gap: 1rem; }
+.guide-block .guide-practical__figure { font-family: var(--f-display); font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem); font-weight: 750; letter-spacing: -0.05em; line-height: 1; color: var(--ink); margin-bottom: 0.75rem; }
+@media (min-width: 900px) { .guide-practical { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.guide-way:not(:has(.guide-way__time)) .guide-way__cost { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-family: var(--f-display); font-size: 1.375rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.25; }
+@media (min-width: 900px) { .journey.guide-journey { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.guide-page .loc-send__card { align-self: start; }

@@ -22,5 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/golf-cart-delivery-victoria-house/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/golf-cart-delivery-belize-yacht-club/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/golf-cart-delivery-alaia-belize/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/getting-to-san-pedro-belize-arrival-guide/`, lastModified: new Date('2026-10-06') },
   ];
 }

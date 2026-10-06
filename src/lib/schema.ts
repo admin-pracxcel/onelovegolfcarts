@@ -381,3 +381,55 @@ export function locationSchema(opts: {
     ],
   };
 }
+
+/**
+ * Arrival guide pillar: Article about San Pedro, with the "cart waiting"
+ * section as a nested HowTo (kept per the manual; Google no longer shows
+ * HowTo rich results, but the markup is valid), FAQPage and BreadcrumbList.
+ */
+export function arrivalGuideSchema(opts: {
+  path: string;
+  crumb: string;
+  title: string;
+  description: string;
+  image: string;
+  published: string;
+  howTo: { name: string; steps: string[] };
+  faq: [string, string][];
+}) {
+  const url = abs(opts.path);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: opts.crumb, path: opts.path }]),
+      {
+        '@type': 'Article',
+        '@id': `${url}#article`,
+        headline: opts.title,
+        description: opts.description,
+        image: abs(opts.image),
+        datePublished: opts.published,
+        dateModified: opts.published,
+        author: { '@id': BUSINESS_ID },
+        publisher: { '@id': BUSINESS_ID },
+        mainEntityOfPage: url,
+        inLanguage: 'en-US',
+        about: {
+          '@type': 'Place',
+          name: 'San Pedro',
+          containedInPlace: { '@type': 'Place', name: 'Ambergris Caye', sameAs: 'https://en.wikipedia.org/wiki/Ambergris_Caye' },
+          sameAs: 'https://en.wikipedia.org/wiki/San_Pedro_Town',
+        },
+        hasPart: { '@id': `${url}#cart` },
+      },
+      {
+        '@type': 'HowTo',
+        '@id': `${url}#cart`,
+        name: opts.howTo.name,
+        step: opts.howTo.steps.map((text, i) => ({ '@type': 'HowToStep', position: i + 1, text })),
+      },
+      faqSchema(opts.faq, opts.path),
+    ],
+  };
+}
