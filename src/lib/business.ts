@@ -105,6 +105,12 @@ export const urls = {
   refuel: '/where-to-refuel-your-golf-cart-ambergris-caye/',
   'drive-local': '/how-to-drive-golf-cart-in-san-pedro-like-local/',
   'things-to-do': '/things-to-do-ambergris-caye-golf-cart/',
+  sunset: '/best-sunset-drive-routes-ambergris-caye/',
+  snorkel: '/snorkel-launches-reachable-by-golf-cart-ambergris/',
+  'lobster-crawl': '/the-great-lobster-crawl-a-self-guided-culinary-tour/', // existing blog post on the live site
+  events: '/san-pedro-events-golf-cart-guide/',
+  perseid: '/perseid-meteor-shower-dark-sky-driving-for-stargazing/', // existing blog post on the live site
+  'water-taxi': '/water-taxi-belize-city-to-san-pedro-guide/',
 } as const;
 
 export type UrlKey = keyof typeof urls;

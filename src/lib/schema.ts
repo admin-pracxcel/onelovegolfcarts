@@ -302,3 +302,40 @@ export function gallerySchema(
     ],
   };
 }
+
+/**
+ * /ambergris-caye/ (pillar): WebPage about the Ambergris Caye Place, FAQPage,
+ * BreadcrumbList. The Place is identified by its Wikipedia entity (sameAs)
+ * rather than an invented coordinate pair. Breadcrumb is Home > Ambergris
+ * Caye: the manual's "Locations" level has no page yet, and Google requires
+ * every intermediate crumb to be a real URL.
+ */
+export function ambergrisSchema(title: string, description: string, faqItems: [string, string][]) {
+  const PLACE_ID = abs('/ambergris-caye/#place');
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { ...businessSchema(), areaServed: [{ '@id': PLACE_ID }] },
+      breadcrumbSchema([{ name: 'Ambergris Caye', path: '/ambergris-caye/' }]),
+      {
+        '@type': 'Place',
+        '@id': PLACE_ID,
+        name: 'Ambergris Caye',
+        description: 'The largest island in Belize, about 25 miles long and less than a mile wide at most points.',
+        containedInPlace: { '@type': 'Country', name: 'Belize' },
+        sameAs: ['https://en.wikipedia.org/wiki/Ambergris_Caye'],
+      },
+      {
+        '@type': 'WebPage',
+        '@id': abs('/ambergris-caye/#webpage'),
+        url: abs('/ambergris-caye/'),
+        name: title,
+        description,
+        about: { '@id': PLACE_ID },
+        mentions: { '@id': BUSINESS_ID },
+        inLanguage: 'en-US',
+      },
+      faqSchema(faqItems, '/ambergris-caye/'),
+    ],
+  };
+}
