@@ -1,0 +1,19 @@
+/* Meet the Team. Builds on location.css + about.css (team cards). ---------- */
+
+.team-page .family { padding-top: var(--section); }
+.team-page .family + .team-credo { margin-top: 0; }
+
+.team-credo { margin-top: var(--section); margin-inline: clamp(0px, 1vw, 8px); border-radius: var(--radius-lg); background: var(--ink); color: #fff; }
+.team-credo__inner { display: grid; gap: 3rem; }
+.team-credo__body { margin-top: 1.5rem; max-width: 40rem; font-family: var(--f-display); font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.6rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.45; color: #fff; }
+.team-credo__reviews { display: grid; gap: 1rem; align-content: start; }
+.team-credo__label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun); }
+.team-quote { margin: 0; display: grid; gap: 0.75rem; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); border-radius: var(--radius); background: rgb(255 255 255 / 0.06); border: 1px solid var(--line-light); }
+.team-quote blockquote p { line-height: 1.6; color: var(--muted-light); }
+.team-quote figcaption { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; padding-top: 0.75rem; border-top: 1px solid var(--line-light); }
+.team-quote cite { font-style: normal; font-weight: 600; }
+.team-quote figcaption span { font-size: var(--t-xs); color: var(--muted-light); }
+@media (min-width: 1000px) { .team-credo__inner { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(3rem, 2rem + 4vw, 6rem); align-items: start; } }
+
+.team-links { padding-block: clamp(2.5rem, 2rem + 2vw, 4rem); }
+.team-links .loc-links { margin-top: 0; }

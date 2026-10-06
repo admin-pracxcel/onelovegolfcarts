@@ -523,3 +523,42 @@ export function fleetSchema(opts: {
     ],
   };
 }
+
+/** /meet-the-team/: WebPage, breadcrumbs via About Us, a Person per team card. */
+export function teamSchema(opts: {
+  path: string;
+  title: string;
+  description: string;
+  people: { id: string; name: string; role: string; image?: string }[];
+}) {
+  const url = abs(opts.path);
+  const people = opts.people.map((p) => ({
+    '@type': 'Person',
+    '@id': `${url}#${p.id}`,
+    name: p.name,
+    jobTitle: p.role,
+    worksFor: { '@id': BUSINESS_ID },
+    ...(p.image ? { image: abs(p.image) } : {}),
+  }));
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([
+        { name: 'About Us', path: '/about-us/' },
+        { name: 'Meet the Team', path: opts.path },
+      ]),
+      {
+        '@type': 'AboutPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: opts.title,
+        description: opts.description,
+        about: { '@id': BUSINESS_ID },
+        inLanguage: 'en-US',
+        ...(people.length ? { mentions: people.map((p) => ({ '@id': p['@id'] })) } : {}),
+      },
+      ...people,
+    ],
+  };
+}
