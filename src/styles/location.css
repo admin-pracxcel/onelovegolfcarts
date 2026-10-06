@@ -23,7 +23,7 @@
 .loc-hero__card .link-arrow { color: #fff; font-size: var(--t-small); }
 @media (min-width: 1000px) {
   .loc-hero { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
-  .loc-hero__main { aspect-ratio: auto; min-height: 30rem; }
+  .loc-hero__main { aspect-ratio: 16 / 11; }
 }
 
 .loc-facts {
@@ -189,6 +189,7 @@
 .journey__stop.is-end::before { background: var(--coral-btn); }
 .journey__place { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .journey__stop.is-end .journey__place { color: var(--sun); }
+.journey__stop.is-end .journey__time { background: rgb(255 255 255 / 0.14); color: #fff; }
 .journey__step { font-family: var(--f-display); font-size: 1.125rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
 .journey__time { justify-self: start; padding: 0.3rem 0.6rem; border-radius: 999px; background: var(--sand); font-size: var(--t-xs); font-weight: 700; }
 .journey__total { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.25rem; font-weight: 600; }
@@ -234,3 +235,25 @@
 .loc-which__media picture { height: 100%; }
 .loc-which .loc-links { margin-top: 0.5rem; }
 @media (min-width: 1000px) { .loc-which__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(3rem, 2rem + 4vw, 6rem); align-items: center; } }
+
+/* Traits + chips card -------------------------------------------------------- */
+
+.loc-traits { display: grid; gap: 0.9rem; align-content: start; padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius-lg); background: var(--ink); color: #fff; }
+.loc-traits__label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun); }
+.loc-traits__label:not(:first-child) { margin-top: 0.75rem; }
+.loc-traits__list { display: grid; gap: 0.5rem; }
+.loc-traits__list li { display: flex; gap: 0.6rem; font-family: var(--f-display); font-size: 1.1875rem; font-weight: 600; letter-spacing: -0.015em; }
+.loc-traits__list li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 0.55em; border-radius: 50%; background: var(--coral-light); }
+.loc-traits__bars { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.loc-traits__bars li { padding: 0.45rem 0.85rem; border-radius: 999px; background: rgb(255 255 255 / 0.1); font-size: var(--t-small); color: var(--muted-light); }
+
+/* Practical tips list ----------------------------------------------------------- */
+
+.loc-tips { display: grid; border-top: 1px solid var(--ink); }
+.loc-tips div { display: grid; gap: 0.25rem; padding-block: 1rem; border-bottom: 1px solid var(--line); }
+.loc-tips dt { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.loc-tips dd { font-family: var(--f-display); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.35; }
+@media (min-width: 600px) { .loc-tips div { grid-template-columns: 8rem 1fr; gap: 1.5rem; align-items: baseline; } }
+
+.loc-tight { padding-top: 0; }
+@media (min-width: 900px) { .loc-options--two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
