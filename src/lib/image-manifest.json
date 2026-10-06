@@ -107,5 +107,57 @@
       800,
       1280
     ]
+  },
+  "teal-4-seater-golf-cart-side-profile": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      480,
+      640,
+      800,
+      1280
+    ]
+  },
+  "orange-6-seater-golf-cart-san-pedro-street": {
+    "w": 1600,
+    "h": 900,
+    "widths": [
+      480,
+      640,
+      800,
+      1200,
+      1600
+    ]
+  },
+  "navy-6-seater-golf-cart-rear-bench-profile": {
+    "w": 1600,
+    "h": 900,
+    "widths": [
+      480,
+      640,
+      800,
+      1200,
+      1600
+    ]
+  },
+  "blue-golf-cart-one-love-lot": {
+    "w": 1280,
+    "h": 720,
+    "widths": [
+      480,
+      640,
+      800,
+      1280
+    ]
+  },
+  "golf-cart-fleet-lineup-lot": {
+    "w": 1600,
+    "h": 900,
+    "widths": [
+      640,
+      960,
+      1280,
+      1600
+    ]
   }
 }

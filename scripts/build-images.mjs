@@ -21,6 +21,12 @@ const PHOTOS = {
   'colourful-golf-cart-fleet-palms': [640, 960, 1280],
   'blog-sand-road-golf-cart-coast': [480, 640, 800, 1280],
   'blog-beach-restaurant-lobster': [480, 640, 800, 1280],
+  // Our Carts
+  'teal-4-seater-golf-cart-side-profile': [480, 640, 800, 1280],
+  'orange-6-seater-golf-cart-san-pedro-street': [480, 640, 800, 1200, 1600],
+  'navy-6-seater-golf-cart-rear-bench-profile': [480, 640, 800, 1200, 1600],
+  'blue-golf-cart-one-love-lot': [480, 640, 800, 1280],
+  'golf-cart-fleet-lineup-lot': [640, 960, 1280, 1600],
 };
 
 await mkdir(OUT, { recursive: true });

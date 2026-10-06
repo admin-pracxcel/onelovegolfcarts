@@ -113,3 +113,62 @@ export function homeSchema() {
 export function jsonLd(data: unknown) {
   return { __html: JSON.stringify(data).replace(/</g, '\\u003c') };
 }
+
+/** BreadcrumbList for any inner page. `trail` excludes Home. */
+export function breadcrumbSchema(trail: { name: string; path: string }[]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: [{ name: 'Home', path: '/' }, ...trail].map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: abs(c.path),
+    })),
+  };
+}
+
+/**
+ * /our-carts/: the site's Product host (Execution Manual §06).
+ * Prices are per-period rental rates, so each Offer carries a
+ * UnitPriceSpecification (1 day / 7 days). No aggregateRating (third-party
+ * rating; see note at top). priceValidUntil is omitted: no end date has been
+ * supplied for standard rates.
+ */
+export function cartsSchema(
+  carts: { id: '4-seater' | '6-seater'; name: string; description: string; image: string; usd: { day: number; week: number } }[],
+) {
+  const product = (c: (typeof carts)[number]) => ({
+    '@type': 'Product',
+    '@id': abs(`/our-carts/#${c.id}`),
+    name: `${c.name} golf cart rental, San Pedro Belize`,
+    brand: { '@type': 'Brand', name: 'Club Car' },
+    description: c.description,
+    image: abs(c.image),
+    url: abs(`/our-carts/#${c.id}`),
+    offers: ([['day', 1], ['week', 7]] as const).map(([period, days]) => ({
+      '@type': 'Offer',
+      price: c.usd[period].toFixed(2),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      seller: { '@id': BUSINESS_ID },
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: c.usd[period].toFixed(2),
+        priceCurrency: 'USD',
+        referenceQuantity: { '@type': 'QuantitativeValue', value: days, unitCode: 'DAY' },
+      },
+    })),
+  });
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: 'Our Carts', path: '/our-carts/' }]),
+      {
+        '@type': 'ItemList',
+        name: 'One Love golf cart fleet',
+        itemListElement: carts.map((c, i) => ({ '@type': 'ListItem', position: i + 1, item: product(c) })),
+      },
+    ],
+  };
+}
