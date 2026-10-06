@@ -12,11 +12,12 @@
  *   are dropped, because there are none.
  * VERIFY all of the above with the client, plus the insurance claim itself.
  */
+import { business } from '@/lib/business';
 import type { ImageName } from '@/lib/images';
 
 /** Fill these in to complete the page. */
 export const FLEET_SIZE: number | null = null;
-export const INSURANCE_CARRIER: string | null = null;
+export const INSURANCE_CARRIER = business.insurer;
 export const WORKSHOP_PHOTOS = false;
 export type Mechanic = {
   firstName: string;
