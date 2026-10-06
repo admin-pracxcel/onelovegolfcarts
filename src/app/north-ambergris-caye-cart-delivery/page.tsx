@@ -182,7 +182,7 @@ export default function NorthAmbergrisPage() {
                   <ul>
                     {g.items.map((it) => (
                       <li key={it.name}>
-                        <strong>{it.name}</strong>
+                        <strong>{it.href ? <Link href={it.href} prefetch={false}>{it.name}</Link> : it.name}</strong>
                         <span>{it.note}</span>
                       </li>
                     ))}

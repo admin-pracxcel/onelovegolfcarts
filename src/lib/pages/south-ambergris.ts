@@ -3,6 +3,8 @@
  * (location pages), verbatim.
  */
 
+import { urls } from '@/lib/business';
+
 export const meta = {
   title: 'South Ambergris Caye Golf Cart Delivery | One Love',
   description:
@@ -47,16 +49,16 @@ export const south = {
   h2: "What's on the south side",
   body: "Resorts as listed above. Restaurants: Elvi's Kitchen (Coconut Drive south of Central Park, Belizean classic), Wayo's Beach Bar (further south, casual, live music), Blue Water Grill at SunBreeze, and the resort dining rooms at Mahogany Bay and Victoria House. Beaches: quieter than town beaches, with public access at Ramon's Village, SunBreeze, and further south. Dive shops: Belize Diving Adventures and Ecologic Divers along Coconut Drive. Sunset spots: any west-facing pull-off along Coconut Drive past the airport.",
   // Categories restated from the copy above.
-  groups: [
+  groups: <{ name: string; items: { name: string; note: string; href?: string }[] }[]>[
     {
       name: 'Resorts',
       items: [
         { name: "Ramon's Village", note: '' },
         { name: 'SunBreeze Hotel', note: '' },
-        { name: 'Mahogany Bay Resort', note: '' },
-        { name: 'Victoria House', note: '' },
-        { name: 'Belize Yacht Club', note: '' },
-        { name: 'Alaia Belize', note: '' },
+        { name: 'Mahogany Bay Resort', note: '', href: urls['mahogany-bay'] },
+        { name: 'Victoria House', note: '', href: urls['victoria-house'] },
+        { name: 'Belize Yacht Club', note: '', href: urls['belize-yacht-club'] },
+        { name: 'Alaia Belize', note: '', href: urls['alaia'] },
         { name: 'Xanadu Island Resort', note: '' },
       ],
     },

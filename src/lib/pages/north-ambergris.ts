@@ -4,6 +4,8 @@
  * real One Love carts and are not presented as North Ambergris Caye.
  */
 
+import { urls } from '@/lib/business';
+
 export const meta = {
   title: 'North Ambergris Caye Golf Cart Delivery | One Love',
   description:
@@ -52,11 +54,11 @@ export const upThere = {
   h2: "What's actually up there",
   body: "Resorts: Grand Caribe (large, family-friendly, west-side), Coco Beach Resort (mid-size), Las Terrazas (upscale condo-style), Costa Blu (adults-oriented), and residential rentals throughout. Food and drink: Truck Stop food park (multi-vendor, most popular), Rojo Beach Bar (upscale), Palapa Bar on the way out from town, and the Secret Beach bar cluster (Coco Loco's, Blue Bayou, Pirate's Not So Secret). Beaches: quiet public-access beach at every resort front and along many undeveloped stretches. Snorkel launches: dive shops at Grand Caribe and independent operators along the reef.",
   // Categories restated from the paragraph above.
-  groups: [
+  groups: <{ name: string; items: { name: string; note: string; href?: string }[] }[]>[
     {
       name: 'Resorts',
       items: [
-        { name: 'Grand Caribe', note: 'Large, family-friendly, west-side' },
+        { name: 'Grand Caribe', note: 'Large, family-friendly, west-side', href: urls['grand-caribe'] },
         { name: 'Coco Beach Resort', note: 'Mid-size' },
         { name: 'Las Terrazas', note: 'Upscale condo-style' },
         { name: 'Costa Blu', note: 'Adults-oriented' },

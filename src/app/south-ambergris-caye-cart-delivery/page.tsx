@@ -179,7 +179,7 @@ export default function SouthAmbergrisPage() {
                   <ul>
                     {g.items.map((it) => (
                       <li key={it.name}>
-                        <strong>{it.name}</strong>
+                        <strong>{it.href ? <Link href={it.href} prefetch={false}>{it.name}</Link> : it.name}</strong>
                         {it.note && <span>{it.note}</span>}
                       </li>
                     ))}
