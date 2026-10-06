@@ -177,8 +177,6 @@ export const finalCta = {
   body: 'Fill in the reservation form or send a WhatsApp to +501-634-9559. Confirmation in under 15 minutes during business hours. Free delivery anywhere on Ambergris Caye.',
 };
 
-// Manual: "Last verified [Month] [Year]". Update when rates/hours are re-checked.
-export const lastVerified = 'October 2026';
 
 // Site-wide announcement bar (carried over verbatim from the live site).
 export const announcement =

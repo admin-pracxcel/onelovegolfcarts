@@ -12,7 +12,7 @@ import { Reviews } from '@/components/sections/Reviews';
 import { Steps } from '@/components/sections/Steps';
 import { Why } from '@/components/sections/Why';
 import { business } from '@/lib/business';
-import { homeMeta, lastVerified } from '@/lib/content';
+import { homeMeta } from '@/lib/content';
 import { imageInfo } from '@/lib/images';
 import { homeSchema, jsonLd } from '@/lib/schema';
 
@@ -60,9 +60,6 @@ export default function HomePage() {
         <Explore />
         <Faq />
         <FinalCta />
-        <p className="last-verified container">
-          Last verified {lastVerified}. Rates, hours, and delivery zones on this page are checked and updated at least monthly.
-        </p>
       </main>
       <BookBar />
     </>

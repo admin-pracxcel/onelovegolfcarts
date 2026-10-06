@@ -656,11 +656,6 @@
   .final-cta__frame::before { background: linear-gradient(0deg, rgb(10 26 58 / 0.94) 25%, rgb(10 26 58 / 0.5) 65%, rgb(10 26 58 / 0.15)); }
 }
 
-.last-verified {
-  padding-block: 2rem;
-  font-size: var(--t-xs);
-  color: var(--muted);
-}
 
 /* Aspect-ratio frames size by width, not by parent height. */
 .why__media picture,
