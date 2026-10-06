@@ -1,0 +1,160 @@
+/* ==========================================================================
+   Location pages (shared shell: /rentals-at-…/, delivery-zone and resort pages)
+   ========================================================================== */
+
+/* Hero: photo + booking card ----------------------------------------------- */
+
+.loc-hero { display: grid; gap: 1rem; margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+.loc-hero__main { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; background: var(--sand-2); }
+.loc-hero__main picture { height: 100%; }
+.loc-hero__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: #fff;
+}
+.loc-hero__kicker { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun); }
+.loc-hero__line { font-family: var(--f-display); font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.12; }
+.loc-hero__card .btn { margin-top: auto; }
+.loc-hero__card .link-arrow { color: #fff; font-size: var(--t-small); }
+@media (min-width: 1000px) {
+  .loc-hero { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .loc-hero__main { aspect-ratio: auto; min-height: 30rem; }
+}
+
+.loc-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border-top: 1px solid var(--ink);
+}
+.loc-facts li { display: grid; gap: 0.3rem; padding: 1.25rem 1rem 1.25rem 0; border-bottom: 1px solid var(--line); }
+.loc-facts strong { font-family: var(--f-display); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); font-weight: 750; letter-spacing: -0.04em; line-height: 1; }
+.loc-facts span { font-size: var(--t-small); color: var(--muted); }
+@media (min-width: 900px) {
+  .loc-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .loc-facts li { border-bottom: 0; }
+  .loc-facts li + li { padding-left: 1.5rem; border-left: 1px solid var(--line); }
+}
+
+/* Prose + aside layout ------------------------------------------------------ */
+
+.loc-split { display: grid; gap: 2.5rem; }
+.loc-prose { display: grid; gap: 1.25rem; align-content: start; max-width: 40rem; }
+.loc-prose .eyebrow { margin-bottom: 0; }
+.loc-prose > p:not(.eyebrow) { color: var(--muted); line-height: 1.75; }
+@media (min-width: 1000px) {
+  .loc-split { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(3rem, 2rem + 4vw, 6rem); align-items: start; }
+  .loc-split--media { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: center; }
+}
+
+/* Timeline -------------------------------------------------------------------- */
+
+.loc-steps { position: relative; display: grid; gap: 0.75rem; }
+.loc-steps li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0.15rem 1rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.loc-steps li:last-child { background: var(--ink); color: #fff; }
+.loc-steps__dot {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 50%;
+  background: var(--sand);
+  font-family: var(--f-display);
+  font-weight: 700;
+}
+.loc-steps li:last-child .loc-steps__dot { background: var(--coral-btn); color: #fff; }
+.loc-steps__when { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.loc-steps li:last-child .loc-steps__when { color: var(--sun); }
+.loc-steps__what { font-weight: 500; }
+
+/* What to send (WhatsApp checklist) ------------------------------------------ */
+
+.loc-send { padding-bottom: var(--section); }
+.loc-send__inner {
+  display: grid;
+  gap: 2rem 4rem;
+  padding: clamp(1.75rem, 1.2rem + 2.5vw, 4rem);
+  border-radius: var(--radius-lg);
+  background: var(--sun);
+}
+.loc-send__inner > div:first-child p { margin-top: 1.25rem; max-width: 40rem; }
+.loc-send__card { display: grid; gap: 1rem; align-content: start; padding: clamp(1.25rem, 1rem + 1vw, 2rem); border-radius: var(--radius); background: var(--paper); }
+.loc-send__label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.checklist { display: grid; gap: 0.6rem; }
+.checklist li { display: grid; grid-template-columns: 1.5rem 1fr; gap: 0.6rem; font-size: var(--t-small); font-weight: 500; }
+.checklist span { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--ink); color: #fff; }
+.checklist .icon { width: 0.85rem; height: 0.85rem; stroke-width: 2.5; }
+.loc-send__note { font-size: var(--t-small); color: var(--muted); }
+.loc-send__note a { color: var(--ink); font-weight: 500; }
+.loc-send :focus-visible { outline-color: var(--ink); }
+@media (min-width: 1000px) { .loc-send__inner { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+
+/* Two-photo gallery ----------------------------------------------------------- */
+
+.loc-gallery { position: relative; padding: 0 12% 14% 0; }
+.loc-gallery__a { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; }
+.loc-gallery__b {
+  position: absolute;
+  right: 0; bottom: 0;
+  width: 52%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: clamp(4px, 0.6vw, 8px) solid var(--sand);
+  box-shadow: 0 24px 50px -28px rgb(10 26 58 / 0.55);
+}
+.loc-gallery picture { height: 100%; }
+
+/* Callout --------------------------------------------------------------------- */
+
+.loc-callout { padding-bottom: var(--section); }
+.loc-callout__inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem 1.5rem;
+  padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.loc-callout__icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--sand); }
+.loc-callout__icon .icon { width: 1.35rem; height: 1.35rem; }
+.loc-callout__title { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.loc-callout p { margin-top: 0.75rem; color: var(--muted); max-width: 52rem; }
+@media (max-width: 599px) { .loc-callout__inner { grid-template-columns: 1fr; } }
+
+/* Cart options ------------------------------------------------------------------ */
+
+.loc-options { display: grid; gap: 1rem; }
+.loc-option { padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius-lg); background: var(--paper); }
+.loc-option.is-best { background: var(--ink); color: #fff; }
+.loc-option__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.loc-option.is-best .loc-option__head { border-color: var(--line-light); }
+.loc-option__cart { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; }
+.loc-option__price { font-weight: 600; color: var(--muted); }
+.loc-option.is-best .loc-option__price { color: var(--sun); }
+.loc-option ul { display: grid; gap: 0.6rem; margin-top: 1rem; }
+.loc-option li { display: flex; gap: 0.6rem; font-size: var(--t-small); }
+.loc-option li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 0.5em; border-radius: 50%; background: var(--coral); }
+.loc-option--photo { padding: 0; overflow: hidden; min-height: 14rem; }
+.loc-option--photo picture { height: 100%; }
+@media (min-width: 900px) { .loc-options { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.loc-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; margin-top: 2rem; }
+.loc-links a { display: inline-flex; align-items: center; gap: 0.5rem; padding-bottom: 0.2rem; border-bottom: 1px solid currentColor; font-weight: 600; font-size: var(--t-small); text-decoration: none; }
+.loc-links .icon { width: 1rem; height: 1rem; transition: transform 0.35s var(--ease-out); }
+.loc-links a:hover .icon { transform: translateX(4px); }
+
+.loc-page .faq { padding-top: var(--section); }

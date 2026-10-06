@@ -339,3 +339,41 @@ export function ambergrisSchema(title: string, description: string, faqItems: [s
     ],
   };
 }
+
+/**
+ * Location pages (Execution Manual §17): a free delivery Service for the
+ * area, FAQPage and BreadcrumbList. Breadcrumbs run through the Ambergris
+ * Caye pillar (the nav's "Locations" hub) since no /locations/ page exists.
+ */
+export function locationSchema(opts: {
+  path: string;
+  crumb: string;
+  title: string;
+  description: string;
+  serviceType: string;
+  area: Record<string, unknown>;
+  faq: [string, string][];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([
+        { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+        { name: opts.crumb, path: opts.path },
+      ]),
+      {
+        '@type': 'Service',
+        '@id': abs(`${opts.path}#service`),
+        name: opts.title,
+        description: opts.description,
+        serviceType: opts.serviceType,
+        provider: { '@id': BUSINESS_ID },
+        areaServed: opts.area,
+        url: abs(opts.path),
+        offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD', description: 'Free delivery with every rental' },
+      },
+      faqSchema(opts.faq, opts.path),
+    ],
+  };
+}
