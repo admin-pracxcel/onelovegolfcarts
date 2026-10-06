@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   // Execution Manual URL convention: lowercase, hyphenated, trailing slash.
   trailingSlash: true,
   poweredByHeader: false,
+  // Old URLs on the live WordPress site that the new pages replace.
+  async redirects() {
+    return [
+      { source: '/privacy-policy-2/', destination: '/privacy-policy/', permanent: true },
+      { source: '/terms-conditons/', destination: '/terms-and-conditions/', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

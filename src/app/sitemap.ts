@@ -26,5 +26,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/golf-cart-comparison-4-vs-6-seater/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/how-we-maintain-our-fleet/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/meet-the-team/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/book-now/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/pay-now/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/terms-and-conditions/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/privacy-policy/`, lastModified: new Date('2026-10-06') },
   ];
 }

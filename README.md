@@ -23,7 +23,7 @@ Install scripts are allowed only for `sharp` and `unrs-resolver` (see `pnpm-work
 | `/contact/` | Channels, roadside support, contact form, map, directions |
 | `/about-us/` | Story, principles, fleet, community. The "Meet the family" section switches on once founders are added in `src/lib/pages/about.ts` |
 
-Every other link (Book Now, Gallery, location pages, guides…) shows the 404 page until that page is built.
+Links to pages that aren't built yet (blog posts, guides, the wedding page…) show the 404 page.
 
 ## Environment variables
 
@@ -31,10 +31,12 @@ Every other link (Book Now, Gallery, location pages, guides…) shows the 404 pa
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production origin, used for canonical URLs, Open Graph, JSON-LD, robots and sitemap. Defaults to `https://onelovegolfcartsbelize.com`. |
 | `NEXT_PUBLIC_ALLOW_INDEXING` | Search indexing is **blocked by default** (meta robots, `robots.txt`, `X-Robots-Tag`) so previews don't compete with the live site. Set to `true` on production at launch only. |
-| `CONTACT_WEBHOOK_URL` | Contact form delivery: POSTs each message as JSON to any form backend or automation (Formspree, Zapier, n8n…). |
-| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Alternative contact form delivery by email through Resend. `CONTACT_TO_EMAIL` defaults to the business email. |
+| `CONTACT_WEBHOOK_URL` | Delivery for the contact form, Book Now reservations and Pay Now payment notices: POSTs each submission as JSON (with a `form` field: `contact`, `booking` or `payment`) to any form backend or automation (Formspree, Zapier, n8n…). |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Alternative delivery by email through Resend. `CONTACT_TO_EMAIL` defaults to the business email. |
+| `NEXT_PUBLIC_PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` | Pay Now: a PayPal REST app's credentials (PayPal Business account → Developer → Apps & Credentials). Orders are created and captured on the server; card details only ever go to PayPal. |
+| `PAYPAL_ENV` | `live` for real payments; anything else uses the PayPal sandbox. |
 
-With no delivery variable set, the contact form tells visitors to email or WhatsApp instead of pretending to send.
+With no delivery variable set, the contact and booking forms don't pretend to send: they offer the same details as a ready-to-send WhatsApp message. Without PayPal credentials, Pay Now offers "Ask for a payment link" on WhatsApp instead of the PayPal buttons.
 
 ## Content
 
@@ -56,6 +58,7 @@ pnpm qa:shots .qa http://localhost:3000/rates/  # screenshots at 1440/1280/768/3
 pnpm qa:a11y http://localhost:3000/rates/       # axe scan, heading outline, JSON-LD, images, links
 pnpm qa:promo                                   # popup once-per-visit behaviour
 pnpm qa:contact                                 # contact form validation and delivery
+pnpm qa:booking                                 # Book Now validation, fallback and delivery
 pnpm qa:trust                                   # USP strip: one line / marquee
 ```
 
