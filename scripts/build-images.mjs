@@ -27,6 +27,27 @@ const PHOTOS = {
   'navy-6-seater-golf-cart-rear-bench-profile': [480, 640, 800, 1200, 1600],
   'blue-golf-cart-one-love-lot': [480, 640, 800, 1280],
   'golf-cart-fleet-lineup-lot': [640, 960, 1280, 1600],
+  // Gallery
+  'gallery-blue-4-seater-golf-cart-seaside': [480, 960, 1440],
+  'gallery-blue-4-seater-golf-cart-street': [480, 960, 1440],
+  'gallery-blue-golf-cart-parked-shop': [480, 960, 1440],
+  'gallery-four-colourful-golf-carts-line-up': [480, 960, 1440],
+  'gallery-golf-cart-line-up-turquoise-house': [480, 960, 1440],
+  'gallery-golf-carts-resort-entrance-sunset': [480, 960, 1440],
+  'gallery-golf-carts-tropic-air-terminal': [480, 960, 1440],
+  'gallery-guests-golf-carts-san-pedro-street': [480, 960, 1440],
+  'gallery-light-blue-4-seater-golf-cart-street': [480, 960, 1440],
+  'gallery-lime-green-4-seater-golf-cart': [480, 960, 1440],
+  'gallery-maroon-4-seater-one-love-golf-cart': [480, 960, 1440],
+  'gallery-maroon-6-seater-one-love-golf-cart': [480, 960, 1440],
+  'gallery-navy-4-seater-one-love-golf-cart': [480, 960, 1440],
+  'gallery-pink-4-seater-golf-cart-sand': [480, 960, 1440],
+  'gallery-red-4-seater-golf-cart-san-pedro-street': [480, 960, 1440],
+  'gallery-red-white-6-seater-golf-cart': [480, 960, 1440],
+  'gallery-white-4-seater-one-love-golf-cart': [480, 960, 1440],
+  'gallery-yellow-4-seater-golf-cart-close-up': [480, 960, 1440],
+  'gallery-yellow-4-seater-one-love-golf-cart-lot': [480, 960, 1440],
+  'gallery-yellow-6-seater-golf-cart-white-fence': [480, 960, 1440],
 };
 
 await mkdir(OUT, { recursive: true });

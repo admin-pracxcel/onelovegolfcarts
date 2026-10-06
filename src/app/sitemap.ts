@@ -10,5 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/rates/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/contact/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/about-us/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/gallery/`, lastModified: new Date('2026-10-06') },
   ];
 }

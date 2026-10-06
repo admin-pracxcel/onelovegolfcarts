@@ -261,3 +261,44 @@ export function aboutSchema(
     ],
   };
 }
+
+/**
+ * /gallery/: ImageGallery page + ImageObject for the lead photos (manual:
+ * "at least the top 10"), with caption, creator and credit for image search.
+ */
+export function gallerySchema(
+  name: string,
+  description: string,
+  images: { url: string; caption: string; width: number; height: number }[],
+) {
+  const objects = images.map((img, i) => ({
+    '@type': 'ImageObject',
+    '@id': abs(`/gallery/#photo-${i + 1}`),
+    contentUrl: abs(img.url),
+    url: abs(img.url),
+    caption: img.caption,
+    width: img.width,
+    height: img.height,
+    creator: { '@id': BUSINESS_ID },
+    creditText: business.name,
+    copyrightNotice: `© ${business.name}`,
+  }));
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: 'Gallery', path: '/gallery/' }]),
+      {
+        '@type': 'ImageGallery',
+        '@id': abs('/gallery/#webpage'),
+        url: abs('/gallery/'),
+        name,
+        description,
+        about: { '@id': BUSINESS_ID },
+        associatedMedia: objects.map((o) => ({ '@id': o['@id'] })),
+        inLanguage: 'en-US',
+      },
+      ...objects,
+    ],
+  };
+}

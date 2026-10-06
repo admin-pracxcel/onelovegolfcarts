@@ -159,5 +159,179 @@
       1280,
       1600
     ]
+  },
+  "gallery-blue-4-seater-golf-cart-seaside": {
+    "w": 960,
+    "h": 1280,
+    "widths": [
+      480,
+      960
+    ]
+  },
+  "gallery-blue-4-seater-golf-cart-street": {
+    "w": 960,
+    "h": 1280,
+    "widths": [
+      480,
+      960
+    ]
+  },
+  "gallery-blue-golf-cart-parked-shop": {
+    "w": 1280,
+    "h": 720,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-four-colourful-golf-carts-line-up": {
+    "w": 1006,
+    "h": 597,
+    "widths": [
+      480,
+      960,
+      1006
+    ]
+  },
+  "gallery-golf-cart-line-up-turquoise-house": {
+    "w": 1280,
+    "h": 958,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-golf-carts-resort-entrance-sunset": {
+    "w": 640,
+    "h": 383,
+    "widths": [
+      480,
+      640
+    ]
+  },
+  "gallery-golf-carts-tropic-air-terminal": {
+    "w": 640,
+    "h": 480,
+    "widths": [
+      480,
+      640
+    ]
+  },
+  "gallery-guests-golf-carts-san-pedro-street": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-light-blue-4-seater-golf-cart-street": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-lime-green-4-seater-golf-cart": {
+    "w": 960,
+    "h": 1280,
+    "widths": [
+      480,
+      960
+    ]
+  },
+  "gallery-maroon-4-seater-one-love-golf-cart": {
+    "w": 1280,
+    "h": 720,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-maroon-6-seater-one-love-golf-cart": {
+    "w": 1600,
+    "h": 900,
+    "widths": [
+      480,
+      960,
+      1440
+    ]
+  },
+  "gallery-navy-4-seater-one-love-golf-cart": {
+    "w": 1440,
+    "h": 1080,
+    "widths": [
+      480,
+      960,
+      1440
+    ]
+  },
+  "gallery-pink-4-seater-golf-cart-sand": {
+    "w": 1440,
+    "h": 1080,
+    "widths": [
+      480,
+      960,
+      1440
+    ]
+  },
+  "gallery-red-4-seater-golf-cart-san-pedro-street": {
+    "w": 1280,
+    "h": 960,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-red-white-6-seater-golf-cart": {
+    "w": 1600,
+    "h": 900,
+    "widths": [
+      480,
+      960,
+      1440
+    ]
+  },
+  "gallery-white-4-seater-one-love-golf-cart": {
+    "w": 1280,
+    "h": 720,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-yellow-4-seater-golf-cart-close-up": {
+    "w": 720,
+    "h": 900,
+    "widths": [
+      480,
+      720
+    ]
+  },
+  "gallery-yellow-4-seater-one-love-golf-cart-lot": {
+    "w": 1280,
+    "h": 720,
+    "widths": [
+      480,
+      960,
+      1280
+    ]
+  },
+  "gallery-yellow-6-seater-golf-cart-white-fence": {
+    "w": 1238,
+    "h": 661,
+    "widths": [
+      480,
+      960,
+      1238
+    ]
   }
 }
