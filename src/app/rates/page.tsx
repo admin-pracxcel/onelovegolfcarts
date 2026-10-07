@@ -41,7 +41,7 @@ const NAV = [
   { id: 'rates-table', label: 'Rates' },
   { id: 'included', label: 'Included' },
   { id: 'multi-day', label: 'Multi-day' },
-  { id: 'deposit', label: 'Deposit' },
+  { id: 'deposit', label: 'Security' },
   { id: 'payment', label: 'Payment' },
   { id: 'cancellation', label: 'Cancellation' },
   { id: 'seasons', label: 'Seasons' },
@@ -321,8 +321,8 @@ export default function RatesPage() {
                     <RichText text={p.body} />
                   </p>
                   {p.id === 'deposit' && (
-                    <Link className="link-arrow" href={urls.pay} prefetch={false} data-reveal="">
-                      Pay a deposit online <Icon name="arrow" />
+                    <Link className="link-arrow" href={urls.terms} prefetch={false} data-reveal="">
+                      Full rental terms <Icon name="arrow" />
                     </Link>
                   )}
                   {p.id === 'cancellation' && (

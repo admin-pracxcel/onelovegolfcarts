@@ -26,14 +26,14 @@ export const facts = [
 export const driving = {
   h2: 'What Driving a Golf Cart on Ambergris Caye Is Actually Like',
   paragraphs: [
-    'Speeds top out around 25 miles per hour in San Pedro Town and dip to 15 or 20 on the sandy stretches north of the Sir Barry Bowen Bridge. The three main streets of San Pedro Town are Front Street (formally Barrier Reef Drive), Middle Street (formally Pescador Drive), and Back Street (formally Angel Coral Street). Front Street runs one-way heading south. Middle Street runs one-way heading north. Back Street handles most of the north-south traffic and is where most residents drive. First-time visitors get this backward for about 20 minutes and then the pattern locks in.',
+    'The speed limit is 10 miles per hour in residential areas and 15 miles per hour in nonresidential areas. The three main streets of San Pedro Town are Front Street (formally Barrier Reef Drive), Middle Street (formally Pescador Drive), and Back Street (formally Angel Coral Street). Front Street runs one-way heading north. Middle Street runs one-way heading south. Back Street is two-way and is where most residents drive. First-time visitors get this backward for about 20 minutes and then the pattern locks in.',
     'North of San Pedro Town, the road becomes the Boca del Rio corridor, crosses the bridge, and turns into a mostly-sand road heading up the west side of the island toward Secret Beach and Truck Stop. Cell service holds for most of the length. Signage is minimal past the bridge. Every rental from One Love comes with a paper map with the useful stops marked, and drivers have our WhatsApp for real-time route questions.',
   ],
   // Cheat sheet restated from the first paragraph.
   streets: [
-    { local: 'Front Street', formal: 'Barrier Reef Drive', flow: 'One-way, heading south', dir: 'south' },
-    { local: 'Middle Street', formal: 'Pescador Drive', flow: 'One-way, heading north', dir: 'north' },
-    { local: 'Back Street', formal: 'Angel Coral Street', flow: 'Most north-south traffic', dir: 'both' },
+    { local: 'Front Street', formal: 'Barrier Reef Drive', flow: 'One-way, heading north', dir: 'north' },
+    { local: 'Middle Street', formal: 'Pescador Drive', flow: 'One-way, heading south', dir: 'south' },
+    { local: 'Back Street', formal: 'Angel Coral Street', flow: 'Two-way', dir: 'both' },
   ],
   more: { text: 'how to drive a golf cart in San Pedro like a local', key: 'drive-local' },
 };
@@ -164,7 +164,7 @@ export const faqTitle = 'Common Questions About Renting on Ambergris Caye';
 
 export const faq: [string, string][] = [
   ['Do I need to book a golf cart in advance for Ambergris Caye?', 'During peak weeks (mid-December to early January, Easter, Costa Maya Festival weekend), yes, book at least two weeks ahead. Off-peak, 48 hours is usually enough. Same-day availability exists but is not guaranteed.'],
-  ['What is the golf cart speed limit on Ambergris Caye?', '25 miles per hour in San Pedro Town, lower on the sand roads north of the bridge. Speed limits are enforced by Belize Traffic Police, and fines are payable on the spot.'],
+  ['What is the golf cart speed limit on Ambergris Caye?', '10 miles per hour in residential areas and 15 miles per hour in nonresidential areas. Speed limits are enforced by Belize Traffic Police, and fines are payable on the spot.'],
   ['Can two golf carts pass each other on the streets in San Pedro Town?', 'Yes on Barrier Reef Drive and Coconut Drive. Middle Street and Back Street are tight; the standard etiquette is that the cart heading toward the wider stretch yields.'],
   ['Is the bridge to North Ambergris Caye open 24 hours?', 'Yes. Bridge toll is included in every One Love rental via unlimited passes. Cross freely, at any hour.'],
   ['Can I drive a golf cart on the beach?', 'No. Belize law restricts carts to designated roads. Driving on the beach damages the sand ecosystem and results in fines. Every legal route to a beach stops at a parking area near the beach.'],

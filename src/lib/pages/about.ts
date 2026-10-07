@@ -99,7 +99,7 @@ export const beliefs = {
   principles: [
     {
       title: 'Honest pricing.',
-      body: 'The rate on the site is the rate you pay. No surge for holidays, no hidden fuel fee, no delivery upcharge if your resort is further south than the last one. Bridge passes to North Ambergris Caye are included. Roadside support is included. The deposit is refundable and refunds are processed within 48 hours of a clean return. If we ever change a rate on the site, we change it for everyone, all at once, and we date the change.',
+      body: 'The rate on the site is the rate you pay. No surge for holidays, no delivery upcharge if your resort is further south than the last one. Bridge passes to North Ambergris Caye are included. Roadside support is included. If we ever change a rate on the site, we change it for everyone, all at once, and we date the change.',
     },
     {
       title: 'Real availability.',

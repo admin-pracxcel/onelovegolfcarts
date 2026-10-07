@@ -163,7 +163,7 @@ export const explore: Guide[] = [
 ];
 
 export const faq: [string, string][] = [
-  ["Do I need a driver's license to rent a golf cart in San Pedro?", "Yes. Belize law requires a valid driver's license from your home country. All primary drivers must be at least 18. We keep a copy of your license on file for the length of the rental."],
+  ["Do I need a driver's license to rent a golf cart in San Pedro?", "Yes. Belize law requires a valid driver's license from your home country, and it must be with you at all times while driving. All primary drivers must be at least 18. We keep a copy of your license on file for the length of the rental."],
   ['How much does a golf cart cost per day in San Pedro?', 'Our 4-seater is $35 a day or $175 a week in US dollars. Our 6-seater is $60 a day or $350 a week. Prices include free delivery on Ambergris Caye and unlimited bridge passes to North Ambergris Caye.'],
   ['Can you deliver a cart to my hotel or the airport?', 'Yes. We deliver free anywhere on Ambergris Caye, including San Pedro Airport (SPR), every resort, and every water taxi arrival point. Message us the day before with your arrival time and location.'],
   ['Can I drive the cart over the bridge to Secret Beach?', 'Yes. Every rental includes unlimited passes over the Sir Barry Bowen Bridge to North Ambergris Caye, which is how you reach Secret Beach, Truck Stop, and the northern end of the island.'],

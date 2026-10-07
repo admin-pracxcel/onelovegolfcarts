@@ -104,12 +104,14 @@ export const breakdown = {
 
 export const insurance = {
   h2: 'Insurance and Liability',
-  body: `Every cart in the fleet is insured${INSURANCE_CARRIER ? ` with ${INSURANCE_CARRIER}` : ''} for third-party liability and basic collision. The renter is responsible for the deductible on any claim arising from the rental period, up to the amount of the security deposit. Coverage does not extend to driving under the influence, driving off designated roads, or driving by an undisclosed driver. Full rental terms are on our [[terms and conditions page|terms]].`,
+  // Live site Terms ("Insurance & Collision Policy") take precedence over the
+  // manual's "third-party liability and basic collision" wording.
+  body: `Every cart in the fleet is insured${INSURANCE_CARRIER ? ` with ${INSURANCE_CARRIER}` : ''} for third-party accidents only. If you crash into another golf cart, you will be required to incur all damage costs, and the insurance company will pay for the other cart's damages. If somebody crashes into you, they are liable for the damages; however, you are required by law to file a police report. An open credit card imprint is required on the pick-up date for security reasons and in the event of accidental damages or injuries. Do not drive under the influence of drugs or alcohol. Full rental terms are on our [[terms and conditions page|terms]].`,
   // Restated from the paragraph above.
   tips: [
-    { label: 'Covered', value: 'Third-party liability and basic collision' },
-    { label: 'Your share', value: 'The deductible, up to the amount of the security deposit' },
-    { label: 'Not covered', value: 'Driving under the influence, off designated roads, or by an undisclosed driver' },
+    { label: 'Covered', value: 'Third-party accidents only' },
+    { label: 'Your share', value: 'All damage costs if you crash into another golf cart' },
+    { label: 'If someone hits you', value: 'They are liable; you must file a police report' },
   ],
 };
 

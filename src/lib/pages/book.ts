@@ -26,11 +26,11 @@ export const trust = ['104+ five-star reviews', 'Established 2017', 'Free cancel
 
 export const bring = {
   h2: 'What to bring',
-  body: "A valid driver's license from your home country for every person planning to drive the cart. A credit card in the primary driver's name for the deposit hold. Your booking confirmation on your phone (WhatsApp message is fine). If arriving at San Pedro Airport or the Marine Terminal, your arrival time. Nothing else. We handle the walk-around, the paperwork, and the keys at hand-off.",
+  body: "A valid driver's license from your home country for every person planning to drive the cart; it must be with you at all times while driving. A credit card in the primary driver's name for the open card imprint taken at pick-up. Your booking confirmation on your phone (WhatsApp message is fine). If arriving at San Pedro Airport or the Marine Terminal, your arrival time. Nothing else. We handle the walk-around, the paperwork, and the keys at hand-off.",
   // The four items from the paragraph above.
   items: [
     "A valid driver's license from your home country for every person planning to drive the cart",
-    "A credit card in the primary driver's name for the deposit hold",
+    "A credit card in the primary driver's name for the open card imprint taken at pick-up",
     'Your booking confirmation on your phone (WhatsApp message is fine)',
     'If arriving at San Pedro Airport or the Marine Terminal, your arrival time',
   ],
@@ -38,7 +38,7 @@ export const bring = {
 
 export const cancellation = {
   h2: 'Cancellation policy',
-  body: 'Free cancellation up to 48 hours before pickup. Cancellations inside 48 hours are refundable minus a $10 US administrative fee. Weather-related cancellations refunded in full regardless of timing. No-shows forfeit the deposit. Full policy is on the [[rates page|rates]]. Send cancellation requests by WhatsApp for the fastest processing.',
+  body: 'Free cancellation up to 48 hours before pickup. Cancellations inside 48 hours are refundable minus a $10 US administrative fee. Weather-related cancellations refunded in full regardless of timing. No-shows forfeit any amount paid in advance. Full policy is on the [[rates page|rates]]. Send cancellation requests by WhatsApp for the fastest processing.',
 };
 
 export const faq: [string, string][] = [
