@@ -115,7 +115,7 @@ export const urls = {
   sunset: '/best-sunset-drive-routes-ambergris-caye/',
   snorkel: '/snorkel-launches-reachable-by-golf-cart-ambergris/',
   'lobster-crawl': '/the-great-lobster-crawl-a-self-guided-culinary-tour/', // existing blog post on the live site
-  events: '/san-pedro-events-golf-cart-guide/',
+  events: '/a-month-by-month-guide-to-belizes-best-local-events-and-festivals/', // manual's /san-pedro-events-golf-cart-guide/ is not written yet (redirects here)
   'night-fishing': '/night-fishing-bioluminescence-safe-parking-for-night-adventures/', // existing blog post on the live site
   weekend: '/san-pedro-belize-golf-cart-itinerary-weekend-guide/', // existing blog post on the live site
   perseid: '/perseid-meteor-shower-dark-sky-driving-for-stargazing/', // existing blog post on the live site
