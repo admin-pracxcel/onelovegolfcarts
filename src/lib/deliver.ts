@@ -1,35 +1,48 @@
 import { business } from '@/lib/business';
 
 /**
- * Sends a form submission through whichever channel is configured:
+ * Sends a form submission to that form's webhook (n8n):
  *
- *   CONTACT_WEBHOOK_URL   POST JSON to any form backend / automation
- *                         (Formspree, Zapier, Make, n8n, a CRM inbox…)
- *   RESEND_API_KEY        Send an email through Resend, to CONTACT_TO_EMAIL
- *   + CONTACT_FROM_EMAIL  (defaults to the business email) from a verified sender.
+ *   CONTACT_WEBHOOK_URL   contact form
+ *   BOOKING_WEBHOOK_URL   Book Now reservations
+ *   PAYMENT_WEBHOOK_URL   Pay Now (carries card details: webhook only, HTTPS only)
+ *
+ * Contact and booking can fall back to email through Resend (RESEND_API_KEY +
+ * CONTACT_FROM_EMAIL, to CONTACT_TO_EMAIL or the business email). Payments
+ * never go by email.
  *
  * Resolves 'sent' or 'unconfigured'; throws when a configured channel fails.
+ * Errors never include the submitted data.
  */
+const WEBHOOKS = {
+  contact: 'CONTACT_WEBHOOK_URL',
+  booking: 'BOOKING_WEBHOOK_URL',
+  payment: 'PAYMENT_WEBHOOK_URL',
+} as const;
+
 export async function deliver(msg: {
-  form: 'contact' | 'booking' | 'payment';
+  form: keyof typeof WEBHOOKS;
   subject: string;
   text: string;
   replyTo?: string;
   fields: Record<string, string>;
 }): Promise<'sent' | 'unconfigured'> {
-  const webhook = process.env.CONTACT_WEBHOOK_URL;
-  const resendKey = process.env.RESEND_API_KEY;
+  const webhook = process.env[WEBHOOKS[msg.form]];
 
   if (webhook) {
+    if (msg.form === 'payment' && !/^https:\/\/|^http:\/\/(localhost|127\.0\.0\.1)[:/]/.test(webhook)) throw new Error('Payment webhook must use HTTPS');
     const res = await fetch(webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ ...msg.fields, form: msg.form, subject: msg.subject, source: `onelovegolfcartsbelize.com/${msg.form}` }),
+      body: JSON.stringify({ ...msg.fields, form: msg.form, subject: msg.subject, submittedAt: new Date().toISOString(), source: `onelovegolfcartsbelize.com/${msg.form}` }),
+      cache: 'no-store',
     });
     if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
     return 'sent';
   }
-  if (resendKey && process.env.CONTACT_FROM_EMAIL) {
+
+  const resendKey = process.env.RESEND_API_KEY;
+  if (msg.form !== 'payment' && resendKey && process.env.CONTACT_FROM_EMAIL) {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
