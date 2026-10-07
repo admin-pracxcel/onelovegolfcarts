@@ -1,15 +1,14 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
 import { urls } from '@/lib/business';
-import { blogIntro, blogMeta, blogPath, categoryPath, pillars, withFallback } from '@/lib/pages/blog';
+import { blogIntro, blogMeta, blogPath, categoryPath, withFallback } from '@/lib/pages/blog';
 import { getCategories, getFeatured, getPosts, PAGE_SIZE } from '@/lib/sanity';
 import { blogSchema, jsonLd } from '@/lib/schema';
 import { Pagination } from './Pagination';
 import { PostGrid } from './PostCard';
 
-/** /blog/ and /blog/page/N/: categories, guides, featured, then newest posts. */
+/** /blog/ and /blog/page/N/: category bar, featured posts, then newest posts. */
 export async function BlogIndex({ page }: { page: number }) {
   const [{ total, posts }, cats, featured] = await Promise.all([getPosts(page), getCategories(), page === 1 ? getFeatured() : Promise.resolve([])]);
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -48,48 +47,6 @@ export async function BlogIndex({ page }: { page: number }) {
           </div>
         </nav>
 
-        {page === 1 && (
-          <section className="section blog-section" aria-labelledby="cats-title">
-            <div className="container">
-              <h2 id="cats-title" className="blog-section__title">
-                Browse by category
-              </h2>
-              <ul className="blog-catcards">
-                {categories.map((c, i) => (
-                  <li key={c.slug} className={`blog-catcard${i === 0 ? ' is-dark' : ''}`}>
-                    <h3 className="blog-catcard__name">{c.title}</h3>
-                    <p>{c.cardText}</p>
-                    <Link href={categoryPath(c.slug)} className="blog-catcard__link" prefetch={false}>
-                      Read the {c.title} posts <Icon name="arrow" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
-
-        {page === 1 && (
-          <section className="section blog-section loc-tight" aria-labelledby="guides-title">
-            <div className="container">
-              <h2 id="guides-title" className="blog-section__title">
-                Start with a guide
-              </h2>
-              <ul className="blog-guides">
-                {pillars.map((p) => (
-                  <li key={p.href}>
-                    <Link href={p.href} prefetch={false}>
-                      <span className="blog-guides__label">{p.label}</span>
-                      <span className="blog-guides__title">{p.title}</span>
-                      <Icon name="arrow" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
-
         {featured.length > 0 && (
           <section className="section blog-section loc-tight" aria-labelledby="featured-title">
             <div className="container">
@@ -101,19 +58,16 @@ export async function BlogIndex({ page }: { page: number }) {
           </section>
         )}
 
-        <section className="section blog-section loc-tight" aria-labelledby="latest-title">
+        <section className="section blog-section loc-tight" aria-label={page === 1 ? 'Posts' : `Posts, page ${page}`}>
           <div className="container">
-            <h2 id="latest-title" className="blog-section__title">
-              {page === 1 ? 'Latest posts' : `Posts, page ${page}`}
-            </h2>
             {posts.length ? (
               <>
-                <PostGrid posts={posts} />
+                <PostGrid posts={posts} headingLevel={2} eager={3} />
                 <Pagination page={page} pages={pages} href={blogPath} />
               </>
             ) : (
               <div className="blog-empty">
-                <p>New posts are on the way. Until then, the guides above cover the island, and our rates are on the <Link href={urls.rates}>rates page</Link>.</p>
+                <p>New posts are on the way. Until then, our rates are on the <Link href={urls.rates}>rates page</Link>.</p>
               </div>
             )}
           </div>
