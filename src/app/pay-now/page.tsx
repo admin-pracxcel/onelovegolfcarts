@@ -29,6 +29,10 @@ export default function PayNowPage() {
         <section className="section book-main" aria-labelledby="pay-title">
           <div className="container book-main__grid">
             <div className="form-card">
+              <div className="pay-accept pay-accept--inline">
+                <p className="pay-accept__label">We accept</p>
+                <CardLogos />
+              </div>
               <h2 id="pay-title" className="book-main__title">
                 Pay now
               </h2>

@@ -22,9 +22,9 @@
 .pay-accept { display: grid; gap: 0.75rem; padding-inline: 0.25rem; }
 .card-logos { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .card-logos svg { display: block; width: 4rem; height: auto; border-radius: 0.35rem; box-shadow: 0 0 0 1px var(--line), 0 6px 14px -10px rgb(10 26 58 / 0.4); }
-/* Desktop: logos top of the side column. Phones/tablets (column stacks below the form): above the card number. */
+/* Desktop: logos top of the side column. Phones/tablets (column stacks below the form): top of the Pay now card. */
 .pay-accept--aside { padding-bottom: 0.25rem; }
-.pay-accept--inline { display: none; gap: 0.5rem; padding-inline: 0; }
+.pay-accept--inline { display: none; gap: 0.5rem; padding-inline: 0; padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
 .pay-accept__label { font-size: var(--t-small); font-weight: 600; }
 .pay-accept--inline .card-logos svg { width: 3.25rem; }
 @media (max-width: 999px) {

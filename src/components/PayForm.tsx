@@ -17,7 +17,6 @@ import {
   type Brand,
 } from '@/lib/card';
 import { PAYMENT_FIELDS, validatePayment, type PaymentField, type PaymentValues } from '@/lib/payment';
-import { CardLogos } from './CardLogos';
 import { Icon } from './Icon';
 
 const initial: PaymentState = { status: 'idle' };
@@ -213,10 +212,6 @@ export function PayForm() {
       <fieldset className="form-group">
         <legend>Payment information</legend>
         {input('cardholder')}
-        <div className="pay-accept pay-accept--inline">
-          <p className="pay-accept__label">We accept</p>
-          <CardLogos />
-        </div>
         {input('cardNumber', true)}
         <div className="field-pair">
           {input('expiry', true)}

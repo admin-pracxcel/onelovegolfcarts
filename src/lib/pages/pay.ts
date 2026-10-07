@@ -8,7 +8,7 @@
 
 export const meta = {
   title: 'Pay Your Golf Cart Rental Online | One Love Belize',
-  description: 'Pay for your One Love golf cart rental in San Pedro, Belize online by card. Visa, Mastercard and American Express accepted.',
+  description: 'Pay for your One Love golf cart rental in San Pedro, Belize online by card. Visa, Mastercard, American Express and Discover accepted.',
   h1: 'Pay Your Rental Online',
 };
 
