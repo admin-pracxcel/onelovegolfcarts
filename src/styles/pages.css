@@ -44,8 +44,11 @@
 
 /* Breadcrumbs ------------------------------------------------------------ */
 
-.crumbs ol { display: flex; flex-wrap: wrap; gap: 0.25rem 0; font-size: var(--t-small); color: var(--muted); }
-.crumbs li { display: inline-flex; align-items: center; }
+.crumbs { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-block: -0.25rem; padding-block: 0.25rem; }
+.crumbs::-webkit-scrollbar { display: none; }
+/* One line always: a long trail scrolls sideways instead of wrapping. */
+.crumbs ol { display: flex; flex-wrap: nowrap; width: max-content; font-size: var(--t-small); color: var(--muted); }
+.crumbs li { display: inline-flex; align-items: center; flex: none; white-space: nowrap; }
 .crumbs li + li::before { content: "/"; margin: 0 0.6rem; color: color-mix(in srgb, var(--muted) 55%, transparent); }
 .crumbs a { text-decoration: none; }
 .crumbs a:hover { color: var(--ink); text-decoration: underline; }
