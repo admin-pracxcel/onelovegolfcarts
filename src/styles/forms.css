@@ -62,3 +62,4 @@
 .choice input:focus-visible + span { box-shadow: 0 0 0 3px rgb(10 26 58 / 0.25); }
 .choice-group { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 0.45rem; }
 .choice-group > legend { padding: 0; margin-bottom: 0.45rem; font-size: var(--t-small); font-weight: 600; }
+.field input::placeholder { color: rgb(85 92 110 / 0.75); font-weight: 400; }

@@ -1,7 +1,5 @@
 /* Pay Now. Builds on book.css (layout, aside cards) + forms.css. ------------ */
 
-.pay-methods { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); }
-.pay-methods li { padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font-size: var(--t-small); font-weight: 600; }
 
 .pay-form { gap: 1.75rem; }
 .pay-form__money { position: relative; }
@@ -12,3 +10,24 @@
 .pay-aside__body { font-size: var(--t-small); line-height: 1.7; color: var(--muted); }
 .pay-aside__body--light { color: var(--muted-light); }
 
+
+/* Card fields: brand badge inside the number field, tabular digits. */
+.pay-form__card { position: relative; }
+.field .pay-form__card input { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.field .pay-form__card input[name="cardNumber"] { padding-right: 6.5rem; }
+.pay-form__brand { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.pay-form__brand.is-known { padding: 0.2rem 0.55rem; border-radius: 0.4rem; background: var(--ink); color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.04em; }
+
+/* Accepted cards, under the help box. */
+.pay-accept { display: grid; gap: 0.75rem; padding-inline: 0.25rem; }
+.card-logos { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.card-logos svg { display: block; width: 4rem; height: auto; border-radius: 0.35rem; box-shadow: 0 0 0 1px var(--line), 0 6px 14px -10px rgb(10 26 58 / 0.4); }
+/* Desktop: logos top of the side column. Phones/tablets (column stacks below the form): above the card number. */
+.pay-accept--aside { padding-bottom: 0.25rem; }
+.pay-accept--inline { display: none; gap: 0.5rem; padding-inline: 0; }
+.pay-accept__label { font-size: var(--t-small); font-weight: 600; }
+.pay-accept--inline .card-logos svg { width: 3.25rem; }
+@media (max-width: 999px) {
+  .pay-accept--aside { display: none; }
+  .pay-accept--inline { display: grid; }
+}

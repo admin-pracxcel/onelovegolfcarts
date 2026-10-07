@@ -60,6 +60,7 @@ pnpm qa:promo                                   # popup once-per-visit behaviour
 pnpm qa:contact                                 # contact form validation and delivery
 pnpm qa:booking                                 # Book Now validation, fallback and delivery
 pnpm qa:pay                                     # Pay Now validation; card fields never echoed
+pnpm qa:card                                    # card number / expiry / CVC typing behaviour
 pnpm qa:trust                                   # USP strip: one line / marquee
 ```
 

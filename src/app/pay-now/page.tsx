@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CardLogos } from '@/components/CardLogos';
 import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
 import { PayForm } from '@/components/PayForm';
@@ -17,23 +18,13 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', siteName: business.name, title: meta.title, description: meta.description, url: PATH, locale: 'en_US' },
 };
 
-const METHODS = ['Visa', 'Mastercard', 'American Express'];
-
 export default function PayNowPage() {
   const schema = utilitySchema({ path: PATH, crumb: 'Pay Now', title: meta.h1, description: meta.description });
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
       <main id="main" className="pay-page">
-        <PageHeader trail={[{ name: 'Pay Now', path: PATH }]} eyebrow="Payment" title={meta.h1} lead={intro}>
-          <div className="container">
-            <ul className="pay-methods" aria-label="Accepted cards">
-              {METHODS.map((m) => (
-                <li key={m}>{m}</li>
-              ))}
-            </ul>
-          </div>
-        </PageHeader>
+        <PageHeader trail={[{ name: 'Pay Now', path: PATH }]} eyebrow="Payment" title={meta.h1} lead={intro} />
 
         <section className="section book-main" aria-labelledby="pay-title">
           <div className="container book-main__grid">
@@ -44,6 +35,10 @@ export default function PayNowPage() {
               <PayForm />
             </div>
             <aside className="book-aside" aria-label="Payment help">
+              <div className="pay-accept pay-accept--aside">
+                <p className="book-aside__kicker">We accept</p>
+                <CardLogos />
+              </div>
               <div className="book-aside__card book-aside__card--dark">
                 <p className="book-aside__kicker">Need help?</p>
                 <p className="pay-aside__body pay-aside__body--light">{support}</p>

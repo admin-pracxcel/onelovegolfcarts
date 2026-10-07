@@ -4,6 +4,8 @@
  * export async functions).
  */
 
+import { cardLengthOk, cvcLength, luhn, maxCardDigits, onlyDigits } from './card';
+
 export type PaymentField =
   | 'fullName'
   | 'email'
@@ -24,21 +26,6 @@ export const CARD_FIELDS: PaymentField[] = ['cardNumber', 'expiry', 'cvc'];
 
 export const MAX_AMOUNT = 5000;
 
-const digits = (s: string) => s.replace(/[\s-]/g, '');
-
-function luhn(num: string) {
-  let sum = 0;
-  for (let i = 0; i < num.length; i++) {
-    let d = Number(num[num.length - 1 - i]);
-    if (i % 2 === 1) {
-      d *= 2;
-      if (d > 9) d -= 9;
-    }
-    sum += d;
-  }
-  return sum % 10 === 0;
-}
-
 /** Today in Belize (UTC-6) as [year, month]. */
 function belizeMonth() {
   const d = new Date(Date.now() - 6 * 3600 * 1000);
@@ -55,17 +42,25 @@ export function validatePayment(v: PaymentValues) {
   if (v.address.length < 4) e.address = 'Please enter your address.';
   if (v.cardholder.length < 2) e.cardholder = 'Please enter the name on the card.';
 
-  const num = digits(v.cardNumber);
-  if (!/^\d{12,19}$/.test(num) || !luhn(num)) e.cardNumber = 'Please check the card number.';
+  const num = onlyDigits(v.cardNumber);
+  if (!num) e.cardNumber = 'Please enter your card number.';
+  else if (!cardLengthOk(num) && num.length < maxCardDigits(num)) e.cardNumber = 'Your card number is incomplete.';
+  else if (!cardLengthOk(num) || !luhn(num)) e.cardNumber = 'Your card number is invalid.';
 
   const m = /^(\d{2})\s*\/\s*(\d{2})$/.exec(v.expiry);
-  if (!m || Number(m[1]) < 1 || Number(m[1]) > 12) e.expiry = 'Enter the expiry date as MM/YY.';
-  else {
+  const month = Number(onlyDigits(v.expiry).slice(0, 2));
+  if (!v.expiry) e.expiry = 'Please enter the expiry date.';
+  else if (onlyDigits(v.expiry).length >= 2 && (month < 1 || month > 12)) e.expiry = "Your card's expiry month is invalid.";
+  else if (!m) e.expiry = "Your card's expiry date is incomplete.";
+  else if (m) {
     const [y, mo] = belizeMonth();
     const ey = 2000 + Number(m[2]);
-    if (ey < y || (ey === y && Number(m[1]) < mo)) e.expiry = 'This card has expired.';
+    if (ey < y || (ey === y && Number(m[1]) < mo)) e.expiry = "Your card's expiry date is in the past.";
+    else if (ey > y + 20) e.expiry = "Your card's expiry year is invalid.";
   }
-  if (!/^\d{3,4}$/.test(v.cvc)) e.cvc = 'Enter the 3 or 4 digit security code.';
+  const cvcLen = cvcLength(num);
+  if (!v.cvc) e.cvc = 'Please enter the security code.';
+  else if (!new RegExp(`^\\d{${cvcLen}}$`).test(v.cvc)) e.cvc = cvcLen === 4 ? 'Amex security codes are 4 digits.' : "Your card's security code is incomplete.";
 
   const n = Number(v.amount);
   if (!/^\d+(\.\d{1,2})?$/.test(v.amount) || !(n >= 1)) e.amount = 'Enter the amount in US dollars, for example 175 or 175.50.';
@@ -73,4 +68,4 @@ export function validatePayment(v: PaymentValues) {
   return e;
 }
 
-export const normalizeCard = digits;
+export const normalizeCard = onlyDigits;
