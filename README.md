@@ -62,7 +62,14 @@ One-time setup:
    - Filter: `_type in ["post","category","author","tag"]`
    - Secret: the value of `SANITY_REVALIDATE_SECRET`
 
-`pnpm studio` runs the Studio locally on port 3333. `pnpm qa:sanity-mock` serves sample posts so you can test the blog pages without a project; see the script's header.
+`pnpm studio` runs the Studio locally on port 3333.
+
+Content imports. Both need `SANITY_API_WRITE_TOKEN`; neither overwrites existing documents unless you pass `--replace`.
+
+| Command | What it does |
+|---|---|
+| `pnpm sanity:import-wp` | Imports every post from the live WordPress site at the same URL, as published posts. It brings the images, dates, search title and description, a category and tags. The 16 posts the manual covers get its categories, tags and links. |
+| `pnpm sanity:import-manual` | Imports the manual's 20 new spoke posts as drafts, each with a One Love photo. It reads `.qa/docs/manual.txt`, or the file in `MANUAL_TXT`. `--dry` parses and reports without writing. | `pnpm qa:sanity-mock` serves sample posts so you can test the blog pages without a project; see the script's header.
 
 ## Content
 

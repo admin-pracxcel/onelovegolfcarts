@@ -19,7 +19,9 @@
     "studio": "sanity dev",
     "sanity:seed": "node scripts/sanity/seed.mjs",
     "qa:sanity-mock": "node scripts/qa/sanity-mock.mjs",
-    "studio:deploy": "sanity deploy"
+    "studio:deploy": "sanity deploy",
+    "sanity:import-wp": "node scripts/sanity/import-wp.mjs",
+    "sanity:import-manual": "node scripts/sanity/import-manual.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",
@@ -37,6 +39,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
     "groq-js": "^2.0.0",
+    "node-html-parser": "^9.0.4",
     "playwright": "^1.63.0",
     "sanity": "^6.17.0",
     "sharp": "^0.34.5",
