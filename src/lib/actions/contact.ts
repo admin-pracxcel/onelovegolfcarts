@@ -39,7 +39,7 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   if (values.name.length < 2) errors.name = 'Please enter your name.';
   if (!EMAIL_RE.test(values.email)) errors.email = 'Please enter a valid email address.';
   if (values.phone && !/^[+()\d\s.-]{6,}$/.test(values.phone)) errors.phone = 'Please check the phone number.';
-  if (values.message.length < 10) errors.message = 'Please tell us a little more (at least 10 characters).';
+  if (!values.message) errors.message = 'Please enter a message.';
   if (values.message.length > 5000) errors.message = 'Please keep your message under 5,000 characters.';
   if (Object.keys(errors).length) {
     return { status: 'invalid', message: 'Please fix the highlighted fields.', errors, values };
