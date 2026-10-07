@@ -51,7 +51,6 @@
 
 .story__grid { display: grid; gap: 2.5rem; }
 .timeline { position: relative; display: grid; gap: 0; margin-top: 2rem; }
-.timeline::before { content: ""; position: absolute; left: 0.3rem; top: 0.6rem; bottom: 0.6rem; width: 1px; background: var(--line); }
 .timeline li { position: relative; display: grid; gap: 0.2rem; padding: 0 0 1.4rem 1.75rem; }
 .timeline li::before {
   content: "";
@@ -61,6 +60,17 @@
   border-radius: 50%;
   background: var(--sand);
   border: 2px solid var(--ink);
+  z-index: 1;
+}
+/* Connector from each dot down to the next one, so the line ends at the last dot. */
+.timeline li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.725rem;
+  bottom: -0.725rem;
+  width: 1px;
+  background: var(--line);
 }
 .timeline li:last-child::before { background: var(--coral); border-color: var(--coral); }
 .timeline__when { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
