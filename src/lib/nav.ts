@@ -34,6 +34,7 @@ export const primaryNav: NavItem[] = [
       { label: 'Meet the Team', href: urls.team },
       { label: 'Gallery', href: urls.gallery },
       { label: 'Contact', href: urls.contact },
+      { label: 'Pay Now', href: urls.pay },
     ],
   },
   { label: 'Blog', href: urls.blog },
