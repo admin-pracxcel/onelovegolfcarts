@@ -14,7 +14,7 @@ import '@/styles/location.css';
 
 const PATH = '/rentals-at-san-pedro-airport/';
 const TRAIL = [
-  { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+  { name: 'Locations', path: '/locations/' },
   { name: 'San Pedro Airport', path: PATH },
 ];
 

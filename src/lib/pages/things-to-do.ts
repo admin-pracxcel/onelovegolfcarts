@@ -31,7 +31,7 @@ export const AREAS: Record<Area, string> = {
 
 export type Stop = { id: string; name: string; area: Area; body: string };
 
-export const stopsH2 = 'The Twenty Stops Worth the Drive';
+export const stopsH2 = 'The Twenty-One Stops Worth the Drive';
 
 export const stops: Stop[] = [
   { id: 'secret-beach', name: 'Secret Beach', area: 'north', body: "On the west side of North Ambergris Caye, about 25 minutes north of San Pedro Town by cart. Shallow warm water, sandbars extending 100 yards offshore, and a strip of beach bars (Coco Loco's, Blue Bayou, Pirate's Not So Secret) serving cold beer and grilled seafood. The most-visited north-side destination on the island. Every cart rental includes bridge passes so you can go and come back at will." },

@@ -326,7 +326,10 @@ export function ambergrisSchema(title: string, description: string, faqItems: [s
     '@context': 'https://schema.org',
     '@graph': [
       { ...businessSchema(), areaServed: [{ '@id': PLACE_ID }] },
-      breadcrumbSchema([{ name: 'Ambergris Caye', path: '/ambergris-caye/' }]),
+      breadcrumbSchema([
+        { name: 'Locations', path: '/locations/' },
+        { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+      ]),
       {
         '@type': 'Place',
         '@id': PLACE_ID,
@@ -363,7 +366,7 @@ export function locationSchema(opts: {
   serviceType: string;
   area: Record<string, unknown>;
   faq: [string, string][];
-  /** Full trail below Home; defaults to Ambergris Caye > crumb. */
+  /** Full trail below Home; defaults to Locations > crumb. */
   trail?: { name: string; path: string }[];
 }) {
   return {
@@ -372,7 +375,7 @@ export function locationSchema(opts: {
       businessSchema(),
       breadcrumbSchema(
         opts.trail ?? [
-          { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+          { name: 'Locations', path: '/locations/' },
           { name: opts.crumb, path: opts.path },
         ],
       ),
@@ -399,7 +402,7 @@ export function locationSchema(opts: {
  */
 export function arrivalGuideSchema(opts: {
   path: string;
-  crumb: string;
+  trail: { name: string; path: string }[];
   title: string;
   description: string;
   image: string;
@@ -412,7 +415,7 @@ export function arrivalGuideSchema(opts: {
     '@context': 'https://schema.org',
     '@graph': [
       businessSchema(),
-      breadcrumbSchema([{ name: opts.crumb, path: opts.path }]),
+      breadcrumbSchema(opts.trail),
       {
         '@type': 'Article',
         '@id': `${url}#article`,
@@ -569,6 +572,37 @@ export function teamSchema(opts: {
 }
 
 /** /book-now/, /pay-now/, /terms-and-conditions/, /privacy-policy/: WebPage + breadcrumbs (+ FAQ). */
+/** /locations/ hub: CollectionPage with an ItemList of the location pages. */
+export function locationsSchema(opts: {
+  path: string;
+  trail: { name: string; path: string }[];
+  title: string;
+  description: string;
+  items: { name: string; path: string }[];
+}) {
+  const url = abs(opts.path);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema(opts.trail),
+      {
+        '@type': 'CollectionPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: opts.title,
+        description: opts.description,
+        about: { '@id': BUSINESS_ID },
+        inLanguage: 'en-US',
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: opts.items.map((i, n) => ({ '@type': 'ListItem', position: n + 1, name: i.name, url: abs(i.path) })),
+        },
+      },
+    ],
+  };
+}
+
 export function utilitySchema(opts: { path: string; crumb: string; title: string; description: string; faq?: [string, string][] }) {
   const url = abs(opts.path);
   return {

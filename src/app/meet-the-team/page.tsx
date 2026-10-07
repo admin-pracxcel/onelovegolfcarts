@@ -8,12 +8,15 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { business, urls, whatsappUrl, BOOKING_MESSAGE } from '@/lib/business';
 import { reviews } from '@/lib/content';
 import { imageInfo } from '@/lib/images';
-import { credo, intro, links, meta, team } from '@/lib/pages/team';
-import { plainText } from '@/lib/text';
+import { credo, intro, isPlaceholder, links, meta, team } from '@/lib/pages/team';
 import { jsonLd, teamSchema } from '@/lib/schema';
+import { plainText } from '@/lib/text';
 import '@/styles/location.css';
 import '@/styles/about.css';
 import '@/styles/team.css';
+
+// Genuine reviews that name a team member (supports "our reviews mention names").
+const named = reviews.filter((r) => /\bJunior\b/.test(r.text));
 
 const PATH = '/meet-the-team/';
 const TRAIL = [
@@ -40,15 +43,12 @@ export const metadata: Metadata = {
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-// Genuine reviews that name a team member (supports "our reviews mention names").
-const named = reviews.filter((r) => /\bJunior\b/.test(r.text));
-
 export default function TeamPage() {
   const schema = teamSchema({
     path: PATH,
     title: meta.h1,
     description: meta.description,
-    people: team.map((p) => ({ id: p.id, name: p.name, role: p.role, image: p.photo ? imageInfo(p.photo).src : undefined })),
+    people: team.filter((p) => !isPlaceholder(p.name)).map((p) => ({ id: p.id, name: p.name, role: p.role, image: p.photo ? imageInfo(p.photo).src : undefined })),
   });
 
   return (
@@ -67,8 +67,8 @@ export default function TeamPage() {
                 />
               </div>
               <aside className="loc-hero__card" aria-label="Talk to the team" data-reveal="">
-                <p className="loc-hero__kicker">No call center</p>
-                <p className="loc-hero__line">Come by the office at {business.street}, or message us.</p>
+                <p className="loc-hero__kicker">Get in touch</p>
+                <p className="loc-hero__line">Questions about a rental? Message the team on WhatsApp.</p>
                 <a className="btn btn--primary" href={whatsappUrl(BOOKING_MESSAGE)}>
                   <Icon name="chat" /> Message the team
                 </a>
@@ -94,9 +94,15 @@ export default function TeamPage() {
               <div className="family__grid">
                 {team.map((p) => (
                   <article key={p.id} id={p.id} className="founder" data-reveal="">
-                    {p.photo && (
+                    {p.photo ? (
                       <div className="founder__photo">
                         <Picture name={p.photo} alt={`${p.name}, ${p.role}, One Love Golf Cart Rentals`} sizes="(min-width: 1000px) 30vw, 90vw" />
+                      </div>
+                    ) : (
+                      <div className="founder__photo founder__photo--placeholder">
+                        {/* Stand-in until real portraits arrive; decorative, the name is in the heading. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/img/placeholder-team-image.webp" width={350} height={350} alt="" loading="lazy" decoding="async" />
                       </div>
                     )}
                     <h3 className="founder__name">{p.name}</h3>
@@ -126,9 +132,19 @@ export default function TeamPage() {
             </div>
             {named.length > 0 && (
               <div className="team-credo__reviews">
-                <p className="team-credo__label" data-reveal="">
-                  Names in our reviews
-                </p>
+                <div className="team-rating" data-reveal="">
+                  <p className="team-rating__score">{business.rating.value}</p>
+                  <div>
+                    <Stars />
+                    <p className="team-rating__text">
+                      Rated {business.rating.value} on {business.rating.source} across {business.rating.count}+ reviews.{' '}
+                      <a href={business.rating.url} rel="noopener">
+                        Read them all on our TripAdvisor page
+                      </a>
+                      .
+                    </p>
+                  </div>
+                </div>
                 {named.map((r) => (
                   <figure key={r.author} className="team-quote" data-reveal="">
                     <Stars />

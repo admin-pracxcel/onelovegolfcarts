@@ -32,7 +32,12 @@ import '@/styles/location.css';
 import '@/styles/guide.css';
 
 const PATH = '/getting-to-san-pedro-belize-arrival-guide/';
-const CRUMB = 'Getting to San Pedro';
+/* Manual breadcrumb: Home > Blog > Getting to San Pedro > Arrival Guide. */
+const TRAIL = [
+  { name: 'Blog', path: urls.blog },
+  { name: 'Getting to San Pedro', path: '/category/getting-to-san-pedro/' },
+  { name: 'Arrival Guide', path: PATH },
+];
 const HERO = 'golf-cart-tropic-air-terminal-san-pedro-airport';
 
 export const metadata: Metadata = {
@@ -95,7 +100,7 @@ function Option({ id, eyebrow, h2, blocks, dark, tight }: { id: string; eyebrow:
 export default function ArrivalGuidePage() {
   const schema = arrivalGuideSchema({
     path: PATH,
-    crumb: CRUMB,
+    trail: TRAIL,
     title: meta.h1,
     description: meta.description,
     image: imageInfo(HERO).src,
@@ -108,7 +113,7 @@ export default function ArrivalGuidePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
       <main id="main" className="loc-page guide-page">
-        <PageHeader trail={[{ name: CRUMB, path: PATH }]} eyebrow="Arrival guide" title={meta.h1} lead={intro}>
+        <PageHeader trail={TRAIL} eyebrow="Arrival guide" title={meta.h1} lead={intro}>
           <div className="container">
             <div className="loc-hero">
               <div className="loc-hero__main" data-reveal="clip">

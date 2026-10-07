@@ -14,7 +14,7 @@ import '@/styles/location.css';
 
 const PATH = '/north-ambergris-caye-cart-delivery/';
 const TRAIL = [
-  { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+  { name: 'Locations', path: '/locations/' },
   { name: 'North Ambergris Caye', path: PATH },
 ];
 

@@ -50,6 +50,28 @@ const PHOTOS = {
   'gallery-yellow-6-seater-golf-cart-white-fence': [480, 960, 1440],
 };
 
+// Every photo is geotagged with the One Love Google Business Profile pin
+// (from the live site's Google Maps link): 17.9178392, -87.9631848.
+const GPS = { lat: 17.9178392, lng: -87.9631848 };
+const dms = (deg) => {
+  const a = Math.abs(deg);
+  const d = Math.floor(a);
+  const m = Math.floor((a - d) * 60);
+  const s = Math.round(((a - d) * 60 - m) * 60 * 1e4);
+  return `${d}/1 ${m}/1 ${s}/10000`;
+};
+const EXIF = {
+  IFD0: { Copyright: 'One Love Golf Cart Rentals', Artist: 'One Love Golf Cart Rentals' },
+  IFD3: {
+    GPSVersionID: '2 2 0 0',
+    GPSLatitudeRef: GPS.lat >= 0 ? 'N' : 'S',
+    GPSLatitude: dms(GPS.lat),
+    GPSLongitudeRef: GPS.lng >= 0 ? 'E' : 'W',
+    GPSLongitude: dms(GPS.lng),
+    GPSMapDatum: 'WGS-84',
+  },
+};
+
 await mkdir(OUT, { recursive: true });
 const manifest = {};
 
@@ -60,7 +82,7 @@ for (const [name, widths] of Object.entries(PHOTOS)) {
   if (!usable.includes(meta.width) && usable.at(-1) < meta.width && widths.at(-1) > meta.width) usable.push(meta.width);
   manifest[name] = { w: meta.width, h: meta.height, widths: usable };
   for (const w of usable) {
-    const base = sharp(input).rotate().resize({ width: w, withoutEnlargement: true });
+    const base = sharp(input).rotate().resize({ width: w, withoutEnlargement: true }).withExif(EXIF);
     await base.clone().avif({ quality: 52, effort: 6 }).toFile(path.join(OUT, `${name}-${w}.avif`));
     await base.clone().webp({ quality: 78 }).toFile(path.join(OUT, `${name}-${w}.webp`));
     await base.clone().jpeg({ quality: 80, mozjpeg: true, progressive: true }).toFile(path.join(OUT, `${name}-${w}.jpg`));
@@ -71,6 +93,7 @@ for (const [name, widths] of Object.entries(PHOTOS)) {
 // Open Graph image: 1200x630 crop of the hero.
 await sharp(path.join(SRC, 'guests-golf-cart-convoy-beachfront-san-pedro.jpg'))
   .resize(1200, 630, { fit: 'cover', position: 'centre' })
+  .withExif(EXIF)
   .jpeg({ quality: 82, mozjpeg: true })
   .toFile(path.join(OUT, 'og-golf-cart-rental-san-pedro-belize.jpg'));
 

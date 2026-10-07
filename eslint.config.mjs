@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     // Sanity CLI build output and cache.
     "dist/**",
     ".sanity/**",
+    // Local QA scratch output.
+    ".qa/**",
   ]),
 ]);
 

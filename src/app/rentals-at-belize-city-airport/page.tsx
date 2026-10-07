@@ -14,8 +14,8 @@ import '@/styles/location.css';
 
 const PATH = '/rentals-at-belize-city-airport/';
 const TRAIL = [
-  { name: 'Ambergris Caye', path: '/ambergris-caye/' },
-  { name: 'Belize City Airport connections', path: PATH },
+  { name: 'Locations', path: '/locations/' },
+  { name: 'Belize City Airport Connections', path: PATH },
 ];
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export default function BelizeCityAirportPage() {
   const schema = locationSchema({
     path: PATH,
-    crumb: 'Belize City Airport connections',
+    crumb: 'Belize City Airport Connections',
     title: meta.h1,
     description: meta.description,
     serviceType: 'Golf cart pickup at San Pedro Airport for Belize City Airport connections',

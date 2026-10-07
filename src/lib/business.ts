@@ -26,8 +26,8 @@ export const business = {
   region: 'Belize District',
   island: 'Ambergris Caye',
   country: 'BZ',
-  lat: 17.9178, // VERIFY: field-report default, not a surveyed pin.
-  lng: -87.9631,
+  lat: 17.9178392, // Google Business Profile pin (live site's Maps link).
+  lng: -87.9631848,
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=One+Love+Golf+Cart+Rentals+San+Pedro+Belize',
   gbpUrl: null as string | null, // [GBP LISTING URL]
   gbpReview: null as string | null, // [GBP REVIEW SHORT URL]
@@ -92,8 +92,9 @@ export const urls = {
   pay: '/pay-now/',
   terms: '/terms-and-conditions/',
   privacy: '/privacy-policy/',
+  locations: '/locations/',
   ambergris: '/ambergris-caye/',
-  'san-pedro': '/exploring-san-pedro-by-golf-cart/', // VERIFY: manual names "San Pedro" in nav but gives no URL.
+  'san-pedro': '/exploring-san-pedro-by-golf-cart/', // Manual names "San Pedro" in nav but gives no URL; points to the blog post (confirmed).
   spr: '/rentals-at-san-pedro-airport/',
   bze: '/rentals-at-belize-city-airport/',
   'secret-beach': '/delivery-to-secret-beach/',

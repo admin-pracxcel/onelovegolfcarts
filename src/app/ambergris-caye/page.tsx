@@ -30,7 +30,10 @@ import {
 import { ambergrisSchema, jsonLd } from '@/lib/schema';
 import '@/styles/ambergris.css';
 
-const TRAIL = [{ name: 'Ambergris Caye', path: '/ambergris-caye/' }];
+const TRAIL = [
+  { name: 'Locations', path: '/locations/' },
+  { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+];
 
 export const metadata: Metadata = {
   title: { absolute: meta.title },

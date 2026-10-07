@@ -18,6 +18,7 @@ import {
   intro,
   meta,
   story,
+  isPlaceholder,
 } from '@/lib/pages/about';
 import { aboutSchema, jsonLd } from '@/lib/schema';
 import '@/styles/about.css';
@@ -46,7 +47,7 @@ export default function AboutPage() {
   const schema = aboutSchema(
     meta.title,
     meta.description,
-    founders.map((f) => ({ ...f, image: f.photo ? imageInfo(f.photo).src : undefined })),
+    founders.filter((f) => !isPlaceholder(f.firstName)).map((f) => ({ ...f, image: f.photo ? imageInfo(f.photo).src : undefined })),
   );
 
   return (
@@ -160,13 +161,19 @@ export default function AboutPage() {
               <div className="family__grid">
                 {founders.map((f, i) => (
                   <article key={f.firstName} id={`founder-${i + 1}`} className="founder" data-reveal="">
-                    {f.photo && (
+                    {f.photo ? (
                       <div className="founder__photo">
                         <Picture
                           name={f.photo}
                           alt={`${f.firstName} ${f.lastName}, ${f.role.toLowerCase()} of One Love Golf Cart Rentals`}
                           sizes="(min-width: 1000px) 30vw, 90vw"
                         />
+                      </div>
+                    ) : (
+                      <div className="founder__photo founder__photo--placeholder">
+                        {/* Stand-in until real portraits arrive; decorative, the name is in the heading. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/img/placeholder-team-image.webp" width={350} height={350} alt="" loading="lazy" decoding="async" />
                       </div>
                     )}
                     <h3 className="founder__name">

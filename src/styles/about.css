@@ -105,8 +105,10 @@
 .family__grid { display: grid; gap: 1.5rem; }
 .founder__photo { aspect-ratio: 1 / 1; border-radius: var(--radius-lg); overflow: hidden; background: var(--sand-2); margin-bottom: 1.25rem; }
 .founder__photo picture { height: 100%; }
+.founder__photo--placeholder { background: #e8e8e8; }
+.founder__photo--placeholder img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .founder__name { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; }
-.founder__role { margin-top: 0.2rem; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral-btn); }
+.founder__role { margin-top: 0.2rem; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral-btn-hover); }
 .founder__bio { margin-top: 0.9rem; color: var(--muted); }
 @media (min-width: 760px) { .family__grid { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); } }
 

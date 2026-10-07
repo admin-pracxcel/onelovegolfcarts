@@ -73,7 +73,8 @@
 /* Rates table ---------------------------------------------------------------- */
 
 .table-card { overflow: hidden; border-radius: var(--radius); background: var(--paper); }
-.rates__table { width: 100%; border-collapse: collapse; }
+.rates-table .table-card { overflow-x: auto; }
+.rates__table { width: 100%; min-width: 44rem; border-collapse: collapse; }
 .rates__table th, .rates__table td { padding: 1.1rem clamp(1rem, 0.6rem + 1.4vw, 2rem); text-align: left; }
 .rates__table thead th {
   font-size: var(--t-xs);
@@ -90,9 +91,9 @@
 .rates__table tr.is-usd + tr.is-bzd th,
 .rates__table tr.is-usd + tr.is-bzd td { padding-top: 0; }
 .rates__table tr.is-bzd + tr.is-usd { border-top: 1px solid var(--line); }
+.rates__table td.rates__tbd { font-family: var(--f-body); font-size: var(--t-small); font-weight: 600; letter-spacing: 0; color: var(--muted); }
 .rates__table td.rates__ask { vertical-align: middle; border-left: 1px solid var(--line); font-family: var(--f-body); font-size: var(--t-small); font-weight: 500; letter-spacing: 0; color: var(--muted); }
 @media (max-width: 599px) {
-  .rates__table thead th:last-child, .rates__table td.rates__ask { vertical-align: middle; border-left: 1px solid var(--line); display: none; }
   .rates__table th, .rates__table td { padding-inline: 0.9rem; }
   .rates__table tbody th { font-size: var(--t-small); }
 }

@@ -51,8 +51,8 @@ export function ResortPage({ slug }: { slug: ResortSlug }) {
   const path = urls[slug];
   const zone = ZONES[r.zone];
   const trail = [
-    { name: 'Ambergris Caye', path: urls.ambergris },
-    { name: zone.name, path: zone.path },
+    { name: 'Locations', path: urls.locations },
+    { name: 'Resort Delivery', path: `${urls.locations}#resorts` },
     { name: r.name, path },
   ];
   const linked = new Set(r.links.map((l) => l.key));

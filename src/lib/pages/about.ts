@@ -23,7 +23,33 @@ export type Founder = {
   linkedin?: string;
 };
 
-export const founders: Founder[] = [];
+/**
+ * The manual's placeholder founders, shown as written until the client
+ * supplies real details. Placeholders are kept out of structured data.
+ */
+export const founders: Founder[] = [
+  {
+    firstName: '[FOUNDER 1 FIRST NAME]',
+    lastName: '[FOUNDER 1 LAST NAME]',
+    role: '[FOUNDER 1 ROLE]',
+    place: '[PLACE]',
+    before: '[ONE SENTENCE ABOUT PRE-2017 WORK].',
+    handles: '[SPECIFIC ROLE, e.g. fleet maintenance, customer relations, bookings]',
+    interest: '[ONE HOBBY OR INTEREST]',
+  },
+  {
+    firstName: '[FOUNDER 2 FIRST NAME]',
+    lastName: '[FOUNDER 2 LAST NAME]',
+    role: '[FOUNDER 2 ROLE]',
+    place: '[PLACE]',
+    before: '[ONE SENTENCE ABOUT PRE-2017 WORK].',
+    handles: '[SPECIFIC ROLE, e.g. fleet maintenance, customer relations, bookings]',
+    interest: '[ONE HOBBY OR INTEREST]',
+  },
+];
+
+/** True for a value still holding the manual's [PLACEHOLDER]. */
+export const isPlaceholder = (s?: string) => !!s && s.trim().startsWith('[');
 
 export const meta = {
   title: 'About One Love Golf Cart Rentals | San Pedro, Ambergris Caye',

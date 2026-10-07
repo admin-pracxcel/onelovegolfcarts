@@ -34,6 +34,9 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 };
 
+/** The manual's placeholder for prices not yet set (3 days, 2 weeks, monthly). */
+const TBD = '[TBD]';
+
 const NAV = [
   { id: 'rates-table', label: 'Rates' },
   { id: 'included', label: 'Included' },
@@ -141,14 +144,16 @@ export default function RatesPage() {
                 .
               </p>
             </div>
-            <div className="table-card" data-reveal="">
+            <div className="table-card" data-reveal="" role="region" aria-label="Rental rates table" tabIndex={0}>
               <table className="rates__table">
                 <caption className="screen-reader-text">Golf cart rental rates by cart, currency and rental length</caption>
                 <thead>
                   <tr>
                     <th scope="col">Cart</th>
                     <th scope="col">1 day</th>
+                    <th scope="col">3 days</th>
                     <th scope="col">1 week</th>
+                    <th scope="col">2 weeks</th>
                     <th scope="col">Monthly</th>
                   </tr>
                 </thead>
@@ -160,12 +165,10 @@ export default function RatesPage() {
                           {r.cart} <span className="rates__cur">({cur.toUpperCase()})</span>
                         </th>
                         <td data-label="1 day">{money(r[cur].day)}</td>
+                        <td data-label="3 days" className="rates__tbd">{TBD}</td>
                         <td data-label="1 week">{money(r[cur].week)}</td>
-                        {cur === 'usd' && (
-                          <td data-label="Monthly" className="rates__ask" rowSpan={2}>
-                            On request
-                          </td>
-                        )}
+                        <td data-label="2 weeks" className="rates__tbd">{TBD}</td>
+                        <td data-label="Monthly" className="rates__tbd">{TBD}</td>
                       </tr>
                     )),
                   )}

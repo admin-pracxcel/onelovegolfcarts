@@ -16,7 +16,7 @@ export const primaryNav: NavItem[] = [
   },
   {
     label: 'Locations',
-    href: urls.ambergris,
+    href: urls.locations,
     children: [
       { label: 'San Pedro', href: urls['san-pedro'] },
       { label: 'Ambergris Caye', href: urls.ambergris },

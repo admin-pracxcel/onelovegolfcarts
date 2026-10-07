@@ -14,7 +14,7 @@ import '@/styles/location.css';
 
 const PATH = '/delivery-to-secret-beach/';
 const TRAIL = [
-  { name: 'Ambergris Caye', path: '/ambergris-caye/' },
+  { name: 'Locations', path: '/locations/' },
   { name: 'Secret Beach', path: PATH },
 ];
 
