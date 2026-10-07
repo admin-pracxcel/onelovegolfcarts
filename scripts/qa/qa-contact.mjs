@@ -12,6 +12,7 @@ const run = async (js, fill, label) => {
   await Promise.all([js ? p.waitForTimeout(2500) : p.waitForLoadState('networkidle'), p.click('.contact-form button[type=submit]')]);
   await p.waitForTimeout(800);
   const out = await p.evaluate(() => ({
+    path: location.pathname,
     status: document.querySelector('.contact-form__status')?.className.replace('contact-form__status ', ''),
     text: document.querySelector('.contact-form__status')?.textContent.trim().slice(0, 90),
     invalid: [...document.querySelectorAll('[aria-invalid="true"]')].map((e) => e.name),

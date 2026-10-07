@@ -6,6 +6,7 @@ import { business, whatsappUrl } from '@/lib/business';
 import { bookingLines, type BookingField, type BookingValues } from '@/lib/booking';
 import { announcement } from '@/lib/content';
 import { Icon } from './Icon';
+import { LeadFields } from './LeadFields';
 
 const initial: BookingState = { status: 'idle' };
 
@@ -31,7 +32,7 @@ export function BookingForm() {
   // Keep the delivery/pickup choice in step with each server response.
   if (seen !== state) {
     setSeen(state);
-    setMode(state.status === 'sent' ? 'delivery' : state.values?.mode || mode);
+    setMode(state.values?.mode || mode);
   }
 
   // Date pickers can't start before today in Belize (set after load, since the page is prerendered).
@@ -39,7 +40,6 @@ export function BookingForm() {
     form.current?.querySelectorAll<HTMLInputElement>('input[type="date"]').forEach((i) => (i.min = belizeToday()));
   }, []);
   useEffect(() => {
-    if (state.status === 'sent') form.current?.reset();
     if (state.status === 'invalid') form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
     else if (state.status !== 'idle') status.current?.focus();
   }, [state]);
@@ -172,6 +172,8 @@ export function BookingForm() {
         </div>
       </fieldset>
 
+      <LeadFields />
+
       <div className="contact-form__hp" aria-hidden="true">
         <label htmlFor="bf-company">Company</label>
         <input id="bf-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
@@ -184,9 +186,6 @@ export function BookingForm() {
         <p className="field__hint">Nothing is charged. You pay at hand-off or on our Pay Now page.</p>
       </div>
       <div ref={status} className={`contact-form__status booking-form__status is-${state.status}`} role="status" aria-live="polite" tabIndex={-1}>
-        {state.status === 'sent' && (
-          <p>Thanks, your booking request is in. We confirm by WhatsApp within about 15 minutes during business hours ({business.hoursLabel}).</p>
-        )}
         {state.status === 'invalid' && <p>{state.message}</p>}
         {(state.status === 'unconfigured' || state.status === 'error') && (
           <>

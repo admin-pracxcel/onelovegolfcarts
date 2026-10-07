@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { PromoModal } from '@/components/PromoModal';
+import { LeadTracker } from '@/components/LeadTracker';
 import { SiteEffects, revealBootScript } from '@/components/SiteEffects';
 import { TopBar } from '@/components/TopBar';
 import { business, SITE_URL } from '@/lib/business';
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <Footer />
         <SiteEffects />
+        <LeadTracker />
         <PromoModal />
       </body>
     </html>

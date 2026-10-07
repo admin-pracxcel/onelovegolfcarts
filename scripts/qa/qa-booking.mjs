@@ -14,6 +14,7 @@ const run = async (js, fill, label, extra) => {
   await Promise.all([js ? p.waitForTimeout(2500) : p.waitForLoadState('networkidle'), p.click('.booking-form button[type=submit]')]);
   await p.waitForTimeout(800);
   const out = await p.evaluate(() => ({
+    path: location.pathname,
     status: document.querySelector('.booking-form__status')?.className.split(' ').pop(),
     text: document.querySelector('.booking-form__status')?.textContent.trim().slice(0, 80),
     invalid: [...document.querySelectorAll('[aria-invalid="true"]')].map((e) => e.name),

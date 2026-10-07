@@ -2,16 +2,21 @@
 
 /**
  * Contact form handler. Validates on the server, drops obvious spam, then
- * delivers through the configured channel (see lib/deliver.ts).
+ * delivers through the configured channel (see lib/deliver.ts), with the lead
+ * fields (lib/lead.ts), then sends the visitor to /contact-thank-you/.
  *
  * With neither configured the action returns `unconfigured` and the form
  * points people to email and WhatsApp, so a message is never silently lost.
  */
 
+import { redirect } from 'next/navigation';
 import { deliver } from '@/lib/deliver';
+import { leadFields, leadLines } from '@/lib/lead-server';
+
+const THANK_YOU = '/contact-thank-you/';
 
 export type ContactState = {
-  status: 'idle' | 'sent' | 'invalid' | 'error' | 'unconfigured';
+  status: 'idle' | 'invalid' | 'error' | 'unconfigured';
   message?: string;
   errors?: Partial<Record<'name' | 'email' | 'phone' | 'message', string>>;
   values?: { name: string; email: string; phone: string; message: string };
@@ -28,7 +33,7 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   };
 
   // Honeypot: real people never see or fill this field. Pretend success.
-  if (String(formData.get('company') ?? '').trim()) return { status: 'sent' };
+  if (String(formData.get('company') ?? '').trim()) redirect(THANK_YOU);
 
   const errors: ContactState['errors'] = {};
   if (values.name.length < 2) errors.name = 'Please enter your name.';
@@ -41,15 +46,17 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   }
 
   const subject = `Website enquiry from ${values.name}`;
-  const text = `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone || 'n/a'}\n\n${values.message}`;
+  const lead = await leadFields(formData);
+  const text = `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone || 'n/a'}\n\n${values.message}${leadLines(lead)}`;
 
   try {
-    const result = await deliver({ form: 'contact', subject, text, replyTo: values.email, fields: values });
+    const result = await deliver({ form: 'contact', subject, text, replyTo: values.email, fields: { ...values, ...lead } });
     if (result === 'unconfigured') return { status: 'unconfigured', values };
   } catch (err) {
     console.error('[contact] delivery failed', err);
     return { status: 'error', values };
   }
 
-  return { status: 'sent' };
+  // Outside the try: redirect() works by throwing.
+  redirect(THANK_YOU);
 }

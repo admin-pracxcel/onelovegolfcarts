@@ -3,14 +3,19 @@
 /**
  * Reservation form handler. Same fields as the live site's WPForms booking
  * form. Validates on the server, drops obvious spam, then delivers through the
- * configured channel (lib/deliver.ts). Nothing is charged or stored here.
+ * configured channel (lib/deliver.ts) with the lead fields (lib/lead.ts), then
+ * sends the visitor to /book-thank-you/. Nothing is charged or stored here.
  */
 
 import { BOOKING_FIELDS, bookingLines, CART_LABELS, MODE_LABELS, type BookingField, type BookingValues } from '@/lib/booking';
+import { redirect } from 'next/navigation';
 import { deliver } from '@/lib/deliver';
+import { leadFields, leadLines } from '@/lib/lead-server';
+
+const THANK_YOU = '/book-thank-you/';
 
 export type BookingState = {
-  status: 'idle' | 'sent' | 'invalid' | 'error' | 'unconfigured';
+  status: 'idle' | 'invalid' | 'error' | 'unconfigured';
   message?: string;
   errors?: Partial<Record<BookingField, string>>;
   values?: BookingValues;
@@ -28,7 +33,7 @@ function belizeToday() {
 export async function sendBooking(_prev: BookingState, formData: FormData): Promise<BookingState> {
   const values = Object.fromEntries(BOOKING_FIELDS.map((f) => [f, String(formData.get(f) ?? '').trim()])) as BookingValues;
 
-  if (String(formData.get('company') ?? '').trim()) return { status: 'sent' };
+  if (String(formData.get('company') ?? '').trim()) redirect(THANK_YOU);
 
   const e: BookingState['errors'] = {};
   if (values.firstName.length < 1) e.firstName = 'Please enter your first name.';
@@ -52,19 +57,21 @@ export async function sendBooking(_prev: BookingState, formData: FormData): Prom
 
   const name = `${values.firstName} ${values.lastName}`;
   const lines = bookingLines(values);
+  const lead = await leadFields(formData);
 
   try {
     const result = await deliver({
       form: 'booking',
       subject: `Golf cart reservation: ${name}, ${values.startDate} to ${values.returnDate}`,
-      text: lines.join('\n'),
+      text: lines.join('\n') + leadLines(lead),
       replyTo: values.email,
-      fields: { ...values, name, cart: CART_LABELS[values.cart], mode: MODE_LABELS[values.mode] },
+      fields: { ...values, name, cart: CART_LABELS[values.cart], mode: MODE_LABELS[values.mode], ...lead },
     });
     if (result === 'unconfigured') return { status: 'unconfigured', values };
   } catch (err) {
     console.error('[booking] delivery failed', err);
     return { status: 'error', values };
   }
-  return { status: 'sent' };
+  // Outside the try: redirect() works by throwing.
+  redirect(THANK_YOU);
 }

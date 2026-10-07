@@ -18,6 +18,7 @@ import {
 } from '@/lib/card';
 import { PAYMENT_FIELDS, validatePayment, type PaymentField, type PaymentValues } from '@/lib/payment';
 import { Icon } from './Icon';
+import { LeadFields } from './LeadFields';
 
 const initial: PaymentState = { status: 'idle' };
 
@@ -142,7 +143,6 @@ export function PayForm() {
   };
 
   useEffect(() => {
-    if (state.status === 'sent') form.current?.reset();
     form.current?.querySelectorAll<HTMLInputElement>('[data-card]').forEach((i) => (i.value = ''));
     if (state.status === 'invalid') form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
     else if (state.status !== 'idle') status.current?.focus();
@@ -220,6 +220,8 @@ export function PayForm() {
         {input('amount')}
       </fieldset>
 
+      <LeadFields />
+
       <div className="contact-form__hp" aria-hidden="true">
         <label htmlFor="pf-company">Company</label>
         <input id="pf-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
@@ -231,7 +233,6 @@ export function PayForm() {
         </button>
       </div>
       <div ref={status} className={`contact-form__status is-${state.status}`} role="status" aria-live="polite" tabIndex={-1}>
-        {state.status === 'sent' && <p>Thanks, your payment details have been sent to us.</p>}
         {state.status === 'invalid' && <p>{state.message}</p>}
         {state.status === 'unconfigured' && <p>Online payment isn&apos;t available right now. {help}</p>}
         {state.status === 'error' && <p>Sorry, your payment details didn&apos;t go through. Nothing was charged. {help}</p>}

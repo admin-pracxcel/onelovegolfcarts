@@ -15,6 +15,7 @@ const run = async (js, fill, label) => {
   await p.waitForTimeout(800);
   const html = await p.content();
   const out = await p.evaluate(() => ({
+    path: location.pathname,
     status: document.querySelector('.pay-form .contact-form__status')?.className.split(' ').pop(),
     invalid: [...document.querySelectorAll('[aria-invalid="true"]')].map((e) => e.name),
     cardLeft: ['cardNumber', 'expiry', 'cvc'].map((n) => document.querySelector(`[name="${n}"]`)?.value).join('|'),

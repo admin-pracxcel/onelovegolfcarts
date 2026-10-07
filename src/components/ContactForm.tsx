@@ -4,13 +4,15 @@ import { useActionState, useEffect, useRef } from 'react';
 import { sendContact, type ContactState } from '@/lib/actions/contact';
 import { business, whatsappUrl } from '@/lib/business';
 import { Icon } from './Icon';
+import { LeadFields } from './LeadFields';
 
 const initial: ContactState = { status: 'idle' };
 
 /**
  * Contact form (Name, Email, Phone, Message). Works without JavaScript
  * (server action as the form action); with JS it validates inline and keeps
- * what was typed. Errors are announced and linked to their fields.
+ * what was typed. Errors are announced and linked to their fields. Success
+ * redirects to /contact-thank-you/ (see the action).
  */
 export function ContactForm() {
   const [state, action, pending] = useActionState(sendContact, initial);
@@ -20,7 +22,6 @@ export function ContactForm() {
   const e = state.errors ?? {};
 
   useEffect(() => {
-    if (state.status === 'sent') form.current?.reset();
     if (state.status === 'invalid') {
       const first = form.current?.querySelector<HTMLElement>('[aria-invalid="true"]');
       first?.focus();
@@ -69,6 +70,8 @@ export function ContactForm() {
         {e.message && <p id="cf-message-error" className="field__error">{e.message}</p>}
       </div>
 
+      <LeadFields />
+
       {/* Honeypot: hidden from people and assistive tech. */}
       <div className="contact-form__hp" aria-hidden="true">
         <label htmlFor="cf-company">Company</label>
@@ -80,7 +83,6 @@ export function ContactForm() {
           {pending ? 'Sending…' : 'Send message'} {!pending && <Icon name="arrow" />}
         </button>
         <div ref={status} className={`contact-form__status is-${state.status}`} role="status" aria-live="polite" tabIndex={-1}>
-          {state.status === 'sent' && <p>Thanks, your message is on its way. We usually reply by email within four business hours.</p>}
           {state.status === 'invalid' && <p>{state.message}</p>}
           {state.status === 'unconfigured' && <p>Our contact form isn&apos;t connected yet. {fallback}</p>}
           {state.status === 'error' && <p>Sorry, your message didn&apos;t go through. {fallback}</p>}
