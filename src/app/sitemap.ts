@@ -30,5 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/pay-now/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/terms-and-conditions/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/privacy-policy/`, lastModified: new Date('2026-10-06') },
+    { url: `${SITE_URL}/things-to-do-ambergris-caye-golf-cart/`, lastModified: new Date('2026-10-07') },
   ];
 }

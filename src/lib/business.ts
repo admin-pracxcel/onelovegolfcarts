@@ -115,6 +115,8 @@ export const urls = {
   snorkel: '/snorkel-launches-reachable-by-golf-cart-ambergris/',
   'lobster-crawl': '/the-great-lobster-crawl-a-self-guided-culinary-tour/', // existing blog post on the live site
   events: '/san-pedro-events-golf-cart-guide/',
+  'night-fishing': '/night-fishing-bioluminescence-safe-parking-for-night-adventures/', // existing blog post on the live site
+  weekend: '/san-pedro-belize-golf-cart-itinerary-weekend-guide/', // existing blog post on the live site
   perseid: '/perseid-meteor-shower-dark-sky-driving-for-stargazing/', // existing blog post on the live site
   'water-taxi': '/water-taxi-belize-city-to-san-pedro-guide/',
   'deep-south': '/the-deep-south-expedition-how-far-can-you-really-go/', // existing blog post on the live site

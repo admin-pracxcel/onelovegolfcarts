@@ -581,3 +581,55 @@ export function utilitySchema(opts: { path: string; crumb: string; title: string
     ],
   };
 }
+
+/**
+ * Things to Do pillar: Article, ItemList of TouristAttraction stops (no
+ * coordinates: none are verified), FAQPage, BreadcrumbList.
+ */
+export function thingsToDoSchema(opts: {
+  path: string;
+  crumb: string;
+  title: string;
+  description: string;
+  image: string;
+  published: string;
+  stops: { id: string; name: string; body: string }[];
+  faq: [string, string][];
+}) {
+  const url = abs(opts.path);
+  const island = { '@type': 'Place', name: 'Ambergris Caye', sameAs: 'https://en.wikipedia.org/wiki/Ambergris_Caye' };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: opts.crumb, path: opts.path }]),
+      {
+        '@type': 'Article',
+        '@id': `${url}#article`,
+        headline: opts.title,
+        description: opts.description,
+        image: abs(opts.image),
+        datePublished: opts.published,
+        dateModified: opts.published,
+        author: { '@id': BUSINESS_ID },
+        publisher: { '@id': BUSINESS_ID },
+        mainEntityOfPage: url,
+        inLanguage: 'en-US',
+        about: island,
+        hasPart: { '@id': `${url}#stops` },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${url}#stops`,
+        name: 'Stops worth the drive on Ambergris Caye',
+        itemListElement: opts.stops.map((s, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${url}#${s.id}`,
+          item: { '@type': 'TouristAttraction', name: s.name, description: s.body, containedInPlace: island },
+        })),
+      },
+      faqSchema(opts.faq, opts.path),
+    ],
+  };
+}

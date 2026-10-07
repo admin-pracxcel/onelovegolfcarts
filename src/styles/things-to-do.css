@@ -1,0 +1,65 @@
+/* Things to Do pillar. Builds on location.css + guide.css. ----------------- */
+
+.ttd-photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; }
+.ttd-photo picture { height: 100%; }
+
+/* Area filter */
+.area-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: end; }
+.area-filter button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1rem; border: 1px solid rgb(10 26 58 / 0.18); border-radius: 999px; background: var(--paper); color: var(--ink); font: inherit; font-size: var(--t-small); font-weight: 600; cursor: pointer; }
+.area-filter button span { font-size: var(--t-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+.area-filter button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.area-filter button[aria-pressed="true"] span { color: var(--muted-light); }
+.area-filter button:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+@media (min-width: 1000px) { .ttd-page #stops .section-head--split > .area-filter { justify-self: end; justify-content: flex-end; } }
+
+/* Stops grid */
+.ttd-stops { display: grid; gap: 1rem; }
+.ttd-stops:not([data-area="all"]) .ttd-stop { display: none; }
+.ttd-stops[data-area="north"] .ttd-stop--north,
+.ttd-stops[data-area="town"] .ttd-stop--town,
+.ttd-stops[data-area="south"] .ttd-stop--south { display: grid; }
+.ttd-stop { display: grid; gap: 0.6rem; align-content: start; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); border-radius: var(--radius); background: var(--paper); scroll-margin-top: 7rem; }
+.ttd-stop__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.ttd-stop__num { font-family: var(--f-display); font-size: 1.75rem; font-weight: 750; letter-spacing: -0.04em; line-height: 1; color: var(--coral-btn); font-variant-numeric: tabular-nums; }
+.ttd-stop__area { padding: 0.2rem 0.6rem; border-radius: 999px; font-size: var(--t-xs); font-weight: 700; background: var(--sand); }
+.ttd-stop--north .ttd-stop__area { background: var(--ink); color: #fff; }
+.ttd-stop--south .ttd-stop__area { background: var(--sun); color: var(--ink); }
+.ttd-stop__name { font-family: var(--f-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.ttd-stop p { font-size: var(--t-small); line-height: 1.7; color: var(--muted); }
+@media (min-width: 700px) { .ttd-stops { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .ttd-stops { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Itineraries (dark band) */
+.ttd-itins { display: grid; gap: 1rem; }
+.ttd-itin { display: grid; gap: 1.25rem; align-content: start; padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius); border: 1px solid var(--line-light); background: rgb(255 255 255 / 0.06); }
+.ttd-itin__title { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; color: var(--sun); }
+.ttd-itin__label { margin-bottom: 0.5rem; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
+.ttd-itin ol { display: grid; gap: 0.55rem; counter-reset: step; }
+.ttd-itin li { counter-increment: step; display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.5rem; font-size: var(--t-small); line-height: 1.55; color: var(--muted-light); }
+.ttd-itin li::before { content: counter(step); display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: rgb(255 255 255 / 0.12); color: #fff; font-size: 0.72rem; font-weight: 700; }
+.ttd-itin__day + .ttd-itin__day { padding-top: 1rem; border-top: 1px solid var(--line-light); }
+.ttd-on-dark .loc-links a { color: #fff; }
+@media (min-width: 1000px) { .ttd-itins { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Sunset routes */
+.ttd-routes { display: grid; gap: 1rem; }
+.ttd-route { display: grid; gap: 0.6rem; align-content: start; padding: clamp(1.5rem, 1.2rem + 1vw, 2rem); border-radius: var(--radius-lg); background: linear-gradient(160deg, #ffd27a 0%, #f79a5c 55%, #e3604f 100%); color: var(--ink); }
+.ttd-route__num { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.ttd-route__name { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.ttd-route__time { justify-self: start; padding: 0.25rem 0.7rem; border-radius: 999px; background: var(--ink); color: #fff; font-size: var(--t-xs); font-weight: 700; }
+.ttd-route p:last-child { font-size: var(--t-small); line-height: 1.65; }
+@media (min-width: 900px) { .ttd-routes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Family and foodie loops */
+.ttd-loops { display: grid; gap: 1rem; }
+.ttd-loop { display: grid; gap: 0.75rem; align-content: start; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); border-radius: var(--radius); background: var(--paper); }
+.ttd-loop__when { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.ttd-loop__name { font-family: var(--f-display); font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
+.ttd-loop ol { display: grid; gap: 0; }
+.ttd-loop li { position: relative; padding: 0 0 0.85rem 1.5rem; font-size: var(--t-small); line-height: 1.5; }
+.ttd-loop li::before { content: ""; position: absolute; left: 0.2rem; top: 0.35em; width: 0.6rem; height: 0.6rem; border-radius: 50%; border: 2px solid var(--coral-btn); background: var(--paper); }
+.ttd-loop li:not(:last-child)::after { content: ""; position: absolute; left: 0.47rem; top: 1.1em; bottom: 0.1rem; width: 2px; background: var(--line); }
+.ttd-loop li:last-child { padding-bottom: 0; }
+.ttd-loop--food { background: var(--sand-2); }
+@media (min-width: 700px) { .ttd-loops { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .ttd-loops--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ttd-loops--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
