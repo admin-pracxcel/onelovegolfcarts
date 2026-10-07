@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
-import { sendPayment, type PaymentState } from '@/app/pay-now/actions';
+import { sendPayment, type PaymentState } from '@/lib/actions/payment';
 import { business, whatsappUrl } from '@/lib/business';
 import {
   BRAND_LABELS,

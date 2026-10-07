@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import localFont from 'next/font/local';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { PromoModal } from '@/components/PromoModal';
@@ -7,23 +6,8 @@ import { SiteEffects, revealBootScript } from '@/components/SiteEffects';
 import { TopBar } from '@/components/TopBar';
 import { business, SITE_URL } from '@/lib/business';
 import { ALLOW_INDEXING } from '@/lib/seo';
-import './globals.css';
-
-const display = localFont({
-  src: '../fonts/bricolage-grotesque-var-latin.woff2',
-  weight: '500 800',
-  variable: '--font-display',
-  display: 'swap',
-  fallback: ['Arial Narrow', 'Arial', 'sans-serif'],
-});
-
-const body = localFont({
-  src: '../fonts/instrument-sans-var-latin.woff2',
-  weight: '400 700',
-  variable: '--font-body',
-  display: 'swap',
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
-});
+import { body, display } from '@/lib/fonts';
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

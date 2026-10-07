@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useEffect, useRef, useState } from 'react';
-import { sendBooking, type BookingState } from '@/app/book-now/actions';
+import { sendBooking, type BookingState } from '@/lib/actions/booking';
 import { business, whatsappUrl } from '@/lib/business';
 import { bookingLines, type BookingField, type BookingValues } from '@/lib/booking';
 import { announcement } from '@/lib/content';

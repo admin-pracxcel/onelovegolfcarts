@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useEffect, useRef } from 'react';
-import { sendContact, type ContactState } from '@/app/contact/actions';
+import { sendContact, type ContactState } from '@/lib/actions/contact';
 import { business, whatsappUrl } from '@/lib/business';
 import { Icon } from './Icon';
 
