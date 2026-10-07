@@ -1,9 +1,11 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/business';
+import { getSitemapEntries } from '@/lib/sanity';
 
-// Only routes that exist in this app. Add pages here as they are built.
-// (Google ignores priority/changefreq, so they are omitted.)
-export default function sitemap(): MetadataRoute.Sitemap {
+// Code pages are listed here; blog posts, categories, authors and tags (3+
+// posts) come from Sanity. (Google ignores priority/changefreq.)
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const cms = await getSitemapEntries();
   return [
     { url: `${SITE_URL}/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/our-carts/`, lastModified: new Date('2026-10-06') },
@@ -31,5 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/terms-and-conditions/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/privacy-policy/`, lastModified: new Date('2026-10-06') },
     { url: `${SITE_URL}/things-to-do-ambergris-caye-golf-cart/`, lastModified: new Date('2026-10-07') },
+    { url: `${SITE_URL}/blog/`, lastModified: new Date(cms.posts[0]?.date ?? '2026-10-07') },
+    ...cms.posts.map((p) => ({ url: `${SITE_URL}/${p.slug}/`, lastModified: new Date(p.date) })),
+    ...cms.categories.map((s) => ({ url: `${SITE_URL}/category/${s}/` })),
+    ...cms.authors.map((s) => ({ url: `${SITE_URL}/author/${s}/` })),
+    ...cms.tags.map((s) => ({ url: `${SITE_URL}/tag/${s}/` })),
   ];
 }

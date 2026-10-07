@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Sanity CLI build output and cache.
+    "dist/**",
+    ".sanity/**",
   ]),
 ]);
 

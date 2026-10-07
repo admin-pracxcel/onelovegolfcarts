@@ -633,3 +633,115 @@ export function thingsToDoSchema(opts: {
     ],
   };
 }
+
+/* Blog --------------------------------------------------------------------- */
+
+type ListPost = { slug: string; title: string };
+const listOf = (posts: ListPost[]) => ({
+  '@type': 'ItemList',
+  itemListElement: posts.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/${p.slug}/`), name: p.title })),
+});
+
+/** /blog/: Blog + ItemList of the posts on the page. */
+export function blogSchema(opts: { path: string; title: string; description: string; posts: ListPost[] }) {
+  const url = abs(opts.path);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([{ name: 'Blog', path: '/blog/' }]),
+      { '@type': 'Blog', '@id': abs('/blog/#blog'), url, name: opts.title, description: opts.description, publisher: { '@id': BUSINESS_ID }, inLanguage: 'en-US', mainEntity: listOf(opts.posts) },
+    ],
+  };
+}
+
+/** Category, tag and author archives: CollectionPage (or ProfilePage) + breadcrumbs. */
+export function archiveSchema(opts: {
+  path: string;
+  trail: { name: string; path: string }[];
+  title: string;
+  description: string;
+  posts: ListPost[];
+  person?: { name: string; role?: string; image?: string; bio?: string; links?: string[] };
+}) {
+  const url = abs(opts.path);
+  const person = opts.person && {
+    '@type': 'Person',
+    '@id': `${url}#person`,
+    name: opts.person.name,
+    ...(opts.person.role ? { jobTitle: opts.person.role } : {}),
+    ...(opts.person.image ? { image: opts.person.image } : {}),
+    ...(opts.person.bio ? { description: opts.person.bio } : {}),
+    ...(opts.person.links?.length ? { sameAs: opts.person.links } : {}),
+    worksFor: { '@id': BUSINESS_ID },
+    url,
+  };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema(opts.trail),
+      {
+        '@type': person ? 'ProfilePage' : 'CollectionPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: opts.title,
+        description: opts.description,
+        inLanguage: 'en-US',
+        isPartOf: { '@id': abs('/blog/#blog') },
+        ...(person ? { mainEntity: { '@id': person['@id'] } } : { mainEntity: listOf(opts.posts) }),
+      },
+      ...(person ? [person] : []),
+    ],
+  };
+}
+
+/** A blog post: BlogPosting, breadcrumbs (Home > Blog > Category > Post), FAQPage. */
+export function postSchema(opts: {
+  path: string;
+  title: string;
+  description: string;
+  image?: string;
+  published: string;
+  updated?: string;
+  category?: { title: string; slug: string };
+  tags?: string[];
+  author?: { name: string; slug: string; kind?: string };
+  faq?: [string, string][];
+  words: number;
+}) {
+  const url = abs(opts.path);
+  const author =
+    !opts.author || opts.author.kind === 'organization'
+      ? { '@id': BUSINESS_ID }
+      : { '@type': 'Person', name: opts.author.name, url: abs(`/author/${opts.author.slug}/`), worksFor: { '@id': BUSINESS_ID } };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      businessSchema(),
+      breadcrumbSchema([
+        { name: 'Blog', path: '/blog/' },
+        ...(opts.category ? [{ name: opts.category.title, path: `/category/${opts.category.slug}/` }] : []),
+        { name: opts.title, path: opts.path },
+      ]),
+      {
+        '@type': 'BlogPosting',
+        '@id': `${url}#article`,
+        headline: opts.title,
+        description: opts.description,
+        ...(opts.image ? { image: opts.image } : {}),
+        datePublished: opts.published,
+        dateModified: opts.updated ?? opts.published,
+        author,
+        publisher: { '@id': BUSINESS_ID },
+        mainEntityOfPage: url,
+        isPartOf: { '@id': abs('/blog/#blog') },
+        ...(opts.category ? { articleSection: opts.category.title } : {}),
+        ...(opts.tags?.length ? { keywords: opts.tags.join(', ') } : {}),
+        wordCount: opts.words,
+        inLanguage: 'en-US',
+      },
+      ...(opts.faq?.length ? [faqSchema(opts.faq, opts.path)] : []),
+    ],
+  };
+}

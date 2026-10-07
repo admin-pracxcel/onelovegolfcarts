@@ -38,6 +38,32 @@ With no delivery variable set, the forms don't pretend to send: contact and book
 
 **Pay Now carries card numbers, expiry dates and CVCs** (the live site's form, kept at the client's request). The site never logs, stores or re-displays them; they go only to `PAYMENT_WEBHOOK_URL`. In n8n, turn off saving execution data for that workflow and don't email or store the CVC.
 
+## Blog (Sanity CMS)
+
+Posts, categories, tags and authors are edited in **Sanity Studio**, hosted by Sanity at **https://onelove-blog.sanity.studio**. `/studio` on the site redirects there. Editors log in with their Sanity account. Posts publish to `/<slug>/`. Categories live at `/category/<slug>/`, authors at `/author/<slug>/`, and tags at `/tag/<slug>/` (search engines only index a tag once it has 3+ posts). The blog home is `/blog/`. Pillar guides (Things to Do, arrival guide, comparison, Ambergris Caye) stay as code pages.
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` | The Sanity project the site reads from (dataset defaults to `production`). Without them the blog shows its categories and an empty post list. |
+| `SANITY_STUDIO_PROJECT_ID` | Same project ID, for running (`pnpm studio`) or deploying (`pnpm studio:deploy`) the Studio. |
+| `SANITY_REVALIDATE_SECRET` | Shared secret for the Sanity webhook that refreshes the site on publish. |
+| `SANITY_API_WRITE_TOKEN` | Editor token, only for `pnpm sanity:seed`. Never needed by the live site. |
+
+One-time setup:
+
+1. Create the project at [sanity.io/manage](https://www.sanity.io/manage) with a public `production` dataset. Put its ID in the variables above.
+2. Create an **Editor** API token, then run `pnpm sanity:seed`. This adds the 5 categories, the tag list and the default "One Love Golf Cart Rentals" author.
+3. Run `pnpm studio:deploy` after changing anything in `sanity/` or `sanity.config.ts`. This republishes the hosted Studio.
+4. Invite editors under **Members** in sanity.io/manage.
+5. Add a webhook under **API → Webhooks**:
+   - URL: `https://onelovegolfcartsbelize.com/api/revalidate`
+   - Dataset: `production`
+   - Triggers: create, update and delete
+   - Filter: `_type in ["post","category","author","tag"]`
+   - Secret: the value of `SANITY_REVALIDATE_SECRET`
+
+`pnpm studio` runs the Studio locally on port 3333. `pnpm qa:sanity-mock` serves sample posts so you can test the blog pages without a project; see the script's header.
+
 ## Content
 
 - `src/lib/business.ts`: name, address, phone, rates, ratings, social profiles and planned URLs. The single source of truth, used by the pages and the structured data.

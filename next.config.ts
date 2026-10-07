@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     return [
       { source: '/privacy-policy-2/', destination: '/privacy-policy/', permanent: true },
       { source: '/terms-conditons/', destination: '/terms-and-conditions/', permanent: true },
+      // Blog editors: the Sanity Studio is hosted by Sanity.
+      { source: '/studio', destination: 'https://onelove-blog.sanity.studio/', permanent: false },
+      { source: '/studio/:path*', destination: 'https://onelove-blog.sanity.studio/:path*', permanent: false },
     ];
   },
   async headers() {

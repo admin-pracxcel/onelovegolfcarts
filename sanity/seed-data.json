@@ -1,0 +1,228 @@
+{
+  "categories": [
+    {
+      "title": "Ambergris Caye Guide",
+      "slug": "ambergris-caye-guide",
+      "order": 1,
+      "cardText": "Rules, fuel, bridge toll, road conditions, weather, driving etiquette. What you learn from a local before your first day on the island.",
+      "seoTitle": "Ambergris Caye Golf Cart Guides | One Love Blog",
+      "seoDescription": "Local-driver guides for driving a golf cart on Ambergris Caye: rules, fuel, bridge toll, road conditions.",
+      "pillarTitle": "Ambergris Caye golf cart guide",
+      "pillarUrl": "/ambergris-caye/",
+      "pillarSummary": "Rent a 4 or 6 seater golf cart on Ambergris Caye, with free delivery to your hotel, resort, or the airport."
+    },
+    {
+      "title": "San Pedro Events",
+      "slug": "san-pedro-events",
+      "order": 2,
+      "cardText": "Costa Maya Festival, Lobster Fest, Dia de San Pedro, Emancipation Day, Independence Day, Perseid Meteor Shower. Parking, routes, and timing for every major event on the island.",
+      "seoTitle": "San Pedro Events by Golf Cart | One Love Blog",
+      "seoDescription": "Festival routes, parking guides, and event day itineraries for every major San Pedro event.",
+      "pillarTitle": "",
+      "pillarUrl": "",
+      "pillarSummary": ""
+    },
+    {
+      "title": "Cart Selection",
+      "slug": "cart-selection",
+      "order": 3,
+      "cardText": "4-seater or 6-seater. Gas or electric. Weekly or monthly. What to check at pickup and how to avoid the common rental scams.",
+      "seoTitle": "Golf Cart Selection Guides | One Love Blog",
+      "seoDescription": "Choose the right rental cart: 4-seater vs 6-seater, gas vs electric, what to check at pickup, how to avoid scams.",
+      "pillarTitle": "4-seater vs 6-seater comparison",
+      "pillarUrl": "/golf-cart-comparison-4-vs-6-seater/",
+      "pillarSummary": "A side-by-side comparison of 4-seater and 6-seater golf carts for rent on Ambergris Caye."
+    },
+    {
+      "title": "Getting to San Pedro",
+      "slug": "getting-to-san-pedro",
+      "order": 4,
+      "cardText": "Belize City airport connections, Tropic Air versus Maya Island Air, water taxi guides, and how to have a cart waiting when you land.",
+      "seoTitle": "Getting to San Pedro Belize | One Love Blog",
+      "seoDescription": "Belize City airport connections, water taxi guides, and how to have a golf cart waiting when you land.",
+      "pillarTitle": "San Pedro arrival guide",
+      "pillarUrl": "/getting-to-san-pedro-belize-arrival-guide/",
+      "pillarSummary": "Complete arrival guide to San Pedro on Ambergris Caye: flights, water taxis, connections and timing."
+    },
+    {
+      "title": "Things to Do",
+      "slug": "things-to-do-golf-cart",
+      "order": 5,
+      "cardText": "Secret Beach routes, sunset drives, snorkel-launch pickups, foodie loops, itineraries by day count, and every stop worth the cart ride.",
+      "seoTitle": "Things to Do on Ambergris Caye by Golf Cart | One Love Blog",
+      "seoDescription": "Routes, itineraries, sunset drives, and stops worth reaching by golf cart on Ambergris Caye.",
+      "pillarTitle": "Things to Do on Ambergris Caye",
+      "pillarUrl": "/things-to-do-ambergris-caye-golf-cart/",
+      "pillarSummary": "Twenty things worth driving to on Ambergris Caye, with itineraries and routes."
+    }
+  ],
+  "tags": [
+    {
+      "title": "4-seater",
+      "slug": "4-seater"
+    },
+    {
+      "title": "6-seater",
+      "slug": "6-seater"
+    },
+    {
+      "title": "Club Car",
+      "slug": "club-car"
+    },
+    {
+      "title": "gas cart",
+      "slug": "gas-cart"
+    },
+    {
+      "title": "electric cart",
+      "slug": "electric-cart"
+    },
+    {
+      "title": "Secret Beach",
+      "slug": "secret-beach"
+    },
+    {
+      "title": "Barrier Reef Drive",
+      "slug": "barrier-reef-drive"
+    },
+    {
+      "title": "Middle Street",
+      "slug": "middle-street"
+    },
+    {
+      "title": "Boca del Rio",
+      "slug": "boca-del-rio"
+    },
+    {
+      "title": "North Ambergris Caye",
+      "slug": "north-ambergris-caye"
+    },
+    {
+      "title": "South Ambergris Caye",
+      "slug": "south-ambergris-caye"
+    },
+    {
+      "title": "San Pedro Airport",
+      "slug": "san-pedro-airport"
+    },
+    {
+      "title": "Belize City Airport",
+      "slug": "belize-city-airport"
+    },
+    {
+      "title": "Tropic Air",
+      "slug": "tropic-air"
+    },
+    {
+      "title": "Maya Island Air",
+      "slug": "maya-island-air"
+    },
+    {
+      "title": "water taxi",
+      "slug": "water-taxi"
+    },
+    {
+      "title": "bridge toll",
+      "slug": "bridge-toll"
+    },
+    {
+      "title": "Costa Maya Festival",
+      "slug": "costa-maya-festival"
+    },
+    {
+      "title": "Lobster Fest",
+      "slug": "lobster-fest"
+    },
+    {
+      "title": "Dia de San Pedro",
+      "slug": "dia-de-san-pedro"
+    },
+    {
+      "title": "Emancipation Day",
+      "slug": "emancipation-day"
+    },
+    {
+      "title": "Perseid Meteor Shower",
+      "slug": "perseid-meteor-shower"
+    },
+    {
+      "title": "Independence Day",
+      "slug": "independence-day"
+    },
+    {
+      "title": "family travel",
+      "slug": "family-travel"
+    },
+    {
+      "title": "couples travel",
+      "slug": "couples-travel"
+    },
+    {
+      "title": "groups",
+      "slug": "groups"
+    },
+    {
+      "title": "weddings",
+      "slug": "weddings"
+    },
+    {
+      "title": "rainy season",
+      "slug": "rainy-season"
+    },
+    {
+      "title": "dry season",
+      "slug": "dry-season"
+    },
+    {
+      "title": "night driving",
+      "slug": "night-driving"
+    },
+    {
+      "title": "safety",
+      "slug": "safety"
+    },
+    {
+      "title": "Belize Chocolate Company",
+      "slug": "belize-chocolate-company"
+    },
+    {
+      "title": "Estel's",
+      "slug": "estels"
+    },
+    {
+      "title": "Wayo's",
+      "slug": "wayos"
+    },
+    {
+      "title": "Truck Stop",
+      "slug": "truck-stop"
+    },
+    {
+      "title": "Hidden Reef",
+      "slug": "hidden-reef"
+    },
+    {
+      "title": "Ramon's Village",
+      "slug": "ramons-village"
+    },
+    {
+      "title": "Mahogany Bay",
+      "slug": "mahogany-bay"
+    },
+    {
+      "title": "Grand Caribe",
+      "slug": "grand-caribe"
+    },
+    {
+      "title": "Victoria House",
+      "slug": "victoria-house"
+    }
+  ],
+  "author": {
+    "name": "One Love Golf Cart Rentals",
+    "slug": "one-love",
+    "kind": "organization",
+    "role": "",
+    "bio": "The family team behind One Love Golf Cart Rentals on Barrier Reef Drive, San Pedro Town. We write down what we tell every renter at cart hand-off."
+  }
+}

@@ -49,3 +49,7 @@ one-love-webdev-brief.html
 .agents/
 .claude/
 .qa/
+
+# Sanity CLI cache and build output
+.sanity/
+/dist/

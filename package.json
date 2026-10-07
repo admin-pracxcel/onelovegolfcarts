@@ -15,22 +15,32 @@
     "qa:trust": "node scripts/qa/qa-trust.mjs",
     "qa:booking": "node scripts/qa/qa-booking.mjs",
     "qa:pay": "node scripts/qa/qa-pay.mjs",
-    "qa:card": "node scripts/qa/qa-card.mjs"
+    "qa:card": "node scripts/qa/qa-card.mjs",
+    "studio": "sanity dev",
+    "sanity:seed": "node scripts/sanity/seed.mjs",
+    "qa:sanity-mock": "node scripts/qa/sanity-mock.mjs",
+    "studio:deploy": "sanity deploy"
   },
   "dependencies": {
+    "@portabletext/react": "^8.0.1",
+    "@sanity/webhook": "^4.0.4",
     "next": "16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@sanity/vision": "^6.17.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "axe-core": "^4.14.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "groq-js": "^2.0.0",
     "playwright": "^1.63.0",
+    "sanity": "^6.17.0",
     "sharp": "^0.34.5",
+    "styled-components": "^6.5.3",
     "typescript": "^5"
   },
   "packageManager": "pnpm@12.9.1"
