@@ -94,6 +94,7 @@ pnpm qa:contact                                 # contact form validation and de
 pnpm qa:booking                                 # Book Now validation, fallback and delivery
 pnpm qa:pay                                     # Pay Now validation; card fields never echoed
 pnpm qa:card                                    # card number / expiry / CVC typing behaviour
+pnpm qa:menu                                    # dropdowns and mobile menu close on navigation
 pnpm qa:trust                                   # USP strip: one line / marquee
 ```
 

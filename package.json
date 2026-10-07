@@ -21,7 +21,8 @@
     "qa:sanity-mock": "node scripts/qa/sanity-mock.mjs",
     "studio:deploy": "sanity deploy",
     "sanity:import-wp": "node scripts/sanity/import-wp.mjs",
-    "sanity:import-manual": "node scripts/sanity/import-manual.mjs"
+    "sanity:import-manual": "node scripts/sanity/import-manual.mjs",
+    "qa:menu": "node scripts/qa/qa-menu.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",

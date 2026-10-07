@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { business, urls, whatsappUrl } from '@/lib/business';
 import { primaryNav } from '@/lib/nav';
@@ -12,6 +13,7 @@ export function Header() {
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [openSub, setOpenSub] = useState<number | null>(null);
+  const [dismissed, setDismissed] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [panelHidden, setPanelHidden] = useState(true);
   const menuBtn = useRef<HTMLButtonElement>(null);
@@ -129,13 +131,36 @@ export function Header() {
 
   useEffect(() => () => document.body.classList.remove('menu-open'), []);
 
+  /* Any navigation closes the dropdowns and the mobile menu. */
+  const pathname = usePathname();
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpenSub(null);
+  }
+  useEffect(() => {
+    if (menuOpenRef.current) setMenu(false);
+  }, [pathname, setMenu]);
+
+  /* Picking a dropdown link: close it, drop focus (so :focus-within lets go)
+     and ignore hover until the pointer leaves that item. */
+  const pickSub = (i: number) => {
+    setOpenSub(null);
+    setDismissed(i);
+    (document.activeElement as HTMLElement | null)?.blur();
+  };
+  /* Header links outside the mobile panel (logo, Book now) close it too. */
+  const closeMenu = () => {
+    if (menuOpenRef.current) setMenu(false);
+  };
+
   const headerClass = ['site-header', solid && 'is-solid', hidden && !menuOpen && 'is-hidden'].filter(Boolean).join(' ');
 
   return (
     <>
       <header className={headerClass}>
         <div className="site-header__bar">
-          <Link className="brand" href="/" rel="home" prefetch={false} aria-label={`${business.name}, home`}>
+          <Link className="brand" href="/" rel="home" prefetch={false} aria-label={`${business.name}, home`} onClick={closeMenu}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="brand__logo brand__logo--light" src="/img/one-love-logo-reversed.webp" width={300} height={110} alt="" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -145,7 +170,11 @@ export function Header() {
           <nav className="nav" aria-label="Primary">
             <ul className="nav__list">
               {primaryNav.map((item, i) => (
-                <li key={item.label} className={`nav__item${item.children ? ' has-sub' : ''}`}>
+                <li
+                  key={item.label}
+                  className={`nav__item${item.children ? ' has-sub' : ''}${dismissed === i ? ' is-dismissed' : ''}`}
+                  onMouseLeave={dismissed === i ? () => setDismissed(null) : undefined}
+                >
                   <Link className="nav__link" href={item.href} prefetch={false}>
                     {item.label}
                   </Link>
@@ -156,7 +185,10 @@ export function Header() {
                         type="button"
                         aria-expanded={openSub === i}
                         aria-controls={`sub-${i}`}
-                        onClick={() => setOpenSub(openSub === i ? null : i)}
+                        onClick={() => {
+                          setDismissed(null);
+                          setOpenSub(openSub === i ? null : i);
+                        }}
                       >
                         <span className="screen-reader-text">Show {item.label} submenu</span>
                         <Icon name="chevron" />
@@ -164,7 +196,7 @@ export function Header() {
                       <ul className="nav__sub" id={`sub-${i}`}>
                         {item.children.map((child) => (
                           <li key={child.label}>
-                            <Link href={child.href} prefetch={false}>
+                            <Link href={child.href} prefetch={false} onClick={() => pickSub(i)}>
                               <span>{child.label}</span>
                               {child.note && <small>{child.note}</small>}
                             </Link>
@@ -184,7 +216,7 @@ export function Header() {
               <span className="header-phone__num">{business.phone}</span>
               <span className="screen-reader-text header-phone__sr">Call us</span>
             </a>
-            <Link className="btn btn--primary btn--sm header-book" href={urls.book} prefetch={false}>
+            <Link className="btn btn--primary btn--sm header-book" href={urls.book} prefetch={false} onClick={closeMenu}>
               Book now
             </Link>
             <button

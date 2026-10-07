@@ -208,6 +208,13 @@ body:not(:has(.hero)) .brand__logo--dark { display: block; }
   transform: none;
   transition: opacity 0.25s, transform 0.3s var(--ease-out), visibility 0s;
 }
+/* Just picked a link: stay closed until the pointer leaves the item. */
+.has-sub.is-dismissed .nav__sub {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
 .nav__sub a {
   display: flex;
   justify-content: space-between;
