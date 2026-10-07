@@ -13,7 +13,8 @@
     "qa:promo": "node scripts/qa/qa-promo.mjs",
     "qa:contact": "node scripts/qa/qa-contact.mjs",
     "qa:trust": "node scripts/qa/qa-trust.mjs",
-    "qa:booking": "node scripts/qa/qa-booking.mjs"
+    "qa:booking": "node scripts/qa/qa-booking.mjs",
+    "qa:pay": "node scripts/qa/qa-pay.mjs"
   },
   "dependencies": {
     "next": "16.3.8",

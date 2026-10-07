@@ -42,7 +42,7 @@ export const cancellation = {
 };
 
 export const faq: [string, string][] = [
-  ['Do I pay when I book?', 'No. Payment happens at cart hand-off, or by advance PayPal deposit through the Pay Now page if you prefer. The booking form charges nothing.'],
+  ['Do I pay when I book?', 'No. Payment happens at cart hand-off, or by advance deposit through the Pay Now page if you prefer. The booking form charges nothing.'],
   ['How far in advance should I book?', '48 hours minimum for off-peak dates. Two weeks minimum for peak weeks (mid-December through early January, Easter week, Costa Maya Festival weekend in early August).'],
   ['Can I change the pickup location after I book?', 'Yes. Send the change by WhatsApp any time before the day of pickup. Free of charge.'],
   ['What if my flight is delayed?', 'Message us with the new landing time. We hold the cart and re-time the delivery to match your new arrival. No fee.'],
@@ -53,6 +53,6 @@ export const links = {
   rates: 'review rates before booking',
   carts: 'choose your cart',
   terms: 'rental terms and conditions',
-  pay: 'pay a deposit via PayPal',
+  pay: 'pay a deposit online',
   contact: 'questions before you book',
 };

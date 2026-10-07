@@ -31,12 +31,12 @@ Links to pages that aren't built yet (blog posts, guides, the wedding page…) s
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production origin, used for canonical URLs, Open Graph, JSON-LD, robots and sitemap. Defaults to `https://onelovegolfcartsbelize.com`. |
 | `NEXT_PUBLIC_ALLOW_INDEXING` | Search indexing is **blocked by default** (meta robots, `robots.txt`, `X-Robots-Tag`) so previews don't compete with the live site. Set to `true` on production at launch only. |
-| `CONTACT_WEBHOOK_URL` | Delivery for the contact form, Book Now reservations and Pay Now payment notices: POSTs each submission as JSON (with a `form` field: `contact`, `booking` or `payment`) to any form backend or automation (Formspree, Zapier, n8n…). |
-| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Alternative delivery by email through Resend. `CONTACT_TO_EMAIL` defaults to the business email. |
-| `NEXT_PUBLIC_PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` | Pay Now: a PayPal REST app's credentials (PayPal Business account → Developer → Apps & Credentials). Orders are created and captured on the server; card details only ever go to PayPal. |
-| `PAYPAL_ENV` | `live` for real payments; anything else uses the PayPal sandbox. |
+| `CONTACT_WEBHOOK_URL`, `BOOKING_WEBHOOK_URL`, `PAYMENT_WEBHOOK_URL` | Where each form posts its submission as JSON (n8n). `PAYMENT_WEBHOOK_URL` must be HTTPS. |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Optional email fallback for the contact and booking forms through Resend. Pay Now never sends by email. |
 
-With no delivery variable set, the contact and booking forms don't pretend to send: they offer the same details as a ready-to-send WhatsApp message. Without PayPal credentials, Pay Now offers "Ask for a payment link" on WhatsApp instead of the PayPal buttons.
+With no delivery variable set, the forms don't pretend to send: contact and booking offer the same details as a ready-to-send WhatsApp message, and Pay Now asks people to message or pay at hand-off.
+
+**Pay Now carries card numbers, expiry dates and CVCs** (the live site's form, kept at the client's request). The site never logs, stores or re-displays them; they go only to `PAYMENT_WEBHOOK_URL`. In n8n, turn off saving execution data for that workflow and don't email or store the CVC.
 
 ## Content
 
@@ -59,6 +59,7 @@ pnpm qa:a11y http://localhost:3000/rates/       # axe scan, heading outline, JSO
 pnpm qa:promo                                   # popup once-per-visit behaviour
 pnpm qa:contact                                 # contact form validation and delivery
 pnpm qa:booking                                 # Book Now validation, fallback and delivery
+pnpm qa:pay                                     # Pay Now validation; card fields never echoed
 pnpm qa:trust                                   # USP strip: one line / marquee
 ```
 

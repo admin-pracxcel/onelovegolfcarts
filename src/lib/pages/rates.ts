@@ -73,7 +73,7 @@ export const policies = [
     id: 'payment',
     h2: 'Payment methods accepted',
     chips: ['Visa', 'Mastercard', 'American Express', 'Cash USD', 'Cash BZD', 'PayPal (deposits)'],
-    body: "We accept Visa, Mastercard, American Express, cash in US dollars, cash in Belize dollars, and PayPal for advance deposits. Card payments are processed through PayPal's merchant gateway and we do not store card details on our systems. Cash payments happen at cart hand-off. For advance deposits by PayPal, use the payment link on our [[pay now page|pay]] after receiving your booking confirmation.",
+    body: "We accept Visa, Mastercard, American Express, cash in US dollars, cash in Belize dollars, and PayPal for advance deposits. Cash payments happen at cart hand-off. For advance deposits, use our [[pay now page|pay]] after receiving your booking confirmation.",
   },
   {
     id: 'cancellation',
@@ -99,7 +99,7 @@ export const faq: [string, string][] = [
   ['How much does a golf cart cost to rent per day in San Pedro?', 'A 4-seater is $35 USD per day. A 6-seater is $60 USD per day. Prices include free delivery and pickup anywhere on Ambergris Caye.'],
   ['Do you offer weekly discounts?', 'Yes. A 4-seater weekly rate is $175 USD (about a 30% discount on the daily rate). A 6-seater weekly rate is $350 USD (about a 17% discount).'],
   ['Are your prices in US dollars or Belize dollars?', 'Both, at the fixed 2-to-1 official exchange rate. $35 USD equals $70 BZD. You can pay in either currency.'],
-  ['What payment methods do you accept?', 'Visa, Mastercard, American Express, cash in USD or BZD, and PayPal for advance bookings. See our [[Pay Now page|pay]] for the payment link.'],
+  ['What payment methods do you accept?', 'Visa, Mastercard, American Express, cash in USD or BZD, and PayPal for advance bookings. See our [[Pay Now page|pay]] to pay online.'],
   ['Is there a security deposit?', 'Yes. Deposit amount depends on the rental length and is charged as a hold on your credit card, refunded within 48 hours of a clean return.'],
   ['What is your cancellation policy?', 'Cancel free up to 48 hours before the start of your rental. Cancellations inside 48 hours are refundable minus a $10 admin fee. No-shows forfeit the deposit.'],
 ];

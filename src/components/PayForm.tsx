@@ -1,181 +1,94 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { capturePaymentOrder, createPaymentOrder } from '@/app/pay-now/actions';
+import { useActionState, useEffect, useRef } from 'react';
+import { sendPayment, type PaymentState } from '@/app/pay-now/actions';
 import { business, whatsappUrl } from '@/lib/business';
-import { PAYMENT_FIELDS, validatePayment, type PaymentField, type PaymentValues } from '@/lib/payment';
+import type { PaymentField } from '@/lib/payment';
 import { Icon } from './Icon';
 
-/* Minimal typing for the PayPal JS SDK buttons we use. */
-type PayPalButtons = {
-  isEligible(): boolean;
-  render(el: HTMLElement): Promise<void>;
-  close(): Promise<void>;
-};
-type PayPalSDK = {
-  Buttons(opts: {
-    style?: Record<string, unknown>;
-    onClick?: (data: unknown, actions: { resolve(): Promise<void>; reject(): Promise<void> }) => Promise<void> | void;
-    createOrder: () => Promise<string>;
-    onApprove: (data: { orderID: string }) => Promise<void>;
-    onCancel?: () => void;
-    onError?: (err: unknown) => void;
-  }): PayPalButtons;
-};
-declare global {
-  interface Window {
-    paypal?: PayPalSDK;
-  }
-}
+const initial: PaymentState = { status: 'idle' };
 
-const LABELS: Record<PaymentField, string> = {
-  fullName: 'Full name',
-  email: 'Email',
-  phone: 'Phone',
-  country: 'Country',
-  state: 'State',
-  address: 'Address',
-  amount: 'Amount in $USD',
-};
-const AUTOCOMPLETE: Record<PaymentField, string> = {
-  fullName: 'name',
-  email: 'email',
-  phone: 'tel',
-  country: 'country-name',
-  state: 'address-level1',
-  address: 'street-address',
-  amount: 'off',
-};
+type Spec = { label: string; type?: string; autoComplete: string; inputMode?: 'tel' | 'numeric' | 'decimal' | 'email'; placeholder?: string; maxLength?: number };
 
-const empty = Object.fromEntries(PAYMENT_FIELDS.map((f) => [f, ''])) as PaymentValues;
-
-type Status = { kind: 'idle' | 'error' | 'paid' | 'cancelled'; text?: string; captureId?: string };
+const SPECS: Record<PaymentField, Spec> = {
+  fullName: { label: 'Full name', autoComplete: 'name' },
+  email: { label: 'Email', type: 'email', autoComplete: 'email', inputMode: 'email' },
+  phone: { label: 'Phone', type: 'tel', autoComplete: 'tel', inputMode: 'tel' },
+  country: { label: 'Country', autoComplete: 'country-name' },
+  state: { label: 'State', autoComplete: 'address-level1' },
+  address: { label: 'Address', autoComplete: 'street-address' },
+  cardholder: { label: 'Cardholder name', autoComplete: 'cc-name' },
+  cardNumber: { label: 'Card number', autoComplete: 'cc-number', inputMode: 'numeric', placeholder: 'XXXX XXXX XXXX XXXX', maxLength: 23 },
+  expiry: { label: 'Expiry date', autoComplete: 'cc-exp', inputMode: 'numeric', placeholder: 'MM/YY', maxLength: 7 },
+  cvc: { label: 'CVC', autoComplete: 'cc-csc', inputMode: 'numeric', placeholder: 'CVC', maxLength: 4 },
+  amount: { label: 'Amount in $USD', autoComplete: 'off', inputMode: 'decimal', placeholder: '175.00' },
+};
 
 /**
- * Pay Now: the live site's billing fields, then PayPal's own checkout for the
- * card or PayPal payment. No card number, expiry or CVC is ever entered here.
- * Without PayPal configured, the visitor can request a payment link on
- * WhatsApp with the details already filled in.
+ * Pay Now: the live site's form (billing information, then payment
+ * information). Works without JavaScript. Card fields are never re-filled
+ * from the server and are cleared after every submit.
  */
-export function PayForm({ clientId }: { clientId?: string }) {
+export function PayForm() {
+  const [state, action, pending] = useActionState(sendPayment, initial);
   const form = useRef<HTMLFormElement>(null);
-  const buttonsEl = useRef<HTMLDivElement>(null);
-  const statusEl = useRef<HTMLDivElement>(null);
-  const valuesRef = useRef<PaymentValues>(empty);
-  const [values, setValues] = useState<PaymentValues>(empty);
-  const [errors, setErrors] = useState<Partial<Record<PaymentField, string>>>({});
-  const [status, setStatus] = useState<Status>({ kind: 'idle' });
-  const [sdk, setSdk] = useState<'loading' | 'ready' | 'failed' | 'off'>(clientId ? 'loading' : 'off');
-
-  const read = useCallback(() => {
-    const fd = new FormData(form.current!);
-    const v = Object.fromEntries(PAYMENT_FIELDS.map((f) => [f, String(fd.get(f) ?? '').trim()])) as PaymentValues;
-    valuesRef.current = v;
-    return v;
-  }, []);
-
-  const check = useCallback(() => {
-    const e = validatePayment(read());
-    setErrors(e);
-    if (Object.keys(e).length) {
-      requestAnimationFrame(() => form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
-      return false;
-    }
-    return true;
-  }, [read]);
-
-  // Load the PayPal SDK once.
-  useEffect(() => {
-    if (!clientId) return;
-    if (window.paypal) return setSdk('ready');
-    const s = document.createElement('script');
-    s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=USD&intent=capture&components=buttons&enable-funding=card`;
-    s.async = true;
-    s.onload = () => setSdk('ready');
-    s.onerror = () => setSdk('failed');
-    document.body.appendChild(s);
-  }, [clientId]);
-
-  // Render the buttons.
-  useEffect(() => {
-    if (sdk !== 'ready' || !window.paypal || !buttonsEl.current || status.kind === 'paid') return;
-    const buttons = window.paypal.Buttons({
-      style: { layout: 'vertical', shape: 'pill', label: 'pay', height: 48 },
-      onClick: (_d, actions) => (check() ? actions.resolve() : actions.reject()),
-      createOrder: async () => {
-        setStatus({ kind: 'idle' });
-        const r = await createPaymentOrder(valuesRef.current);
-        if (!r.id) throw new Error(r.error || 'Could not start the payment.');
-        return r.id;
-      },
-      onApprove: async ({ orderID }) => {
-        const r = await capturePaymentOrder(orderID, valuesRef.current);
-        setStatus(r.ok ? { kind: 'paid', captureId: r.captureId } : { kind: 'error', text: r.error });
-      },
-      onCancel: () => setStatus({ kind: 'cancelled', text: 'Payment cancelled. You have not been charged.' }),
-      onError: (err) => setStatus({ kind: 'error', text: err instanceof Error ? err.message : 'Something went wrong with PayPal. You have not been charged.' }),
-    });
-    if (buttons.isEligible()) buttons.render(buttonsEl.current).catch(() => setSdk('failed'));
-    return () => {
-      buttons.close().catch(() => {});
-    };
-  }, [sdk, check, status.kind]);
+  const status = useRef<HTMLDivElement>(null);
+  const v = state.values;
+  const e = state.errors ?? {};
 
   useEffect(() => {
-    if (status.kind !== 'idle') statusEl.current?.focus();
-  }, [status]);
+    if (state.status === 'sent') form.current?.reset();
+    form.current?.querySelectorAll<HTMLInputElement>('[data-card]').forEach((i) => (i.value = ''));
+    if (state.status === 'invalid') form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+    else if (state.status !== 'idle') status.current?.focus();
+  }, [state]);
 
-  const field = (name: PaymentField) => ({
-    id: `pf-${name}`,
-    name,
-    autoComplete: AUTOCOMPLETE[name],
-    'aria-invalid': errors[name] ? true : undefined,
-    'aria-describedby': errors[name] ? `pf-${name}-error` : undefined,
-  });
-  const input = (name: PaymentField, type = 'text', extra: Record<string, string> = {}) => (
-    <div className="field">
-      <label htmlFor={`pf-${name}`}>
-        {LABELS[name]} <span className="field__req" aria-hidden="true">*</span>
-      </label>
-      <input {...field(name)} type={type} required {...extra} />
-      {errors[name] && (
-        <p id={`pf-${name}-error`} className="field__error">
-          {errors[name]}
-        </p>
-      )}
-    </div>
-  );
-
-  const linkMessage = [
-    'Hi One Love, please send me a payment link.',
-    `Name: ${values.fullName}`,
-    `Email: ${values.email}`,
-    `Amount: ${values.amount ? `$${values.amount} USD` : ''}`,
-  ].join('\n');
-
-  if (status.kind === 'paid') {
+  const input = (name: PaymentField, card = false) => {
+    const s = SPECS[name];
     return (
-      <div ref={statusEl} className="pay-done" role="status" tabIndex={-1}>
-        <span className="pay-done__icon" aria-hidden="true">
-          <Icon name="check" />
-        </span>
-        <p className="pay-done__title">Payment received. Thank you.</p>
-        <p>
-          PayPal is emailing your receipt to {valuesRef.current.email}. Your PayPal reference is <strong>{status.captureId}</strong>. Questions? Message us on WhatsApp at{' '}
-          {business.phone}.
-        </p>
+      <div className={`field${name === 'amount' ? ' pay-form__amount' : ''}`}>
+        <label htmlFor={`pf-${name}`}>
+          {s.label} <span className="field__req" aria-hidden="true">*</span>
+        </label>
+        <div className={name === 'amount' ? 'pay-form__money' : undefined}>
+          {name === 'amount' && <span aria-hidden="true">$</span>}
+          <input
+            id={`pf-${name}`}
+            name={name}
+            type={s.type ?? 'text'}
+            autoComplete={s.autoComplete}
+            inputMode={s.inputMode}
+            placeholder={s.placeholder}
+            maxLength={s.maxLength}
+            required
+            {...(card ? { 'data-card': '', defaultValue: '' } : { defaultValue: v?.[name] ?? '' })}
+            aria-invalid={e[name] ? true : undefined}
+            aria-describedby={e[name] ? `pf-${name}-error` : undefined}
+          />
+        </div>
+        {e[name] && (
+          <p id={`pf-${name}-error`} className="field__error">
+            {e[name]}
+          </p>
+        )}
       </div>
     );
-  }
+  };
+
+  const help = (
+    <>
+      Message us on WhatsApp at <a href={whatsappUrl('Hi One Love, I have a question about a payment.')}>{business.phone}</a> or pay at cart hand-off.
+    </>
+  );
 
   return (
-    <form ref={form} className="contact-form pay-form" noValidate onSubmit={(e) => e.preventDefault()} onInput={() => setValues(read())}>
+    <form ref={form} action={action} className="contact-form pay-form" noValidate autoComplete="on">
       <fieldset className="form-group">
         <legend>Billing information</legend>
         {input('fullName')}
         <div className="field-pair">
-          {input('email', 'email')}
-          {input('phone', 'tel', { inputMode: 'tel' })}
+          {input('email')}
+          {input('phone')}
         </div>
         <div className="field-pair">
           {input('country')}
@@ -184,42 +97,31 @@ export function PayForm({ clientId }: { clientId?: string }) {
         {input('address')}
       </fieldset>
       <fieldset className="form-group">
-        <legend>Payment</legend>
-        <div className="field pay-form__amount">
-          <label htmlFor="pf-amount">
-            {LABELS.amount} <span className="field__req" aria-hidden="true">*</span>
-          </label>
-          <div className="pay-form__money">
-            <span aria-hidden="true">$</span>
-            <input {...field('amount')} type="text" inputMode="decimal" placeholder="175.00" required />
-          </div>
-          <p className="field__hint">Your deposit or the full rental, as agreed with us.</p>
-          {errors.amount && (
-            <p id="pf-amount-error" className="field__error">
-              {errors.amount}
-            </p>
-          )}
+        <legend>Payment information</legend>
+        {input('cardholder')}
+        {input('cardNumber', true)}
+        <div className="field-pair">
+          {input('expiry', true)}
+          {input('cvc', true)}
         </div>
-
-        {sdk === 'off' || sdk === 'failed' ? (
-          <div className="pay-form__fallback">
-            <p>
-              {sdk === 'failed' ? "PayPal didn't load." : 'Online card payment is being set up.'} Message us and we send you a secure PayPal payment link, or pay at
-              cart hand-off.
-            </p>
-            <a className="btn btn--primary" href={whatsappUrl(linkMessage)}>
-              <Icon name="chat" /> Ask for a payment link
-            </a>
-          </div>
-        ) : (
-          <div className="pay-form__buttons">
-            {sdk === 'loading' && <p className="field__hint">Loading secure PayPal checkout…</p>}
-            <div ref={buttonsEl} />
-          </div>
-        )}
+        {input('amount')}
       </fieldset>
-      <div ref={statusEl} className={`contact-form__status is-${status.kind === 'cancelled' ? 'unconfigured' : status.kind}`} role="status" aria-live="polite" tabIndex={-1}>
-        {status.text && <p>{status.text}</p>}
+
+      <div className="contact-form__hp" aria-hidden="true">
+        <label htmlFor="pf-company">Company</label>
+        <input id="pf-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      <div className="contact-form__foot">
+        <button className="btn btn--primary" type="submit" disabled={pending}>
+          {pending ? 'Sending…' : 'Submit payment'} {!pending && <Icon name="arrow" />}
+        </button>
+      </div>
+      <div ref={status} className={`contact-form__status is-${state.status}`} role="status" aria-live="polite" tabIndex={-1}>
+        {state.status === 'sent' && <p>Thanks, your payment details have been sent to us.</p>}
+        {state.status === 'invalid' && <p>{state.message}</p>}
+        {state.status === 'unconfigured' && <p>Online payment isn&apos;t available right now. {help}</p>}
+        {state.status === 'error' && <p>Sorry, your payment details didn&apos;t go through. Nothing was charged. {help}</p>}
       </div>
     </form>
   );
