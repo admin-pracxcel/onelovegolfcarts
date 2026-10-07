@@ -64,6 +64,37 @@ const components: PortableTextComponents = {
         {value.caption && <figcaption>{value.caption}</figcaption>}
       </figure>
     ),
+    table: ({ value }: { value: { caption?: string; hasHeader?: boolean; rows?: { _key: string; cells?: string[] }[] } }) => {
+      const rows = value.rows ?? [];
+      const [head, ...rest] = value.hasHeader ? rows : [undefined, ...rows];
+      return (
+        <div className="post-table" role="region" aria-label={value.caption || 'Table'} tabIndex={0}>
+          <table>
+            {value.caption && <caption>{value.caption}</caption>}
+            {head && (
+              <thead>
+                <tr>
+                  {(head.cells ?? []).map((c, i) => (
+                    <th key={i} scope="col">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {rest.filter(Boolean).map((r) => (
+                <tr key={r!._key}>
+                  {(r!.cells ?? []).map((c, i) => (
+                    <td key={i}>{c}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
     callout: ({ value }: { value: { title?: string; text: string } }) => (
       <aside className="post-tip">
         {value.title && <p className="post-tip__title">{value.title}</p>}

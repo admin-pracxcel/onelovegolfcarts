@@ -56,6 +56,29 @@ export const blockContent = defineType({
       ],
     }),
     defineArrayMember({
+      name: 'table',
+      title: 'Table',
+      type: 'object',
+      fields: [
+        defineField({ name: 'caption', title: 'Caption', type: 'string' }),
+        defineField({ name: 'hasHeader', title: 'First row is a header', type: 'boolean', initialValue: true }),
+        defineField({
+          name: 'rows',
+          title: 'Rows',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'row',
+              type: 'object',
+              fields: [defineField({ name: 'cells', title: 'Cells', type: 'array', of: [{ type: 'string' }] })],
+              preview: { select: { cells: 'cells' }, prepare: ({ cells }) => ({ title: (cells ?? []).join(' | ') }) },
+            }),
+          ],
+        }),
+      ],
+      preview: { select: { caption: 'caption', rows: 'rows' }, prepare: ({ caption, rows }) => ({ title: caption || 'Table', subtitle: `${rows?.length ?? 0} rows` }) },
+    }),
+    defineArrayMember({
       name: 'callout',
       title: 'Tip box',
       type: 'object',
