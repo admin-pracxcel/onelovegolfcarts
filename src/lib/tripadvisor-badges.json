@@ -1,0 +1,15 @@
+{
+  "bravo": {
+    "src": "/img/tripadvisor-bravo.webp",
+    "width": 152,
+    "height": 111,
+    "text": "Bravo! One love golf cart rentals rated \"excellent\" by 100 travelers"
+  },
+  "recommended": {
+    "src": "/img/tripadvisor-recommended.webp",
+    "width": 150,
+    "height": 99,
+    "text": "RECOMMENDED ON One love golf cart rentals"
+  },
+  "capturedAt": "2026-10-08"
+}

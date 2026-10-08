@@ -19,12 +19,12 @@ export const hero = {
   subhead:
     'Family-owned since 2017. 4-seater from $35 a day. 6-seater from $60 a day. Free delivery anywhere on Ambergris Caye.',
   trust: [
-    'Rated 4.9 on TripAdvisor',
-    '104+ five-star reviews',
-    'Established 2017',
-    'Barrier Reef Drive, San Pedro',
-    'Belize licensed and insured',
-  ],
+    { text: 'Rated 4.9 on TripAdvisor', icon: 'stars' },
+    { text: '104+ five-star reviews', icon: 'review' },
+    { text: 'Established 2017', icon: 'calendar' },
+    { text: 'Barrier Reef Drive, San Pedro', icon: 'pin' },
+    { text: 'Belize licensed and insured', icon: 'shield' },
+  ] as const,
 };
 
 export const intro =

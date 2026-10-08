@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { business, urls, whatsappUrl } from '@/lib/business';
 import { hero } from '@/lib/content';
+import taBadges from '@/lib/tripadvisor-badges.json';
 import { Icon } from '../Icon';
 import { TrustStrip } from '../TrustStrip';
 import { Picture } from '../Picture';
@@ -57,6 +58,18 @@ export function Hero() {
           </p>
         </div>
 
+        <div className="hero__side">
+          {/* One Love's TripAdvisor badges, captured from TripAdvisor's live
+              widgets by `pnpm badges` (see scripts/tripadvisor-badges.mjs). */}
+          <a className="hero__badges" href={business.rating.url} rel="noopener" data-reveal="">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hero__award" src="/img/tripadvisor-award.webp" width={1199} height={880} alt="Tripadvisor Travelers' Choice Awards 2025" />
+            {[taBadges.bravo, taBadges.recommended].map((b) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={b.src} src={b.src} width={b.width} height={b.height} alt={`Tripadvisor badge: ${b.text}`} style={{ flexGrow: b.width / b.height }} />
+            ))}
+          </a>
+
         <aside className="hero__rates" aria-label="Starting daily rates" data-reveal="">
           <p className="hero__rates-title">
             Daily rates <span>USD</span>
@@ -74,6 +87,7 @@ export function Hero() {
           </dl>
           <p className="hero__rates-note">Free delivery &amp; pickup. Unlimited bridge passes.</p>
         </aside>
+        </div>
       </div>
 
       <TrustStrip items={hero.trust} label="Why guests trust One Love" />

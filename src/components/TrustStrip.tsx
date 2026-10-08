@@ -1,31 +1,40 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Stars } from './Icon';
+import { Icon, Stars, type IconName } from './Icon';
 
 /** Scroll speed when the strip doesn't fit: readable, but never makes people wait. */
 const PX_PER_SECOND = 50;
 /** Minimum space either side before the static strip counts as fitting. */
 const EDGE = 24;
 
-function Items({ items }: { items: readonly string[] }) {
-  return items.map((item, i) => (
-    <li key={item}>
-      {i === 0 && <Stars />}
-      {item}
+export type TrustItem = { text: string; icon: IconName | 'stars' };
+
+function Items({ items }: { items: readonly TrustItem[] }) {
+  return items.map((item) => (
+    <li key={item.text}>
+      {item.icon === 'stars' ? (
+        <Stars />
+      ) : (
+        <span className="trust__icon">
+          <Icon name={item.icon} />
+        </span>
+      )}
+      {item.text}
     </li>
   ));
 }
 
 /**
- * USP strip under the hero. Always a single line.
+ * USP strip under the hero: a raised bar, one icon per item. Always a
+ * single line.
  * - Fits: static and centred.
  * - Doesn't fit: a seamless marquee (the list rendered twice, second copy
  *   hidden from assistive tech). It pauses on hover, keyboard focus and tap
  *   (WCAG 2.2.2).
  * - Reduced motion: no animation; the line scrolls sideways by swipe instead.
  */
-export function TrustStrip({ items, label }: { items: readonly string[]; label: string }) {
+export function TrustStrip({ items, label }: { items: readonly TrustItem[]; label: string }) {
   const box = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLUListElement>(null);
   const [marquee, setMarquee] = useState(false);
@@ -59,25 +68,28 @@ export function TrustStrip({ items, label }: { items: readonly string[]; label: 
 
   const className = ['trust', marquee && 'trust--marquee', paused && 'is-paused'].filter(Boolean).join(' ');
 
+  // The card is a wrapper so the marquee's edge fade doesn't fade its border.
   return (
-    <div
-      ref={box}
-      className={className}
-      role="region"
-      aria-label={label}
-      tabIndex={0}
-      style={{ '--trust-dur': `${duration}s` } as React.CSSProperties}
-      onClick={() => marquee && setPaused((p) => !p)}
-    >
-      <div className="trust__rail">
-        <ul ref={list} className="trust__list">
-          <Items items={items} />
-        </ul>
-        {marquee && (
-          <ul className="trust__list" aria-hidden="true">
+    <div className="trust-bar">
+      <div
+        ref={box}
+        className={className}
+        role="region"
+        aria-label={label}
+        tabIndex={0}
+        style={{ '--trust-dur': `${duration}s` } as React.CSSProperties}
+        onClick={() => marquee && setPaused((p) => !p)}
+      >
+        <div className="trust__rail">
+          <ul ref={list} className="trust__list">
             <Items items={items} />
           </ul>
-        )}
+          {marquee && (
+            <ul className="trust__list" aria-hidden="true">
+              <Items items={items} />
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );

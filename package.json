@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "images": "node scripts/build-images.mjs",
+    "badges": "node scripts/tripadvisor-badges.mjs",
     "qa:shots": "node scripts/qa/qa-shots.mjs",
     "qa:a11y": "node scripts/qa/qa-tech.mjs",
     "qa:promo": "node scripts/qa/qa-promo.mjs",

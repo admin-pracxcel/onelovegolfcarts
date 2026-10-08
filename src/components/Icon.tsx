@@ -25,6 +25,30 @@ const paths = {
       <path d="M12 7.5V12l3 2" />
     </>
   ),
+  calendar: (
+    <>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2" />
+      <path d="M3.5 9.5h17M8 3v4M16 3v4" />
+    </>
+  ),
+  pin: (
+    <>
+      <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" />
+      <circle cx="12" cy="10" r="2.3" />
+    </>
+  ),
+  shield: (
+    <>
+      <path d="M12 3 5 6v5.5c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6l-7-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  review: (
+    <>
+      <path d="M4 5.5h16v10H9l-5 4v-14Z" />
+      <path d="M8 9.5h8M8 12.5h5" />
+    </>
+  ),
 } as const;
 
 export type IconName = keyof typeof paths | 'star';
