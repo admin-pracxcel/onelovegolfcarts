@@ -4,7 +4,7 @@ import { Icon, Stars } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
 import { Picture } from '@/components/Picture';
 import { RichText } from '@/components/RichText';
-import { BOOKING_MESSAGE, business, urls, whatsappUrl } from '@/lib/business';
+import { BOOKING_MESSAGE, business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import {
   beliefs,
@@ -305,7 +305,7 @@ export default function AboutPage() {
               <Link className="btn btn--primary btn--lg" href={urls.book} prefetch={false}>
                 Reserve a cart <Icon name="arrow" />
               </Link>
-              <a className="btn btn--outline btn--lg" href={whatsappUrl(BOOKING_MESSAGE)}>
+              <a className="btn btn--outline btn--lg" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
                 <Icon name="chat" /> WhatsApp <span className="nowrap">{business.phone}</span>
               </a>
               <Link className="link-arrow" href={urls.contact} prefetch={false}>

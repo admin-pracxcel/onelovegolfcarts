@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
-import { business, whatsappUrl } from '@/lib/business';
+import { business, whatsappUrl, newTab } from '@/lib/business';
 import '@/styles/thank-you.css';
 
 export type ThankYouContent = { path: string; crumb: string; eyebrow: string; title: string; lead: string };
@@ -34,7 +34,7 @@ export function ThankYou(c: ThankYouContent) {
               <Link className="btn btn--primary" href="/" prefetch={false}>
                 Back to home <Icon name="arrow" />
               </Link>
-              <a className="btn btn--dark" href={whatsappUrl()}>
+              <a className="btn btn--dark" {...newTab} href={whatsappUrl()}>
                 <Icon name="chat" /> Message us on WhatsApp
               </a>
             </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { hero } from '@/lib/content';
 import taBadges from '@/lib/tripadvisor-badges.json';
 import { Icon } from '../Icon';
@@ -49,7 +49,7 @@ export function Hero() {
           </div>
           <p className="hero__contact" data-reveal="">
             Or message us:{' '}
-            <a href={whatsappUrl()}>
+            <a {...newTab} href={whatsappUrl()}>
               <Icon name="chat" />
               WhatsApp
             </a>
@@ -61,7 +61,7 @@ export function Hero() {
         <div className="hero__side">
           {/* One Love's TripAdvisor badges, captured from TripAdvisor's live
               widgets by `pnpm badges` (see scripts/tripadvisor-badges.mjs). */}
-          <a className="hero__badges" href={business.rating.url} rel="noopener" data-reveal="">
+          <a className="hero__badges" {...newTab} href={business.rating.url} data-reveal="">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="hero__award" src="/img/tripadvisor-award.webp" width={1199} height={880} alt="Tripadvisor Travelers' Choice Awards 2025" />
             {[taBadges.bravo, taBadges.recommended].map((b) => (

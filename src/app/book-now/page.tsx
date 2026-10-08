@@ -5,7 +5,7 @@ import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
 import { RichText } from '@/components/RichText';
 import { Faq } from '@/components/sections/Faq';
-import { BOOKING_MESSAGE, business, urls, whatsappUrl } from '@/lib/business';
+import { BOOKING_MESSAGE, business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { bring, cancellation, faq, intro, links, meta, steps, trust } from '@/lib/pages/book';
 import { jsonLd, utilitySchema } from '@/lib/schema';
 import '@/styles/location.css';
@@ -67,7 +67,7 @@ export default function BookNowPage() {
               <div className="book-aside__card book-aside__card--dark">
                 <p className="book-aside__kicker">Prefer WhatsApp?</p>
                 <p className="book-aside__line">Send us your dates and where you are staying.</p>
-                <a className="btn btn--primary" href={whatsappUrl(BOOKING_MESSAGE)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
                   <Icon name="chat" /> WhatsApp {business.phone}
                 </a>
               </div>

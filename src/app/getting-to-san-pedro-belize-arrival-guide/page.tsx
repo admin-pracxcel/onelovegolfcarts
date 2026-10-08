@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import {
   baggage,
@@ -127,7 +127,7 @@ export default function ArrivalGuidePage() {
               <aside className="loc-hero__card" aria-label="Have a cart waiting" data-reveal="">
                 <p className="loc-hero__kicker">Skip the taxi line</p>
                 <p className="loc-hero__line">Send us your arrival flight number and we meet you at the terminal exit door.</p>
-                <a className="btn btn--primary" href={whatsappUrl(whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(whatsappTemplate)}>
                   <Icon name="chat" /> Send your arrival details
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>
@@ -349,7 +349,7 @@ export default function ArrivalGuidePage() {
                   </li>
                 ))}
               </ul>
-              <a className="btn btn--primary btn--block" href={whatsappUrl(whatsappTemplate)}>
+              <a className="btn btn--primary btn--block" {...newTab} href={whatsappUrl(whatsappTemplate)}>
                 <Icon name="chat" /> Open a pre-filled message
               </a>
               <p className="loc-send__note">

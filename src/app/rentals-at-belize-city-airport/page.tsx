@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { allow, connection, facts, faq, intro, links, meta, missed, send, which } from '@/lib/pages/belize-city-airport';
 import { jsonLd, locationSchema } from '@/lib/schema';
@@ -74,7 +74,7 @@ export default function BelizeCityAirportPage() {
               <aside className="loc-hero__card" aria-label="Book a connection pickup" data-reveal="">
                 <p className="loc-hero__kicker">Two flights, one cart</p>
                 <p className="loc-hero__line">Send us your BZE arrival flight and your connecting flight.</p>
-                <a className="btn btn--primary" href={whatsappUrl(send.whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(send.whatsappTemplate)}>
                   <Icon name="chat" /> Send both flights
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>
@@ -169,7 +169,7 @@ export default function BelizeCityAirportPage() {
                   </li>
                 ))}
               </ul>
-              <a className="btn btn--primary btn--block" href={whatsappUrl(send.whatsappTemplate)}>
+              <a className="btn btn--primary btn--block" {...newTab} href={whatsappUrl(send.whatsappTemplate)}>
                 <Icon name="chat" /> Open a pre-filled message
               </a>
               <p className="loc-send__note">

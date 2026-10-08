@@ -7,7 +7,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { delivery, facts, faq, intro, links, meta, south, what, whatsappTemplate } from '@/lib/pages/south-ambergris';
 import { jsonLd, locationSchema } from '@/lib/schema';
@@ -79,7 +79,7 @@ export default function SouthAmbergrisPage() {
                 <p className="loc-hero__line">
                   <NoBreak text="Send us the resort name and your check-in time." />
                 </p>
-                <a className="btn btn--primary" href={whatsappUrl(whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(whatsappTemplate)}>
                   <Icon name="chat" /> Send your resort details
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>

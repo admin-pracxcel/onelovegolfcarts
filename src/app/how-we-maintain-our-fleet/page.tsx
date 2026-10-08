@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { RichText } from '@/components/RichText';
 import { SectionNav } from '@/components/SectionNav';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import {
   breakdown,
@@ -93,7 +93,7 @@ export default function FleetPage() {
               <aside className="loc-hero__card" aria-label="Roadside support" data-reveal="">
                 <p className="loc-hero__kicker">Something wrong on the road?</p>
                 <p className="loc-hero__line">Message our WhatsApp with your location.</p>
-                <a className="btn btn--primary" href={whatsappUrl(roadsideMessage)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(roadsideMessage)}>
                   <Icon name="chat" /> Message us your location
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>
@@ -275,7 +275,7 @@ export default function FleetPage() {
                   </li>
                 ))}
               </ol>
-              <a className="btn btn--primary" href={whatsappUrl(roadsideMessage)} data-reveal="">
+              <a className="btn btn--primary" {...newTab} href={whatsappUrl(roadsideMessage)} data-reveal="">
                 <Icon name="chat" /> WhatsApp {business.phone}
               </a>
             </div>

@@ -3,7 +3,7 @@ import { CardLogos } from '@/components/CardLogos';
 import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
 import { PayForm } from '@/components/PayForm';
-import { business, whatsappUrl } from '@/lib/business';
+import { business, whatsappUrl, newTab } from '@/lib/business';
 import { intro, meta, support } from '@/lib/pages/pay';
 import { jsonLd, utilitySchema } from '@/lib/schema';
 import '@/styles/book.css';
@@ -46,7 +46,7 @@ export default function PayNowPage() {
               <div className="book-aside__card book-aside__card--dark">
                 <p className="book-aside__kicker">Need help?</p>
                 <p className="pay-aside__body pay-aside__body--light">{support}</p>
-                <a className="btn btn--primary" href={whatsappUrl('Hi One Love, I have a question about a payment.')}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl('Hi One Love, I have a question about a payment.')}>
                   <Icon name="chat" /> WhatsApp {business.phone}
                 </a>
               </div>

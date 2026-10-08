@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { sendPayment, type PaymentState } from '@/lib/actions/payment';
-import { business, whatsappUrl } from '@/lib/business';
+import { business, whatsappUrl, newTab } from '@/lib/business';
 import {
   BRAND_LABELS,
   caretAfterDigits,
@@ -190,7 +190,7 @@ export function PayForm() {
 
   const help = (
     <>
-      Message us on WhatsApp at <a href={whatsappUrl('Hi One Love, I have a question about a payment.')}>{business.phone}</a> or pay at cart hand-off.
+      Message us on WhatsApp at <a {...newTab} href={whatsappUrl('Hi One Love, I have a question about a payment.')}>{business.phone}</a> or pay at cart hand-off.
     </>
   );
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import type { LegalDoc } from '@/lib/pages/legal';
 import { jsonLd, utilitySchema } from '@/lib/schema';
 import '@/styles/legal.css';
@@ -81,7 +81,7 @@ export function LegalPage({ doc, path, crumb, related }: { doc: LegalDoc; path: 
                   {business.street}, {business.locality}, {business.island}, Belize · {business.phone} · {business.email}
                 </p>
                 <div className="legal__contact-actions">
-                  <a className="btn btn--primary" href={whatsappUrl()}>
+                  <a className="btn btn--primary" {...newTab} href={whatsappUrl()}>
                     <Icon name="chat" /> Message us on WhatsApp
                   </a>
                   {related.map((r) => (

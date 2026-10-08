@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/PageHeader';
 import { Picture } from '@/components/Picture';
 import { RichText } from '@/components/RichText';
 import { SectionNav } from '@/components/SectionNav';
-import { BOOKING_MESSAGE, business, urls, whatsappUrl, type UrlKey } from '@/lib/business';
+import { BOOKING_MESSAGE, business, urls, whatsappUrl, type UrlKey, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { intro, meta, sections } from '@/lib/pages/gallery';
 import { gallerySchema, jsonLd } from '@/lib/schema';
@@ -119,7 +119,7 @@ export default function GalleryPage() {
               </h2>
               <p>
                 To reserve a specific cart or ask about a specific feature, message us on WhatsApp at{' '}
-                <a href={whatsappUrl(BOOKING_MESSAGE)} className="nowrap">
+                <a {...newTab} href={whatsappUrl(BOOKING_MESSAGE)} className="nowrap">
                   {business.phone}
                 </a>
                 .

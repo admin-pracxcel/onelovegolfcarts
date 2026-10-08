@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/PageHeader';
 import { Picture } from '@/components/Picture';
 import { RichText } from '@/components/RichText';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl, BOOKING_MESSAGE } from '@/lib/business';
+import { business, urls, whatsappUrl, BOOKING_MESSAGE, newTab } from '@/lib/business';
 import { reviews } from '@/lib/content';
 import { imageInfo } from '@/lib/images';
 import { credo, intro, isPlaceholder, links, meta, team } from '@/lib/pages/team';
@@ -69,7 +69,7 @@ export default function TeamPage() {
               <aside className="loc-hero__card" aria-label="Talk to the team" data-reveal="">
                 <p className="loc-hero__kicker">Get in touch</p>
                 <p className="loc-hero__line">Questions about a rental? Message the team on WhatsApp.</p>
-                <a className="btn btn--primary" href={whatsappUrl(BOOKING_MESSAGE)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
                   <Icon name="chat" /> Message the team
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>
@@ -138,7 +138,7 @@ export default function TeamPage() {
                     <Stars />
                     <p className="team-rating__text">
                       Rated {business.rating.value} on {business.rating.source} across {business.rating.count}+ reviews.{' '}
-                      <a href={business.rating.url} rel="noopener">
+                      <a {...newTab} href={business.rating.url}>
                         Read them all on our TripAdvisor page
                       </a>
                       .

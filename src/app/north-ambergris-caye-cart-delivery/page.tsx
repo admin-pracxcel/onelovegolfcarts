@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { delivery, facts, faq, intro, links, meta, upThere, what, whatsappTemplate } from '@/lib/pages/north-ambergris';
 import { jsonLd, locationSchema } from '@/lib/schema';
@@ -76,7 +76,7 @@ export default function NorthAmbergrisPage() {
               <aside className="loc-hero__card" aria-label="Book north-side delivery" data-reveal="">
                 <p className="loc-hero__kicker">Staying north-side?</p>
                 <p className="loc-hero__line">We deliver golf carts to any address on the north side.</p>
-                <a className="btn btn--primary" href={whatsappUrl(whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(whatsappTemplate)}>
                   <Icon name="chat" /> Send your resort details
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>

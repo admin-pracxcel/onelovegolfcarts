@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BOOKING_MESSAGE, urls, whatsappUrl } from '@/lib/business';
+import { BOOKING_MESSAGE, urls, whatsappUrl, newTab } from '@/lib/business';
 import { steps } from '@/lib/content';
 import { Icon } from '../Icon';
 import { PhoneText } from '../PhoneText';
@@ -22,7 +22,7 @@ export function Steps() {
             <Link className="btn btn--primary" href={urls.book} prefetch={false}>
               Reserve your golf cart <Icon name="arrow" />
             </Link>
-            <a className="btn btn--outline" href={whatsappUrl(BOOKING_MESSAGE)}>
+            <a className="btn btn--outline" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
               <Icon name="chat" /> WhatsApp
             </a>
           </div>

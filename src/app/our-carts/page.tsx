@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/PageHeader';
 import { Picture } from '@/components/Picture';
 import { RichText } from '@/components/RichText';
 import { SectionNav } from '@/components/SectionNav';
-import { BOOKING_MESSAGE, business, urls, whatsappUrl } from '@/lib/business';
+import { BOOKING_MESSAGE, business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { booking, cartDetails, compare, intro, maintenance, meta, specs } from '@/lib/pages/our-carts';
 import { cartsSchema, jsonLd } from '@/lib/schema';
@@ -284,7 +284,7 @@ export default function OurCartsPage() {
                 <p>
                   Same details to <span className="nowrap">{business.phone}</span>, no form.
                 </p>
-                <a className="btn btn--dark" href={whatsappUrl(BOOKING_MESSAGE)}>
+                <a className="btn btn--dark" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
                   <Icon name="chat" /> Message on WhatsApp
                 </a>
               </div>

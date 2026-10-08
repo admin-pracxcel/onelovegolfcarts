@@ -8,7 +8,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Icon } from '@/components/Icon';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { authorPath, categoryPath, formatDate, pickAnchor, postPath, tagPath } from '@/lib/pages/blog';
 import { getPost, getPostSlugs, getRelated, imageUrl } from '@/lib/sanity';
 import { jsonLd, postSchema } from '@/lib/schema';
@@ -170,7 +170,7 @@ export default async function PostPage({ params }: Props) {
               <Link className="btn btn--primary" href={urls.book} prefetch={false}>
                 Book now <Icon name="arrow" />
               </Link>
-              <a className="link-arrow" href={whatsappUrl()}>
+              <a className="link-arrow" {...newTab} href={whatsappUrl()}>
                 WhatsApp {business.phone} <Icon name="arrow" />
               </a>
             </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { business, urls, whatsappUrl, type UrlKey } from '@/lib/business';
+import { business, urls, whatsappUrl, type UrlKey, newTab } from '@/lib/business';
 
 /** Five columns per Execution Manual §03. Column titles are not headings. */
 const explore: [UrlKey, string][] = [
@@ -56,7 +56,7 @@ export function Footer() {
           links={book}
           extra={
             <li>
-              <a href={whatsappUrl()}>WhatsApp us</a>
+              <a {...newTab} href={whatsappUrl()}>WhatsApp us</a>
             </li>
           }
         />
@@ -64,7 +64,7 @@ export function Footer() {
         <div className="site-footer__col site-footer__contact">
           <p className="site-footer__title">Contact</p>
           <address>
-            <a href={business.mapsUrl}>
+            <a {...newTab} href={business.mapsUrl}>
               {business.street}
               <br />
               {business.locality}, {business.island}
@@ -82,7 +82,7 @@ export function Footer() {
               <strong>Est. 2017</strong> on Barrier Reef Drive
             </li>
             <li>
-              <a href={business.rating.url}>
+              <a {...newTab} href={business.rating.url}>
                 <strong>{business.rating.count}+</strong> five-star reviews on TripAdvisor
               </a>
             </li>
@@ -96,7 +96,7 @@ export function Footer() {
         <ul className="site-footer__social" aria-label="One Love on social media">
           {(Object.keys(socialLabels) as (keyof typeof socialLabels)[]).map((k) => (
             <li key={k}>
-              <a href={business.social[k]} rel="noopener">
+              <a {...newTab} href={business.social[k]}>
                 {socialLabels[k]}
               </a>
             </li>

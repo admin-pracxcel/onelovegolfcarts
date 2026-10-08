@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef } from 'react';
 import { sendContact, type ContactState } from '@/lib/actions/contact';
-import { business, whatsappUrl } from '@/lib/business';
+import { business, whatsappUrl, newTab } from '@/lib/business';
 import { Icon } from './Icon';
 import { LeadFields } from './LeadFields';
 
@@ -41,7 +41,7 @@ export function ContactForm() {
   const fallback = (
     <>
       Email <a href={`mailto:${business.email}`}>{business.email}</a> or{' '}
-      <a href={whatsappUrl()}>message us on WhatsApp</a>.
+      <a {...newTab} href={whatsappUrl()}>message us on WhatsApp</a>.
     </>
   );
 

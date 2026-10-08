@@ -1,4 +1,4 @@
-import { business } from '@/lib/business';
+import { business, newTab } from '@/lib/business';
 import { reviews, type Review } from '@/lib/content';
 import { Stars } from '../Icon';
 import type { ImageName } from '@/lib/images';
@@ -11,7 +11,7 @@ function Cite({ r }: { r: Review }) {
       <cite className="review__name">{r.author}</cite>
       <span className="review__src">
         {r.url ? (
-          <a href={r.url} rel="noopener">
+          <a {...newTab} href={r.url}>
             {src}
           </a>
         ) : (
@@ -50,7 +50,7 @@ export function Reviews({
               <Stars />
               <p className="rating__text">
                 Rated {rating.value} on {rating.source} across {rating.count}+ reviews.{' '}
-                <a href={rating.url} rel="noopener">
+                <a {...newTab} href={rating.url}>
                   Read them all on our TripAdvisor page
                 </a>
                 .

@@ -67,6 +67,9 @@ export const business = {
 
 export type CartKey = keyof typeof business.rates;
 
+/** Spread on every link that leaves the site: external pages open in a new tab. */
+export const newTab = { target: '_blank', rel: 'noopener noreferrer' } as const;
+
 export function whatsappUrl(message = ''): string {
   const url = `https://wa.me/${business.whatsapp}`;
   return message ? `${url}?text=${encodeURIComponent(message)}` : url;

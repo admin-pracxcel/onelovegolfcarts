@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BOOKING_MESSAGE, urls, whatsappUrl } from '@/lib/business';
+import { BOOKING_MESSAGE, urls, whatsappUrl, newTab } from '@/lib/business';
 import { finalCta } from '@/lib/content';
 import { Icon } from '../Icon';
 import { Picture } from '../Picture';
@@ -27,7 +27,7 @@ export function FinalCta({ ctaLabel = 'Reserve your golf cart' }: { ctaLabel?: s
             <Link className="btn btn--primary btn--lg" href={urls.book} prefetch={false}>
               {ctaLabel} <Icon name="arrow" />
             </Link>
-            <a className="btn btn--glass btn--lg" href={whatsappUrl(BOOKING_MESSAGE)}>
+            <a className="btn btn--glass btn--lg" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
               <Icon name="chat" /> Message on WhatsApp
             </a>
           </div>

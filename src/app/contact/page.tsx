@@ -4,7 +4,7 @@ import { ContactForm } from '@/components/ContactForm';
 import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
 import { RichText } from '@/components/RichText';
-import { BOOKING_MESSAGE, business, urls, whatsappUrl } from '@/lib/business';
+import { BOOKING_MESSAGE, business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { email, hours, intro, meta, office, phone, roadside, social, whatsapp } from '@/lib/pages/contact';
 import { contactSchema, jsonLd } from '@/lib/schema';
 import '@/styles/contact.css';
@@ -49,7 +49,7 @@ export default function ContactPage() {
               </h2>
               <p className="channel__value">{business.phone}</p>
               <p className="channel__body">{whatsapp.body}</p>
-              <a className="btn btn--primary btn--lg" href={whatsappUrl(BOOKING_MESSAGE)}>
+              <a className="btn btn--primary btn--lg" {...newTab} href={whatsappUrl(BOOKING_MESSAGE)}>
                 {whatsapp.cta} <Icon name="arrow" />
               </a>
             </section>
@@ -101,7 +101,7 @@ export default function ContactPage() {
             </div>
             <div className="roadside__body">
               <p className="roadside__number">
-                <a href={whatsappUrl('Roadside support needed. My location: ')}>{business.phone}</a>
+                <a {...newTab} href={whatsappUrl('Roadside support needed. My location: ')}>{business.phone}</a>
                 <span>WhatsApp preferred</span>
               </p>
               <p>{roadside.body}</p>
@@ -147,7 +147,7 @@ export default function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
-              <a className="office__open-map" href={business.mapsUrl}>
+              <a className="office__open-map" {...newTab} href={business.mapsUrl}>
                 Open in Google Maps <Icon name="arrow-ur" />
               </a>
             </div>
@@ -194,7 +194,7 @@ export default function ContactPage() {
               <ul className="socials">
                 {social.items.map((s) => (
                   <li key={s.key}>
-                    <a href={business.social[s.key]} rel="noopener">
+                    <a {...newTab} href={business.social[s.key]}>
                       <span className="socials__name">{s.name}</span>
                       <span className="socials__meta">
                         {s.handle}

@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { RESORT_SLUGS, resorts, type ResortSlug } from '@/lib/pages/resorts';
 import { jsonLd, locationSchema } from '@/lib/schema';
@@ -90,7 +90,7 @@ export function ResortPage({ slug }: { slug: ResortSlug }) {
               <aside className="loc-hero__card" aria-label={`Book delivery to ${r.name}`} data-reveal="">
                 <p className="loc-hero__kicker">Staying at {r.name}?</p>
                 <p className="loc-hero__line">Send us your check-in date and time.</p>
-                <a className="btn btn--primary" href={whatsappUrl(r.whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(r.whatsappTemplate)}>
                   <Icon name="chat" /> Send your booking details
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>

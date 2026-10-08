@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from 'react';
 import { sendBooking, type BookingState } from '@/lib/actions/booking';
-import { business, whatsappUrl } from '@/lib/business';
+import { business, whatsappUrl, newTab } from '@/lib/business';
 import { bookingLines, type BookingField, type BookingValues } from '@/lib/booking';
 import { announcement } from '@/lib/content';
 import { Icon } from './Icon';
@@ -55,7 +55,7 @@ export function BookingForm() {
   const req = <span className="field__req" aria-hidden="true">*</span>;
 
   const whatsappFallback = (values?: BookingValues) => (
-    <a className="btn btn--primary" href={whatsappUrl(['Hi One Love, I would like to book a golf cart.', ...(values ? bookingLines(values) : [])].join('\n'))}>
+    <a className="btn btn--primary" {...newTab} href={whatsappUrl(['Hi One Love, I would like to book a golf cart.', ...(values ? bookingLines(values) : [])].join('\n'))}>
       <Icon name="chat" /> Send these details on WhatsApp
     </a>
   );

@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { delivery, drive, facts, faq, intro, links, meta, there, what, whatsappTemplate } from '@/lib/pages/secret-beach';
 import { jsonLd, locationSchema } from '@/lib/schema';
@@ -77,7 +77,7 @@ export default function SecretBeachPage() {
               <aside className="loc-hero__card" aria-label="Plan a Secret Beach trip" data-reveal="">
                 <p className="loc-hero__kicker">Bridge passes included</p>
                 <p className="loc-hero__line">About 25 minutes by golf cart from San Pedro Town.</p>
-                <a className="btn btn--primary" href={whatsappUrl(whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(whatsappTemplate)}>
                   <Icon name="chat" /> Plan a Secret Beach day
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>

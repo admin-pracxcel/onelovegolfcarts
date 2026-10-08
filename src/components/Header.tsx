@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { primaryNav } from '@/lib/nav';
 import { Icon } from './Icon';
 
@@ -285,7 +285,7 @@ export function Header() {
               <a href={business.phoneHref}>
                 <Icon name="phone" /> {business.phone}
               </a>
-              <a href={whatsappUrl()}>
+              <a {...newTab} href={whatsappUrl()}>
                 <Icon name="chat" /> WhatsApp us
               </a>
             </div>

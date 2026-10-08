@@ -6,7 +6,7 @@ import { Picture } from '@/components/Picture';
 import { SectionNav } from '@/components/SectionNav';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { business, urls, whatsappUrl } from '@/lib/business';
+import { business, urls, whatsappUrl, newTab } from '@/lib/business';
 import { imageInfo } from '@/lib/images';
 import { delay, facts, faq, how, intro, links, meet, meta, send, which } from '@/lib/pages/san-pedro-airport';
 import { jsonLd, locationSchema } from '@/lib/schema';
@@ -72,7 +72,7 @@ export default function SanPedroAirportPage() {
               <aside className="loc-hero__card" aria-label="Book airport delivery" data-reveal="">
                 <p className="loc-hero__kicker">Landing soon?</p>
                 <p className="loc-hero__line">Send us your flight number and arrival time the day before.</p>
-                <a className="btn btn--primary" href={whatsappUrl(send.whatsappTemplate)}>
+                <a className="btn btn--primary" {...newTab} href={whatsappUrl(send.whatsappTemplate)}>
                   <Icon name="chat" /> Send flight details
                 </a>
                 <Link className="link-arrow" href={urls.book} prefetch={false}>
@@ -138,7 +138,7 @@ export default function SanPedroAirportPage() {
                   </li>
                 ))}
               </ul>
-              <a className="btn btn--primary btn--block" href={whatsappUrl(send.whatsappTemplate)}>
+              <a className="btn btn--primary btn--block" {...newTab} href={whatsappUrl(send.whatsappTemplate)}>
                 <Icon name="chat" /> Open a pre-filled message
               </a>
               <p className="loc-send__note">
